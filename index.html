@@ -189,7 +189,9 @@
 
     .mode-grid,
     .note-grid,
-    .reasons {
+    .reasons,
+    .memory-grid,
+    .letter-points {
       display: grid;
       gap: 12px;
     }
@@ -312,6 +314,42 @@
       color: var(--muted);
     }
 
+    .letter-card {
+      background:
+        linear-gradient(180deg, rgba(255, 111, 174, 0.07), rgba(255, 212, 126, 0.04)),
+        linear-gradient(180deg, rgba(27, 33, 64, 0.96), rgba(21, 26, 51, 0.98));
+    }
+
+    .letter-lead {
+      margin-bottom: 14px;
+      color: var(--text);
+      font-size: 1.02rem;
+    }
+
+    .letter-points {
+      margin-top: 14px;
+    }
+
+    .letter-point,
+    .memory-item {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    .memory-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 14px;
+    }
+
+    .memory-item strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+
     .reasons {
       margin-top: 16px;
     }
@@ -334,7 +372,8 @@
       .hero-grid,
       .grid,
       .mode-grid,
-      .note-grid {
+      .note-grid,
+      .memory-grid {
         grid-template-columns: 1fr;
       }
 
@@ -446,6 +485,19 @@
         </div>
       </article>
 
+      <article class="card letter-card">
+        <span class="label">Direct Letter</span>
+        <h2>For Joan, from your man.</h2>
+        <p class="letter-lead">
+          This part is the least coded and the most true: I like you deeply, intentionally, and in the kind of way that makes me want to build sweet things just so you can feel loved for a minute.
+        </p>
+        <div class="letter-points">
+          <div class="letter-point">You are not just cute to me. You are comforting, exciting, soft, and honestly the kind of girl I could keep choosing on purpose.</div>
+          <div class="letter-point">I love that this can feel nerdy and romantic at the same time, because that is exactly the vibe I want around you: sincere, playful, and all-in.</div>
+          <div class="letter-point">If your mood ever drops, I want this page to remind you that somewhere out here is a man who thinks very highly of your smile and your heart.</div>
+        </div>
+      </article>
+
       <article class="card">
         <span class="label">Love Meter</span>
         <h2>Tap to overclock the romance.</h2>
@@ -468,6 +520,20 @@
           <div class="reason">You make sweetness feel cool instead of corny.</div>
           <div class="reason">You are very easy to imagine in every good future.</div>
           <div class="reason">You somehow manage to be soft, pretty, and unforgettable all at once.</div>
+        </div>
+        <div class="memory-grid">
+          <div class="memory-item">
+            <strong>first_ping()</strong>
+            The first thing that lands is your energy. Then your face finishes the job.
+          </div>
+          <div class="memory-item">
+            <strong>current_state()</strong>
+            Still very into you. Still very sure this page should be embarrassingly sweet.
+          </div>
+          <div class="memory-item">
+            <strong>future_build()</strong>
+            More laughs, more flirting, more soft moments, more us-coded memories.
+          </div>
         </div>
       </article>
     </section>
