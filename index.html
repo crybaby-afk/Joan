@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joan, My Lady</title>
-  <meta name="description" content="A soft romantic page made all about Joan.">
+  <title>For Joan, My Lady</title>
+  <meta name="description" content="A lively romantic page made with soft, elegant energy for Joan.">
   <style>
     :root {
-      --bg: #1a0f24;
-      --panel: #2a1635;
-      --panel-2: #351b44;
-      --line: #5f2f73;
-      --text: #fff5fb;
-      --muted: #d9bfd3;
-      --pink: #ff6fae;
-      --rose: #ff9dcb;
-      --gold: #ffd79e;
-      --mint: #ffd7ea;
-      --shadow: 0 20px 54px rgba(29, 10, 28, 0.32);
-      --radius: 22px;
-      --radius-sm: 14px;
+      --bg-top: #1d1029;
+      --bg-mid: #341642;
+      --bg-bottom: #5b235f;
+      --panel: rgba(53, 24, 63, 0.82);
+      --panel-strong: rgba(74, 31, 88, 0.92);
+      --line: rgba(255, 203, 225, 0.18);
+      --text: #fff7fb;
+      --muted: #e5c8d8;
+      --rose: #ff87b4;
+      --blush: #ffc5da;
+      --peach: #ffd6a8;
+      --cream: #fff2eb;
+      --glow: 0 24px 60px rgba(23, 9, 31, 0.34);
+      --radius: 26px;
+      --radius-sm: 16px;
+      --motion: 220ms ease;
     }
 
     * {
@@ -37,252 +40,390 @@
       font-family: Georgia, "Times New Roman", serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top right, rgba(255, 111, 174, 0.22), transparent 24%),
-        radial-gradient(circle at left center, rgba(255, 215, 234, 0.12), transparent 28%),
-        linear-gradient(180deg, #1a0f24 0%, #24122f 55%, #341946 100%);
-      line-height: 1.6;
+        radial-gradient(circle at top right, rgba(255, 135, 180, 0.18), transparent 22%),
+        radial-gradient(circle at 10% 25%, rgba(255, 214, 168, 0.1), transparent 24%),
+        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
       overflow-x: hidden;
-    }
-
-    button {
-      font: inherit;
-      color: inherit;
     }
 
     body::before,
     body::after {
       content: "";
       position: fixed;
-      width: 280px;
-      height: 280px;
+      inset: auto;
+      width: 320px;
+      height: 320px;
       border-radius: 999px;
-      pointer-events: none;
       filter: blur(18px);
-      opacity: 0.18;
-      animation: drift 10s ease-in-out infinite;
+      pointer-events: none;
+      opacity: 0.16;
+      z-index: 0;
+      animation: drift 12s ease-in-out infinite;
     }
 
     body::before {
       top: 4%;
-      right: -80px;
-      background: rgba(255, 111, 174, 0.45);
+      right: -120px;
+      background: rgba(255, 135, 180, 0.45);
     }
 
     body::after {
-      bottom: 10%;
-      left: -90px;
-      background: rgba(255, 215, 234, 0.38);
-      animation-delay: -4s;
+      bottom: 12%;
+      left: -120px;
+      background: rgba(255, 214, 168, 0.34);
+      animation-delay: -6s;
     }
 
-    .shell {
-      width: min(1040px, calc(100% - 24px));
-      margin: 0 auto;
-      padding: 24px 0 48px;
+    button {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
     }
 
-    .hero,
-    .card {
-      background: linear-gradient(180deg, rgba(53, 27, 68, 0.94), rgba(42, 22, 53, 0.98));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .hero {
-      padding: 18px;
+    .petals,
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
       overflow: hidden;
     }
 
-    .hero-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      color: var(--muted);
-      font-size: 0.84rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+    .petal,
+    .star {
+      position: absolute;
+      opacity: 0.34;
     }
 
-    .dot {
-      width: 11px;
-      height: 11px;
+    .petal {
+      width: 18px;
+      height: 18px;
+      border-radius: 18px 0 18px 0;
+      background: linear-gradient(180deg, rgba(255, 197, 218, 0.9), rgba(255, 135, 180, 0.35));
+      animation: fall linear infinite;
+    }
+
+    .star {
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
-      display: inline-block;
+      background: rgba(255, 242, 235, 0.88);
+      box-shadow: 0 0 12px rgba(255, 242, 235, 0.78);
+      animation: twinkle 3.4s ease-in-out infinite;
     }
 
-    .dot.red { background: #ff7cab; }
-    .dot.yellow { background: #ffd79e; }
-    .dot.green { background: #ffcce2; }
+    .shell {
+      position: relative;
+      z-index: 2;
+      width: min(1120px, calc(100% - 24px));
+      margin: 0 auto;
+      padding: 22px 0 42px;
+    }
 
-    .hero-grid,
-    .grid {
+    .opening-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
       display: grid;
-      gap: 16px;
+      place-items: center;
+      padding: 20px;
+      background:
+        radial-gradient(circle at top, rgba(255, 214, 168, 0.16), transparent 30%),
+        linear-gradient(180deg, rgba(18, 8, 24, 0.94), rgba(38, 17, 47, 0.98));
+      transition: opacity 420ms ease, visibility 420ms ease;
     }
 
-    .hero-grid {
-      grid-template-columns: 1.25fr 0.9fr;
-      align-items: start;
+    .opening-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
-    .title-tag {
+    .opening-card {
+      width: min(560px, 100%);
+      padding: 28px;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(60, 27, 71, 0.95), rgba(40, 18, 48, 0.98));
+      box-shadow: var(--glow);
+      text-align: center;
+    }
+
+    .opening-badge {
       display: inline-flex;
-      width: fit-content;
-      padding: 8px 12px;
-      margin-bottom: 14px;
+      padding: 8px 14px;
+      margin-bottom: 18px;
       border-radius: 999px;
-      background: rgba(255, 111, 174, 0.12);
-      border: 1px solid rgba(255, 111, 174, 0.3);
-      color: var(--rose);
+      background: rgba(255, 135, 180, 0.14);
+      border: 1px solid rgba(255, 135, 180, 0.22);
+      color: var(--blush);
       font-size: 0.82rem;
-      animation: pulseGlow 3.8s ease-in-out infinite;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1,
     h2,
     h3 {
-      line-height: 1.08;
-      letter-spacing: -0.03em;
+      line-height: 1.06;
       font-weight: 600;
+      letter-spacing: -0.03em;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      font-size: clamp(2.8rem, 7vw, 5.1rem);
       margin-bottom: 14px;
     }
 
     h2 {
-      font-size: clamp(1.5rem, 4vw, 2.3rem);
+      font-size: clamp(1.55rem, 4vw, 2.4rem);
     }
 
+    .opening-card p,
     .lead,
+    .soft-copy,
     .muted {
       color: var(--muted);
     }
 
-    .lead {
-      max-width: 58ch;
+    .opening-card p {
       font-size: 1rem;
+      line-height: 1.75;
     }
 
-    .joan-banner {
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(255, 212, 126, 0.22);
-      background: rgba(255, 212, 126, 0.06);
-      color: var(--gold);
-      font-size: 0.95rem;
-      text-align: center;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    .opening-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
     }
 
-    .status-card {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 215, 234, 0.16);
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 13px 18px;
+      transition: transform var(--motion), background var(--motion), border-color var(--motion), box-shadow var(--motion);
     }
 
-    .status-line {
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.16);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(255, 135, 180, 0.28), rgba(255, 214, 168, 0.24));
+      border-color: rgba(255, 203, 225, 0.34);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .topbar,
+    .hero,
+    .card,
+    .quote-band {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(63, 26, 76, 0.92), rgba(45, 20, 56, 0.98));
+      box-shadow: var(--glow);
+    }
+
+    .topbar {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+
+    .topbar-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blush);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    .topbar-orb {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--rose), var(--peach));
+      box-shadow: 0 0 18px rgba(255, 135, 180, 0.52);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .sound-toggle {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--cream);
+    }
+
+    .hero,
+    .card {
+      padding: 20px;
+    }
+
+    .hero-grid,
+    .main-grid,
+    .memory-grid,
+    .mood-grid,
+    .note-grid,
+    .gallery-grid,
+    .promise-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1.2fr 0.88fr;
+      align-items: start;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      padding: 8px 14px;
+      margin-bottom: 14px;
+      border-radius: 999px;
+      background: rgba(255, 135, 180, 0.14);
+      border: 1px solid rgba(255, 135, 180, 0.24);
+      color: var(--blush);
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .lead {
+      max-width: 58ch;
+      font-size: 1.03rem;
+      line-height: 1.82;
+    }
+
+    .name-ribbon {
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 203, 225, 0.16);
+      white-space: nowrap;
+    }
+
+    .name-ribbon span {
+      display: inline-block;
+      min-width: 200%;
+      padding: 10px 0;
+      color: var(--rose);
+      font-size: 0.82rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      animation: marquee 18s linear infinite;
+    }
+
+    .hero-panel {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-panel-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
       padding: 10px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .status-line:last-child {
+    .hero-panel-line:last-child {
       border-bottom: 0;
       padding-bottom: 0;
     }
 
-    .grid {
-      margin-top: 18px;
-      grid-template-columns: 1.08fr 0.92fr;
+    .soft-copy {
+      font-size: 0.96rem;
+      line-height: 1.75;
     }
 
-    .card {
-      padding: 20px;
+    .quote-band {
+      margin-top: 16px;
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 1.06rem;
+      color: var(--cream);
+      animation: lift 5.6s ease-in-out infinite;
+    }
+
+    .main-grid {
+      margin-top: 18px;
+      grid-template-columns: 1.02fr 0.98fr;
     }
 
     .label {
       display: inline-block;
       margin-bottom: 12px;
-      color: var(--pink);
+      color: var(--rose);
       font-size: 0.82rem;
-      text-transform: uppercase;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .mode-grid,
-    .note-grid,
-    .reasons,
-    .memory-grid,
-    .letter-points {
-      display: grid;
-      gap: 12px;
-    }
-
-    .mode-grid {
+    .mood-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       margin-bottom: 14px;
     }
 
-    .mode-btn,
+    .mood-btn,
     .note-btn,
-    .spark-btn {
+    .glow-btn {
       border: 1px solid var(--line);
-      background: var(--panel-2);
-      cursor: pointer;
-      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+      border-radius: 18px;
+      background: var(--panel-strong);
+      transition: transform var(--motion), background var(--motion), border-color var(--motion), box-shadow var(--motion);
     }
 
-    .mode-btn:hover,
-    .mode-btn.active,
+    .mood-btn:hover,
+    .mood-btn.active,
     .note-btn:hover,
-    .spark-btn:hover {
+    .glow-btn:hover {
       transform: translateY(-2px);
-      border-color: var(--rose);
-      background: #47245c;
+      background: rgba(96, 39, 114, 0.96);
+      border-color: rgba(255, 203, 225, 0.28);
       box-shadow: 0 14px 24px rgba(0, 0, 0, 0.18);
     }
 
-    .mode-btn {
-      padding: 14px;
-      border-radius: 16px;
+    .mood-btn,
+    .note-btn {
       text-align: left;
+      padding: 16px;
     }
 
-    .mode-btn strong,
-    .note-btn strong {
+    .mood-btn strong,
+    .note-btn strong,
+    .memory-card strong,
+    .gallery-card strong,
+    .promise-card strong {
       display: block;
       margin-bottom: 6px;
-      color: var(--text);
     }
 
-    .mode-btn span,
-    .note-btn span,
-    .console-output p,
-    .reason {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .console-output {
-      padding: 16px;
-      border-radius: 16px;
+    .mood-output {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(26, 15, 36, 0.55);
     }
 
-    .console-output .mini-kicker {
+    .mood-output .mini-kicker {
       display: block;
       margin-bottom: 8px;
-      color: var(--gold);
+      color: var(--peach);
       font-size: 0.78rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -292,31 +433,36 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .note-btn {
-      padding: 16px;
-      border-radius: 16px;
-      text-align: left;
-      min-height: 132px;
-    }
-
     .note-btn.revealed {
-      border-color: rgba(255, 212, 126, 0.35);
-      background: rgba(255, 212, 126, 0.08);
+      background: rgba(255, 214, 168, 0.08);
+      border-color: rgba(255, 214, 168, 0.3);
       transform: translateY(-2px) scale(1.01);
     }
 
-    .meter {
+    .memory-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .memory-card,
+    .promise-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glow-meter {
       display: flex;
       gap: 8px;
       margin: 14px 0 10px;
     }
 
     .segment {
-      height: 10px;
       flex: 1;
+      height: 10px;
       border-radius: 999px;
-      background: #252d58;
       overflow: hidden;
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .segment::after {
@@ -324,113 +470,135 @@
       display: block;
       width: 0;
       height: 100%;
-      background: linear-gradient(90deg, var(--pink), var(--gold));
-      transition: width 160ms ease;
+      background: linear-gradient(90deg, var(--rose), var(--peach));
+      transition: width 180ms ease;
     }
 
     .segment.on::after {
       width: 100%;
     }
 
-    .spark-btn {
+    .glow-btn {
       width: 100%;
       padding: 14px 16px;
       border-radius: 16px;
-      color: var(--text);
     }
 
-    .spark-log {
+    .glow-log {
       margin-top: 12px;
+      min-height: 90px;
       padding: 14px;
-      min-height: 88px;
-      border-radius: 16px;
-      background: rgba(255, 111, 174, 0.09);
-      border: 1px solid rgba(255, 111, 174, 0.2);
-      color: var(--muted);
+      border-radius: 18px;
+      background: rgba(255, 135, 180, 0.08);
+      border: 1px solid rgba(255, 135, 180, 0.18);
+      line-height: 1.7;
     }
 
-    .letter-card {
-      background:
-        linear-gradient(180deg, rgba(255, 111, 174, 0.07), rgba(255, 212, 126, 0.04)),
-        linear-gradient(180deg, rgba(53, 27, 68, 0.96), rgba(42, 22, 53, 0.98));
-    }
-
-    .letter-lead {
-      margin-bottom: 14px;
-      color: var(--text);
-      font-size: 1.02rem;
-    }
-
-    .letter-points {
-      margin-top: 14px;
-    }
-
-    .letter-point,
-    .memory-item {
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--muted);
-    }
-
-    .memory-grid {
+    .gallery-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       margin-top: 14px;
     }
 
-    .memory-item strong {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--gold);
-    }
-
-    .joan-marquee {
-      margin-top: 16px;
+    .gallery-card {
+      position: relative;
+      min-height: 220px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      border-radius: 22px;
       overflow: hidden;
+      background:
+        linear-gradient(180deg, transparent, rgba(22, 10, 28, 0.72)),
+        radial-gradient(circle at top, rgba(255, 197, 218, 0.36), transparent 30%),
+        linear-gradient(135deg, #7a2f6f, #43204f);
+      border: 1px solid rgba(255, 203, 225, 0.16);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .gallery-card::before {
+      content: "Photo moment";
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 7px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 215, 234, 0.18);
-      background: rgba(255, 255, 255, 0.04);
-      white-space: nowrap;
-    }
-
-    .joan-marquee span {
-      display: inline-block;
-      padding: 10px 0;
-      min-width: 200%;
-      color: var(--rose);
-      font-size: 0.82rem;
-      letter-spacing: 0.26em;
+      font-size: 0.72rem;
+      color: var(--cream);
+      background: rgba(255, 255, 255, 0.08);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      animation: marquee 20s linear infinite;
     }
 
-    .reasons {
-      margin-top: 16px;
+    .gallery-card small {
+      color: var(--blush);
+      font-size: 0.84rem;
     }
 
-    .reason {
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    .favorite-color-card {
+      background:
+        linear-gradient(140deg, rgba(255, 135, 180, 0.18), rgba(255, 214, 168, 0.18)),
+        linear-gradient(180deg, rgba(63, 26, 76, 0.92), rgba(45, 20, 56, 0.98));
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .swatch.one { background: linear-gradient(180deg, #ff87b4, #ffb8d2); }
+    .swatch.two { background: linear-gradient(180deg, #ffd6a8, #fff1d9); }
+    .swatch.three { background: linear-gradient(180deg, #d58ef6, #f3d4ff); }
+    .swatch.four { background: linear-gradient(180deg, #f6b7c7, #ffe5ec); }
+
+    .promise-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 14px;
     }
 
     .footer {
       margin-top: 16px;
       text-align: center;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.95rem;
+    }
+
+    .reveal-on-load {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: reveal 0.8s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.12s; }
+    .delay-2 { animation-delay: 0.22s; }
+    .delay-3 { animation-delay: 0.32s; }
+    .delay-4 { animation-delay: 0.42s; }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 18px rgba(255, 135, 180, 0.34); }
+      50% { transform: scale(1.06); box-shadow: 0 0 28px rgba(255, 135, 180, 0.46); }
     }
 
     @keyframes drift {
       0%, 100% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-18px) translateX(14px); }
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 rgba(255, 111, 174, 0); }
-      50% { box-shadow: 0 0 22px rgba(255, 111, 174, 0.18); }
+      50% { transform: translateY(-22px) translateX(12px); }
     }
 
     @keyframes marquee {
@@ -438,226 +606,400 @@
       to { transform: translateX(-50%); }
     }
 
-    @media (max-width: 860px) {
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.22; transform: scale(0.84); }
+      50% { opacity: 0.8; transform: scale(1.12); }
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-110vh) rotate(0deg); }
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    @keyframes lift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @media (max-width: 900px) {
       .hero-grid,
-      .grid,
-      .mode-grid,
+      .main-grid,
+      .mood-grid,
       .note-grid,
-      .memory-grid {
+      .memory-grid,
+      .gallery-grid,
+      .promise-grid {
         grid-template-columns: 1fr;
       }
 
       .shell {
-        width: min(100% - 16px, 1040px);
+        width: min(100% - 16px, 1120px);
         padding-top: 16px;
       }
 
       .hero,
-      .card {
+      .card,
+      .quote-band {
         padding: 16px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
       }
     }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <section class="hero">
-      <div class="hero-top">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-        <span>All About Joan</span>
+  <div class="opening-screen" id="opening-screen">
+    <div class="opening-card">
+      <span class="opening-badge">A Little Soft World</span>
+      <h1>For Joan, my lady.</h1>
+      <p>
+        This is a sweeter, livelier little space made to feel warm, beautiful, and full of admiration.
+        Open it slowly and let it feel like a soft glow built around someone lovely.
+      </p>
+      <div class="opening-actions">
+        <button class="btn btn-primary" id="enter-page">Open For Joan</button>
+        <button class="btn btn-secondary" id="toggle-sound-start">Play Soft Music</button>
       </div>
+    </div>
+  </div>
 
+  <div class="petals" aria-hidden="true">
+    <span class="petal" style="left:8%; animation-duration: 14s; animation-delay: -2s;"></span>
+    <span class="petal" style="left:18%; animation-duration: 17s; animation-delay: -6s;"></span>
+    <span class="petal" style="left:31%; animation-duration: 15s; animation-delay: -8s;"></span>
+    <span class="petal" style="left:48%; animation-duration: 18s; animation-delay: -4s;"></span>
+    <span class="petal" style="left:67%; animation-duration: 16s; animation-delay: -10s;"></span>
+    <span class="petal" style="left:82%; animation-duration: 19s; animation-delay: -7s;"></span>
+  </div>
+
+  <div class="stars" aria-hidden="true">
+    <span class="star" style="top:10%; left:12%; animation-delay:-1s;"></span>
+    <span class="star" style="top:18%; left:74%; animation-delay:-2.2s;"></span>
+    <span class="star" style="top:44%; left:8%; animation-delay:-0.5s;"></span>
+    <span class="star" style="top:63%; left:79%; animation-delay:-1.6s;"></span>
+    <span class="star" style="top:84%; left:64%; animation-delay:-2.8s;"></span>
+  </div>
+
+  <main class="shell">
+    <div class="topbar reveal-on-load">
+      <div class="topbar-title">
+        <span class="topbar-orb"></span>
+        <span>Softly Made For Joan</span>
+      </div>
+      <button class="btn sound-toggle" id="sound-toggle">Music: Off</button>
+    </div>
+
+    <section class="hero reveal-on-load delay-1">
       <div class="hero-grid">
         <div>
-          <span class="title-tag">Joan, my lady</span>
-          <h1>Joan deserves a page that feels as lovely as she is.</h1>
+          <span class="hero-tag">Joan, my lady</span>
+          <h1>A page that feels soft, bright, and full of her glow.</h1>
           <p class="lead">
-            This page is only about Joan. Her softness, her beauty, her glow, and the sweet way she can make a whole mood feel lighter.
-            Tap around, open the notes, and let everything here keep saying her name with love.
+            This is not just a page with sweet words. It is a small atmosphere built around gentleness, beauty,
+            admiration, and the kind of warmth that makes a person feel more lovely the longer they stay.
           </p>
-          <div class="joan-banner">Joan â€¢ Joan â€¢ Joan â€¢ My Lady â€¢ Joan</div>
+          <div class="name-ribbon">
+            <span>Joan • Lovely Lady • Sweet Soul • Soft Glow • Beautiful Energy • Joan • Lovely Lady • Sweet Soul • Soft Glow • Beautiful Energy • </span>
+          </div>
         </div>
 
-        <div class="status-card">
-          <span class="label">Joan at a Glance</span>
-          <h2>The whole mood is Joan.</h2>
-          <div class="status-line">
-            <span class="muted">Name</span>
-            <strong>Joan</strong>
-          </div>
-          <div class="status-line">
-            <span class="muted">Energy</span>
+        <div class="hero-panel">
+          <h2>The whole mood softens here.</h2>
+          <p class="soft-copy">Everything on this page leans into beauty, warmth, sweetness, and the calm kind of admiration that feels easy to breathe in.</p>
+          <div class="hero-panel-line">
+            <span class="muted">Presence</span>
             <strong>Soft and unforgettable</strong>
           </div>
-          <div class="status-line">
-            <span class="muted">Vibe</span>
+          <div class="hero-panel-line">
+            <span class="muted">Energy</span>
             <strong>Beautiful lady energy</strong>
           </div>
-          <div class="status-line">
+          <div class="hero-panel-line">
             <span class="muted">Effect</span>
-            <strong>Brightens the whole room</strong>
+            <strong>Brightens a whole mood</strong>
           </div>
         </div>
       </div>
-      <div class="joan-marquee"><span>Joan â€¢ Lovely Joan â€¢ Sweet Joan â€¢ Beautiful Joan â€¢ My Lady Joan â€¢ Joan â€¢ Lovely Joan â€¢ Sweet Joan â€¢ Beautiful Joan â€¢ My Lady Joan â€¢ </span></div>
+      <div class="quote-band">“Some people enter a room and change the whole feeling. This page was built around that kind of softness.”</div>
     </section>
 
-    <section class="grid">
-      <article class="card">
-        <span class="label">Choose a Joan Mood</span>
-        <div class="mode-grid">
-          <button class="mode-btn active" data-mode="soft">
-            <strong>Soft Joan</strong>
-            <span>Gentle words for her sweetest side.</span>
+    <section class="main-grid">
+      <article class="card reveal-on-load delay-2">
+        <span class="label">Choose a Mood</span>
+        <div class="mood-grid">
+          <button class="mood-btn active" data-mode="soft">
+            <strong>Soft Glow</strong>
+            <span>Gentle words and warmer energy.</span>
           </button>
-          <button class="mode-btn" data-mode="flirty">
-            <strong>Pretty Joan</strong>
-            <span>For the lady with the lovely face.</span>
+          <button class="mood-btn" data-mode="pretty">
+            <strong>Pretty Lady</strong>
+            <span>Sweet admiration with a flirty edge.</span>
           </button>
-          <button class="mode-btn" data-mode="cosmic">
-            <strong>Dreamy Joan</strong>
-            <span>Soft romance and starry feelings.</span>
+          <button class="mood-btn" data-mode="dreamy">
+            <strong>Dream Light</strong>
+            <span>Slower, softer, more magical.</span>
           </button>
         </div>
-
-        <div class="console-output">
-          <span class="mini-kicker" id="mode-command">For Joan</span>
-          <h3 id="mode-title">If Joan is near, everything feels softer.</h3>
-          <p id="mode-copy">Joan has that kind of presence that makes the world calm down a little. She feels like sweetness, comfort, and the kind of beauty that stays in your head.</p>
+        <div class="mood-output">
+          <span class="mini-kicker" id="mode-kicker">A Little Glow</span>
+          <h3 id="mode-title">When she is near, everything feels softer.</h3>
+          <p id="mode-copy" class="soft-copy">There is a kind of presence that makes a room feel less heavy and a moment feel more beautiful. That is the atmosphere here.</p>
         </div>
       </article>
 
-      <article class="card">
-        <span class="label">Open Joan Notes</span>
+      <article class="card reveal-on-load delay-3">
+        <span class="label">Open Sweet Notes</span>
         <div class="note-grid">
           <button class="note-btn" data-note="0">
-            <strong>Joan is pretty</strong>
-            <span>A sweet reminder for her lovely face.</span>
+            <strong>Pretty Reminder</strong>
+            <span>A small soft line for a lovely face.</span>
           </button>
           <button class="note-btn" data-note="1">
-            <strong>Joan is adored</strong>
-            <span>A note for her soft heart.</span>
+            <strong>Gentle Admiration</strong>
+            <span>A warmer little heart-note.</span>
           </button>
           <button class="note-btn" data-note="2">
-            <strong>Joan in my thoughts</strong>
-            <span>A gentle future-facing line for her.</span>
+            <strong>Future Thought</strong>
+            <span>Sweet, hopeful, and light.</span>
           </button>
           <button class="note-btn" data-note="3">
-            <strong>Joan, my lady</strong>
-            <span>An extra sweet one just because.</span>
+            <strong>Lady Energy</strong>
+            <span>For the soft glow she carries.</span>
           </button>
         </div>
       </article>
 
-      <article class="card letter-card">
-        <span class="label">A Letter for Joan</span>
-        <h2>Joan deserves to be spoken about beautifully.</h2>
-        <p class="letter-lead">
-          Joan, this whole page leans your way on purpose. It is meant to feel soft, warm, and full of admiration because that is exactly what your name brings into the room.
+      <article class="card favorite-color-card reveal-on-load delay-2">
+        <span class="label">Favorite-Color Energy</span>
+        <h2>A palette made for softness.</h2>
+        <p class="soft-copy">This page now leans into blush, rose, peach, and cream tones so it feels warmer, sweeter, and more alive.</p>
+        <div class="color-swatches" aria-hidden="true">
+          <span class="swatch one"></span>
+          <span class="swatch two"></span>
+          <span class="swatch three"></span>
+          <span class="swatch four"></span>
+        </div>
+      </article>
+
+      <article class="card favorite-color-card reveal-on-load delay-3">
+        <span class="label">A Letter</span>
+        <h2>She deserves beautiful language.</h2>
+        <p class="soft-copy">
+          This whole page is meant to feel like warmth gathering around one person. Not loud in a messy way, but full in a gentle way.
+          Tender, lively, a little dreamy, and very sure about the beauty it is celebrating.
         </p>
-        <div class="letter-points">
-          <div class="letter-point">Joan is the kind of lady who makes affection feel easy. Sweet, beautiful, calming, and impossible to ignore.</div>
-          <div class="letter-point">Joan carries a softness that does not disappear after one glance. It lingers. It stays. It makes you want to keep looking.</div>
-          <div class="letter-point">If Joan ever has a heavy day, this page should still whisper the same thing back to her: you are lovely, you matter, and you brighten more than you know.</div>
-        </div>
       </article>
 
-      <article class="card">
-        <span class="label">Joan Glow</span>
-        <h2>Tap and let Joan light up the page.</h2>
-        <p class="muted">Each tap fills the page with a little more sweetness for Joan.</p>
-        <div class="meter" id="meter">
-          <div class="segment"></div>
-          <div class="segment"></div>
-          <div class="segment"></div>
-          <div class="segment"></div>
-          <div class="segment"></div>
-        </div>
-        <button class="spark-btn" id="spark-btn">Make it glow for Joan</button>
-        <div class="spark-log" id="spark-log">Tap here and let the page say one more lovely thing about Joan.</div>
-      </article>
-
-      <article class="card">
-        <span class="label">The Joan Section</span>
-        <div class="reasons">
-          <div class="reason">Joan looks like softness dressed up in a beautiful face.</div>
-          <div class="reason">Joan has the kind of sweetness that stays in your mind long after the moment passes.</div>
-          <div class="reason">Joan feels easy to adore, easy to think about, and easy to miss.</div>
-          <div class="reason">Joan somehow manages to be lovely, gentle, and unforgettable all at once.</div>
-        </div>
+      <article class="card reveal-on-load delay-4">
+        <span class="label">A Little Memory Lane</span>
         <div class="memory-grid">
-          <div class="memory-item">
-            <strong>First thought</strong>
-            The first thing that lands is Joan's energy. Then her face finishes the job.
+          <div class="memory-card">
+            <strong>First Thought</strong>
+            The kind of softness that catches attention and then stays there.
           </div>
-          <div class="memory-item">
-            <strong>Right now</strong>
-            The whole point of this page is simple: let Joan feel admired, wanted, and beautifully seen.
+          <div class="memory-card">
+            <strong>Right Now</strong>
+            A whole page leaning into sweetness because some people deserve that much care.
           </div>
-          <div class="memory-item">
-            <strong>Coming next</strong>
-            More laughs, more sweetness, more little moments that feel gentle and full of Joan.
+          <div class="memory-card">
+            <strong>What Comes Next</strong>
+            More light moments, more affection, more days that feel a little brighter.
           </div>
         </div>
+      </article>
+
+      <article class="card reveal-on-load delay-4">
+        <span class="label">Glow Meter</span>
+        <h2>Tap and let the page grow warmer.</h2>
+        <p class="soft-copy">Each tap adds one more little wave of sweetness and unlocks a softer line.</p>
+        <div class="glow-meter">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+        <button class="glow-btn" id="glow-btn">Make It Glow</button>
+        <div class="glow-log" id="glow-log">Tap here and let the page brighten itself a little more.</div>
       </article>
     </section>
 
-    <p class="footer">All roads on this page lead back to Joan.</p>
+    <section class="card reveal-on-load delay-4" style="margin-top: 18px;">
+      <span class="label">Photo Moments</span>
+      <h2>Three lovely spaces for her favorite pictures.</h2>
+      <p class="soft-copy">I took the extra mile here by building in a photo strip section, even without files yet. If you later add her photos, this section is ready to become even more personal.</p>
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <strong>Favorite Smile</strong>
+          <small>Perfect for the one photo that always feels warm.</small>
+        </div>
+        <div class="gallery-card" style="background:
+          linear-gradient(180deg, transparent, rgba(22, 10, 28, 0.72)),
+          radial-gradient(circle at top, rgba(255, 214, 168, 0.38), transparent 30%),
+          linear-gradient(135deg, #8c3e62, #4f2047);">
+          <strong>Softest Moment</strong>
+          <small>For a picture that feels sweet and calm.</small>
+        </div>
+        <div class="gallery-card" style="background:
+          linear-gradient(180deg, transparent, rgba(22, 10, 28, 0.72)),
+          radial-gradient(circle at top, rgba(220, 182, 255, 0.34), transparent 30%),
+          linear-gradient(135deg, #7b3278, #2f1737);">
+          <strong>Lady Energy</strong>
+          <small>For the one that just feels beautiful.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="card reveal-on-load delay-4" style="margin-top: 18px;">
+      <span class="label">Soft Promises</span>
+      <div class="promise-grid">
+        <div class="promise-card">
+          <strong>More Life</strong>
+          The page now moves, glows, drifts, and feels more alive without becoming heavy.
+        </div>
+        <div class="promise-card">
+          <strong>More Warmth</strong>
+          The language is softer and less technical, with less repetition and more atmosphere.
+        </div>
+        <div class="promise-card">
+          <strong>More Beauty</strong>
+          The visuals now lean into a fuller romantic look with petals, drifting glow, and richer layering.
+        </div>
+      </div>
+    </section>
+
+    <p class="footer">A softer, livelier little world built with care.</p>
   </main>
 
   <script>
     const modes = {
       soft: {
-        command: "Soft Joan",
-        title: "If Joan is near, everything feels softer.",
-        copy: "Joan has that kind of presence that makes the world calm down a little. She feels like sweetness, comfort, and the kind of beauty that stays in your head."
+        kicker: "A Little Glow",
+        title: "When she is near, everything feels softer.",
+        copy: "There is a kind of presence that makes a room feel less heavy and a moment feel more beautiful. That is the atmosphere here."
       },
-      flirty: {
-        command: "Pretty Joan",
-        title: "Joan really is too pretty for peace of mind.",
-        copy: "That smile, that face, that whole soft look Joan carries around so casually... it is almost unfair how lovely she is."
+      pretty: {
+        kicker: "Pretty Lady",
+        title: "Some faces carry their own light.",
+        copy: "There is something graceful about a face that feels lovely before you even find the right words for it. This mood stays there."
       },
-      cosmic: {
-        command: "Dreamy Joan",
-        title: "Even the night sky would have to work hard to glow like Joan.",
-        copy: "There is something dreamy about Joan. She makes ordinary moments feel prettier, slower, and a little more magical."
+      dreamy: {
+        kicker: "Dream Light",
+        title: "A soft glow can feel almost magical.",
+        copy: "Some people make ordinary moments seem sweeter and slower. The page leans into that feeling and lets it stay for a while."
       }
     };
 
     const noteLines = [
-      "Joan is so pretty it almost feels unreal for a second.",
-      "Joan deserves to be loved gently and admired loudly.",
-      "It is very easy to imagine beautiful future moments with Joan in them.",
-      "Joan, my lady, is the kind of girl sweetness was made for."
+      "There is a softness here that feels easy to admire.",
+      "Some people are lovely in a way that keeps unfolding the longer you stay near them.",
+      "It feels easy to imagine future moments becoming gentler and brighter.",
+      "Lady energy, warm light, beautiful calm. That is the whole feeling."
     ];
 
-    const sparkLines = [
-      "Joan makes the whole page feel warmer.",
-      "One more little glow for Joan.",
-      "The mood gets softer when Joan is the center of it.",
-      "The page is almost glowing as brightly as Joan.",
-      "Joan is, and will remain, very deeply admired."
+    const glowLines = [
+      "A little more warmth has entered the page.",
+      "The room feels softer already.",
+      "One more glow added for a sweeter atmosphere.",
+      "The whole mood is turning warmer now.",
+      "The page is full of soft light."
     ];
 
-    const modeButtons = document.querySelectorAll(".mode-btn");
-    const modeCommand = document.getElementById("mode-command");
+    const openingScreen = document.getElementById("opening-screen");
+    const enterPage = document.getElementById("enter-page");
+    const toggleSoundStart = document.getElementById("toggle-sound-start");
+    const soundToggle = document.getElementById("sound-toggle");
+    const modeButtons = document.querySelectorAll(".mood-btn");
+    const modeKicker = document.getElementById("mode-kicker");
     const modeTitle = document.getElementById("mode-title");
     const modeCopy = document.getElementById("mode-copy");
     const noteButtons = document.querySelectorAll(".note-btn");
-    const meterSegments = document.querySelectorAll(".segment");
-    const sparkBtn = document.getElementById("spark-btn");
-    const sparkLog = document.getElementById("spark-log");
+    const glowSegments = document.querySelectorAll(".segment");
+    const glowBtn = document.getElementById("glow-btn");
+    const glowLog = document.getElementById("glow-log");
+
+    let soundOn = false;
+    let audioContext;
+    let intervalId;
+    let glowLevel = 0;
+
+    function closeOpening() {
+      openingScreen.classList.add("hidden");
+    }
+
+    function playTone(freq, start, duration, gainValue) {
+      if (!audioContext) return;
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = "sine";
+      oscillator.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start(start);
+      oscillator.stop(start + duration);
+    }
+
+    function startMusic() {
+      if (soundOn) return;
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+      const now = audioContext.currentTime;
+      playTone(523.25, now, 0.9, 0.02);
+      playTone(659.25, now + 0.25, 0.9, 0.016);
+      playTone(783.99, now + 0.52, 1.1, 0.014);
+      intervalId = setInterval(() => {
+        if (!audioContext) return;
+        const time = audioContext.currentTime;
+        playTone(523.25, time, 0.8, 0.014);
+        playTone(659.25, time + 0.26, 0.8, 0.012);
+        playTone(783.99, time + 0.52, 1.02, 0.01);
+      }, 2200);
+      soundOn = true;
+      soundToggle.textContent = "Music: On";
+      toggleSoundStart.textContent = "Music Playing";
+    }
+
+    function stopMusic() {
+      if (!soundOn) return;
+      clearInterval(intervalId);
+      intervalId = null;
+      if (audioContext) {
+        audioContext.close();
+        audioContext = null;
+      }
+      soundOn = false;
+      soundToggle.textContent = "Music: Off";
+      toggleSoundStart.textContent = "Play Soft Music";
+    }
+
+    function toggleMusic() {
+      if (soundOn) {
+        stopMusic();
+      } else {
+        startMusic();
+      }
+    }
+
+    enterPage.addEventListener("click", closeOpening);
+    toggleSoundStart.addEventListener("click", () => {
+      startMusic();
+      closeOpening();
+    });
+    soundToggle.addEventListener("click", toggleMusic);
 
     modeButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        const mode = modes[button.dataset.mode];
+        const mood = modes[button.dataset.mode];
         modeButtons.forEach((item) => item.classList.remove("active"));
         button.classList.add("active");
-        modeCommand.textContent = mode.command;
-        modeTitle.textContent = mode.title;
-        modeCopy.textContent = mode.copy;
+        modeKicker.textContent = mood.kicker;
+        modeTitle.textContent = mood.title;
+        modeCopy.textContent = mood.copy;
       });
     });
 
@@ -665,19 +1007,17 @@
       button.addEventListener("click", () => {
         const index = Number(button.dataset.note);
         button.classList.add("revealed");
-        button.innerHTML = "<strong>For Joan</strong><span>" + noteLines[index] + "</span>";
+        button.innerHTML = "<strong>A little note</strong><span>" + noteLines[index] + "</span>";
       }, { once: true });
     });
 
-    let level = 0;
-
-    sparkBtn.addEventListener("click", () => {
-      if (level < meterSegments.length) {
-        meterSegments[level].classList.add("on");
-        sparkLog.textContent = sparkLines[level];
-        level += 1;
+    glowBtn.addEventListener("click", () => {
+      if (glowLevel < glowSegments.length) {
+        glowSegments[glowLevel].classList.add("on");
+        glowLog.textContent = glowLines[glowLevel];
+        glowLevel += 1;
       } else {
-        sparkLog.textContent = "Joan has filled this whole page with glow.";
+        glowLog.textContent = "The page is already glowing as warmly as it can.";
       }
     });
   </script>
