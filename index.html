@@ -1,1025 +1,262 @@
-<!DOCTYPE html>
+Ôªø<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Joan, My Lady</title>
-  <meta name="description" content="A lively romantic page made with soft, elegant energy for Joan.">
+  <meta name="description" content="A romantic little world made to feel warm, lively, and beautifully personal.">
   <style>
     :root {
-      --bg-top: #1d1029;
-      --bg-mid: #341642;
-      --bg-bottom: #5b235f;
-      --panel: rgba(53, 24, 63, 0.82);
-      --panel-strong: rgba(74, 31, 88, 0.92);
-      --line: rgba(255, 203, 225, 0.18);
-      --text: #fff7fb;
-      --muted: #e5c8d8;
-      --rose: #ff87b4;
-      --blush: #ffc5da;
-      --peach: #ffd6a8;
-      --cream: #fff2eb;
-      --glow: 0 24px 60px rgba(23, 9, 31, 0.34);
-      --radius: 26px;
-      --radius-sm: 16px;
-      --motion: 220ms ease;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top right, rgba(255, 135, 180, 0.18), transparent 22%),
-        radial-gradient(circle at 10% 25%, rgba(255, 214, 168, 0.1), transparent 24%),
-        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
-      overflow-x: hidden;
-    }
-
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      inset: auto;
-      width: 320px;
-      height: 320px;
-      border-radius: 999px;
-      filter: blur(18px);
-      pointer-events: none;
-      opacity: 0.16;
-      z-index: 0;
-      animation: drift 12s ease-in-out infinite;
-    }
-
-    body::before {
-      top: 4%;
-      right: -120px;
-      background: rgba(255, 135, 180, 0.45);
-    }
-
-    body::after {
-      bottom: 12%;
-      left: -120px;
-      background: rgba(255, 214, 168, 0.34);
-      animation-delay: -6s;
-    }
-
-    button {
-      font: inherit;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    .petals,
-    .stars {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-    }
-
-    .petal,
-    .star {
-      position: absolute;
-      opacity: 0.34;
-    }
-
-    .petal {
-      width: 18px;
-      height: 18px;
-      border-radius: 18px 0 18px 0;
-      background: linear-gradient(180deg, rgba(255, 197, 218, 0.9), rgba(255, 135, 180, 0.35));
-      animation: fall linear infinite;
-    }
-
-    .star {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(255, 242, 235, 0.88);
-      box-shadow: 0 0 12px rgba(255, 242, 235, 0.78);
-      animation: twinkle 3.4s ease-in-out infinite;
-    }
-
-    .shell {
-      position: relative;
-      z-index: 2;
-      width: min(1120px, calc(100% - 24px));
-      margin: 0 auto;
-      padding: 22px 0 42px;
-    }
-
-    .opening-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 30;
-      display: grid;
-      place-items: center;
-      padding: 20px;
-      background:
-        radial-gradient(circle at top, rgba(255, 214, 168, 0.16), transparent 30%),
-        linear-gradient(180deg, rgba(18, 8, 24, 0.94), rgba(38, 17, 47, 0.98));
-      transition: opacity 420ms ease, visibility 420ms ease;
-    }
-
-    .opening-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .opening-card {
-      width: min(560px, 100%);
-      padding: 28px;
-      border-radius: 30px;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(60, 27, 71, 0.95), rgba(40, 18, 48, 0.98));
-      box-shadow: var(--glow);
-      text-align: center;
-    }
-
-    .opening-badge {
-      display: inline-flex;
-      padding: 8px 14px;
-      margin-bottom: 18px;
-      border-radius: 999px;
-      background: rgba(255, 135, 180, 0.14);
-      border: 1px solid rgba(255, 135, 180, 0.22);
-      color: var(--blush);
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3 {
-      line-height: 1.06;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-    }
-
-    h1 {
-      font-size: clamp(2.8rem, 7vw, 5.1rem);
-      margin-bottom: 14px;
-    }
-
-    h2 {
-      font-size: clamp(1.55rem, 4vw, 2.4rem);
-    }
-
-    .opening-card p,
-    .lead,
-    .soft-copy,
-    .muted {
-      color: var(--muted);
-    }
-
-    .opening-card p {
-      font-size: 1rem;
-      line-height: 1.75;
-    }
-
-    .opening-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .btn {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 13px 18px;
-      transition: transform var(--motion), background var(--motion), border-color var(--motion), box-shadow var(--motion);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.16);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, rgba(255, 135, 180, 0.28), rgba(255, 214, 168, 0.24));
-      border-color: rgba(255, 203, 225, 0.34);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .topbar,
-    .hero,
-    .card,
-    .quote-band {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(63, 26, 76, 0.92), rgba(45, 20, 56, 0.98));
-      box-shadow: var(--glow);
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-    }
-
-    .topbar-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--blush);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.82rem;
-    }
-
-    .topbar-orb {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, var(--rose), var(--peach));
-      box-shadow: 0 0 18px rgba(255, 135, 180, 0.52);
-      animation: pulse 3s ease-in-out infinite;
-    }
-
-    .sound-toggle {
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--cream);
-    }
-
-    .hero,
-    .card {
-      padding: 20px;
-    }
-
-    .hero-grid,
-    .main-grid,
-    .memory-grid,
-    .mood-grid,
-    .note-grid,
-    .gallery-grid,
-    .promise-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .hero-grid {
-      grid-template-columns: 1.2fr 0.88fr;
-      align-items: start;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      padding: 8px 14px;
-      margin-bottom: 14px;
-      border-radius: 999px;
-      background: rgba(255, 135, 180, 0.14);
-      border: 1px solid rgba(255, 135, 180, 0.24);
-      color: var(--blush);
-      font-size: 0.84rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      animation: pulse 4s ease-in-out infinite;
-    }
-
-    .lead {
-      max-width: 58ch;
-      font-size: 1.03rem;
-      line-height: 1.82;
-    }
-
-    .name-ribbon {
-      margin-top: 16px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 203, 225, 0.16);
-      white-space: nowrap;
-    }
-
-    .name-ribbon span {
-      display: inline-block;
-      min-width: 200%;
-      padding: 10px 0;
-      color: var(--rose);
-      font-size: 0.82rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      animation: marquee 18s linear infinite;
-    }
-
-    .hero-panel {
-      display: grid;
-      gap: 12px;
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .hero-panel-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .hero-panel-line:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .soft-copy {
-      font-size: 0.96rem;
-      line-height: 1.75;
-    }
-
-    .quote-band {
-      margin-top: 16px;
-      padding: 16px 20px;
-      text-align: center;
-      font-size: 1.06rem;
-      color: var(--cream);
-      animation: lift 5.6s ease-in-out infinite;
-    }
-
-    .main-grid {
-      margin-top: 18px;
-      grid-template-columns: 1.02fr 0.98fr;
-    }
-
-    .label {
-      display: inline-block;
-      margin-bottom: 12px;
-      color: var(--rose);
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .mood-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-bottom: 14px;
-    }
-
-    .mood-btn,
-    .note-btn,
-    .glow-btn {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--panel-strong);
-      transition: transform var(--motion), background var(--motion), border-color var(--motion), box-shadow var(--motion);
-    }
-
-    .mood-btn:hover,
-    .mood-btn.active,
-    .note-btn:hover,
-    .glow-btn:hover {
-      transform: translateY(-2px);
-      background: rgba(96, 39, 114, 0.96);
-      border-color: rgba(255, 203, 225, 0.28);
-      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.18);
-    }
-
-    .mood-btn,
-    .note-btn {
-      text-align: left;
-      padding: 16px;
-    }
-
-    .mood-btn strong,
-    .note-btn strong,
-    .memory-card strong,
-    .gallery-card strong,
-    .promise-card strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .mood-output {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .mood-output .mini-kicker {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--peach);
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .note-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .note-btn.revealed {
-      background: rgba(255, 214, 168, 0.08);
-      border-color: rgba(255, 214, 168, 0.3);
-      transform: translateY(-2px) scale(1.01);
-    }
-
-    .memory-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .memory-card,
-    .promise-card {
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .glow-meter {
-      display: flex;
-      gap: 8px;
-      margin: 14px 0 10px;
-    }
-
-    .segment {
-      flex: 1;
-      height: 10px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .segment::after {
-      content: "";
-      display: block;
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg, var(--rose), var(--peach));
-      transition: width 180ms ease;
-    }
-
-    .segment.on::after {
-      width: 100%;
-    }
-
-    .glow-btn {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 16px;
-    }
-
-    .glow-log {
-      margin-top: 12px;
-      min-height: 90px;
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255, 135, 180, 0.08);
-      border: 1px solid rgba(255, 135, 180, 0.18);
-      line-height: 1.7;
-    }
-
-    .gallery-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: 14px;
-    }
-
-    .gallery-card {
-      position: relative;
-      min-height: 220px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: end;
-      border-radius: 22px;
-      overflow: hidden;
-      background:
-        linear-gradient(180deg, transparent, rgba(22, 10, 28, 0.72)),
-        radial-gradient(circle at top, rgba(255, 197, 218, 0.36), transparent 30%),
-        linear-gradient(135deg, #7a2f6f, #43204f);
-      border: 1px solid rgba(255, 203, 225, 0.16);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
-    }
-
-    .gallery-card::before {
-      content: "Photo moment";
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      color: var(--cream);
-      background: rgba(255, 255, 255, 0.08);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .gallery-card small {
-      color: var(--blush);
-      font-size: 0.84rem;
-    }
-
-    .favorite-color-card {
-      background:
-        linear-gradient(140deg, rgba(255, 135, 180, 0.18), rgba(255, 214, 168, 0.18)),
-        linear-gradient(180deg, rgba(63, 26, 76, 0.92), rgba(45, 20, 56, 0.98));
-    }
-
-    .color-swatches {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    .swatch {
-      width: 54px;
-      height: 54px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-    }
-
-    .swatch.one { background: linear-gradient(180deg, #ff87b4, #ffb8d2); }
-    .swatch.two { background: linear-gradient(180deg, #ffd6a8, #fff1d9); }
-    .swatch.three { background: linear-gradient(180deg, #d58ef6, #f3d4ff); }
-    .swatch.four { background: linear-gradient(180deg, #f6b7c7, #ffe5ec); }
-
-    .promise-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: 14px;
-    }
-
-    .footer {
-      margin-top: 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .reveal-on-load {
-      opacity: 0;
-      transform: translateY(18px);
-      animation: reveal 0.8s ease forwards;
-    }
-
-    .delay-1 { animation-delay: 0.12s; }
-    .delay-2 { animation-delay: 0.22s; }
-    .delay-3 { animation-delay: 0.32s; }
-    .delay-4 { animation-delay: 0.42s; }
-
-    @keyframes reveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 18px rgba(255, 135, 180, 0.34); }
-      50% { transform: scale(1.06); box-shadow: 0 0 28px rgba(255, 135, 180, 0.46); }
-    }
-
-    @keyframes drift {
-      0%, 100% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-22px) translateX(12px); }
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.22; transform: scale(0.84); }
-      50% { opacity: 0.8; transform: scale(1.12); }
-    }
-
-    @keyframes fall {
-      from { transform: translateY(-110vh) rotate(0deg); }
-      to { transform: translateY(110vh) rotate(360deg); }
-    }
-
-    @keyframes lift {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid,
-      .main-grid,
-      .mood-grid,
-      .note-grid,
-      .memory-grid,
-      .gallery-grid,
-      .promise-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .shell {
-        width: min(100% - 16px, 1120px);
-        padding-top: 16px;
-      }
-
-      .hero,
-      .card,
-      .quote-band {
-        padding: 16px;
-      }
-
-      .topbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
+      --bg-top:#1b1026;--bg-mid:#30153f;--bg-bottom:#5c245e;--panel:rgba(57,25,69,.8);--panel-strong:rgba(80,33,94,.95);--line:rgba(255,215,234,.18);--text:#fff7fb;--muted:#e7cddd;--primary:#ff88b7;--secondary:#ffd8ab;--accent:#f7d6ff;--shadow:0 28px 72px rgba(18,7,24,.35);--radius-xl:30px;--radius-lg:22px;--radius-md:16px;--motion:220ms ease;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{min-height:100vh;font-family:Georgia,"Times New Roman",serif;color:var(--text);background:radial-gradient(circle at top right,rgba(255,136,183,.2),transparent 24%),radial-gradient(circle at left 20%,rgba(255,216,171,.14),transparent 28%),linear-gradient(180deg,var(--bg-top) 0%,var(--bg-mid) 54%,var(--bg-bottom) 100%);overflow-x:hidden}
+    body::before,body::after{content:"";position:fixed;width:320px;height:320px;border-radius:999px;filter:blur(18px);opacity:.14;pointer-events:none;z-index:0;animation:drift 14s ease-in-out infinite}
+    body::before{top:3%;right:-110px;background:rgba(255,136,183,.46)}
+    body::after{left:-110px;bottom:10%;background:rgba(255,216,171,.36);animation-delay:-5s}
+    button,input{font:inherit;color:inherit}
+    .sky,.petals{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+    .star,.petal,.wish-dot{position:absolute;border-radius:999px}
+    .star{width:6px;height:6px;background:rgba(255,245,239,.9);box-shadow:0 0 12px rgba(255,245,239,.8);animation:twinkle 3.6s ease-in-out infinite}
+    .petal{width:18px;height:18px;border-radius:18px 0 18px 0;background:linear-gradient(180deg,rgba(255,210,227,.95),rgba(255,136,183,.32));opacity:.35;animation:fall linear infinite}
+    .shell{position:relative;z-index:2;width:min(1160px,calc(100% - 24px));margin:0 auto;padding:20px 0 44px}
+    .opening-screen{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,rgba(255,216,171,.16),transparent 32%),linear-gradient(180deg,rgba(17,7,22,.94),rgba(36,15,45,.98));transition:opacity .42s ease,visibility .42s ease}
+    .opening-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .opening-card{width:min(590px,100%);padding:30px;border-radius:32px;background:linear-gradient(180deg,rgba(63,28,76,.96),rgba(40,18,50,.98));border:1px solid var(--line);box-shadow:var(--shadow);text-align:center}
+    .opening-badge,.hero-badge,.section-label{display:inline-flex;width:fit-content;border-radius:999px;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}
+    .opening-badge{padding:8px 14px;margin-bottom:18px;background:rgba(255,136,183,.16);border:1px solid rgba(255,136,183,.22);color:var(--accent)}
+    h1,h2,h3{line-height:1.05;letter-spacing:-.03em;font-weight:600}
+    h1{font-size:clamp(2.8rem,7vw,5.4rem);margin-bottom:14px}
+    h2{font-size:clamp(1.6rem,4vw,2.45rem)}
+    .opening-card p,.lead,.soft-copy,.muted,.wish-display p,.feature-card p,.mood-card span,.note-card span,.photo-drop p,.promise-card p,.memory-card p{color:var(--muted)}
+    .opening-card p,.lead,.soft-copy{line-height:1.8}
+    .opening-actions,.toolbar-actions,.theme-row,.wish-actions,.photo-controls{display:flex;flex-wrap:wrap;gap:12px}
+    .opening-actions{justify-content:center;margin-top:22px}
+    .btn,.theme-dot{transition:transform var(--motion),background var(--motion),border-color var(--motion),box-shadow var(--motion)}
+    .btn{padding:13px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);cursor:pointer}
+    .btn:hover,.theme-dot:hover{transform:translateY(-2px);box-shadow:0 14px 24px rgba(0,0,0,.16)}
+    .btn-primary{background:linear-gradient(135deg,rgba(255,136,183,.28),rgba(255,216,171,.24));border-color:rgba(255,215,234,.28)}
+    .toolbar,.hero,.card,.quote-banner{border:1px solid var(--line);border-radius:var(--radius-xl);background:linear-gradient(180deg,rgba(63,28,76,.92),rgba(42,18,54,.98));box-shadow:var(--shadow)}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;margin-bottom:16px}
+    .toolbar-title{display:flex;align-items:center;gap:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:.82rem}
+    .toolbar-orb{width:12px;height:12px;background:linear-gradient(180deg,var(--primary),var(--secondary));box-shadow:0 0 18px rgba(255,136,183,.52);animation:pulse 3.2s ease-in-out infinite}
+    .hero,.card{padding:20px}
+    .hero-grid,.main-grid,.feature-grid,.mood-grid,.note-grid,.memory-grid,.photo-grid,.promise-grid,.theme-grid{display:grid;gap:16px}
+    .hero-grid{grid-template-columns:1.22fr .88fr;align-items:start}
+    .hero-badge{padding:8px 14px;margin-bottom:14px;background:rgba(255,136,183,.14);border:1px solid rgba(255,136,183,.24);color:var(--accent);animation:pulse 4s ease-in-out infinite}
+    .lead{max-width:58ch;font-size:1.05rem}
+    .marquee{margin-top:16px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,215,234,.16);white-space:nowrap}
+    .marquee span{display:inline-block;min-width:200%;padding:10px 0;color:var(--primary);font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;animation:marquee 18s linear infinite}
+    .hero-side,.feature-card,.memory-card,.promise-card,.wish-display,.theme-card,.mood-output,.photo-drop{padding:16px;border-radius:var(--radius-lg);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+    .hero-side{display:grid;gap:14px}
+    .hero-line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .hero-line:last-child{border-bottom:0;padding-bottom:0}
+    .quote-banner{margin-top:16px;padding:16px 20px;text-align:center;color:#fff3ea;font-size:1.04rem;animation:lift 6s ease-in-out infinite}
+    .section-label{padding:8px 13px;margin-bottom:12px;background:rgba(255,136,183,.12);border:1px solid rgba(255,136,183,.22);color:var(--accent)}
+    .main-grid{margin-top:18px;grid-template-columns:1.02fr .98fr}
+    .feature-grid,.note-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .mood-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:14px}
+    .theme-grid{margin-top:14px;grid-template-columns:1fr auto;align-items:center}
+    .memory-grid,.promise-grid,.photo-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:14px}
+    .feature-card strong,.memory-card strong,.promise-card strong,.theme-card strong,.photo-label,.mood-card strong,.note-card strong{display:block;margin-bottom:6px}
+    .mood-card,.note-card,.wish-btn,.photo-button{border:1px solid var(--line);border-radius:var(--radius-md);background:var(--panel-strong);transition:transform var(--motion),background var(--motion),border-color var(--motion),box-shadow var(--motion);cursor:pointer}
+    .mood-card:hover,.mood-card.active,.note-card:hover,.wish-btn:hover,.photo-button:hover{transform:translateY(-2px);background:rgba(97,40,114,.96);border-color:rgba(255,215,234,.28);box-shadow:0 14px 24px rgba(0,0,0,.18)}
+    .mood-card,.note-card{padding:16px;text-align:left}
+    .mood-output .mini-kicker{display:block;margin-bottom:8px;color:var(--secondary);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+    .note-card.revealed{background:rgba(255,216,171,.09);border-color:rgba(255,216,171,.32);transform:translateY(-2px) scale(1.01)}
+    .wish-machine{position:relative;overflow:hidden}
+    .wish-display{min-height:150px;display:grid;gap:10px;align-content:start;position:relative}
+    .wish-field{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:var(--radius-lg)}
+    .wish-dot{width:10px;height:10px;background:radial-gradient(circle,rgba(255,255,255,1),rgba(255,216,171,.8) 55%,rgba(255,216,171,0) 75%);box-shadow:0 0 18px rgba(255,216,171,.6);animation:floatUp 2.8s ease-out forwards}
+    .wish-actions{margin-top:14px}
+    .wish-btn{padding:14px 16px;flex:1;min-width:180px}
+    .theme-dot{width:26px;height:26px;border-radius:999px;border:1px solid rgba(255,255,255,.24);cursor:pointer}
+    .theme-dot.blush{background:linear-gradient(180deg,#ff88b7,#ffd8ab)} .theme-dot.lavender{background:linear-gradient(180deg,#d390ff,#ffd2ef)} .theme-dot.sunset{background:linear-gradient(180deg,#ff9a83,#ffd4a0)} .theme-dot.moon{background:linear-gradient(180deg,#a4b1ff,#ead7ff)}
+    .photo-drop{min-height:260px;display:grid;align-content:end;position:relative;overflow:hidden;background:linear-gradient(180deg,transparent,rgba(18,7,24,.68)),radial-gradient(circle at top,rgba(255,210,227,.26),transparent 30%),linear-gradient(135deg,#72306f,#3b1f46)}
+    .photo-drop.has-image{background-size:cover;background-position:center}
+    .photo-chip{position:absolute;top:14px;left:14px;display:inline-flex;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);color:#fff2eb;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+    .photo-label{color:#fff2eb}.photo-controls{margin-top:14px}.photo-button{padding:10px 14px;background:rgba(255,255,255,.08)} .file-input{display:none}
+    .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:.95rem}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .72s ease,transform .72s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 18px rgba(255,136,183,.36)}50%{transform:scale(1.06);box-shadow:0 0 28px rgba(255,136,183,.48)}}
+    @keyframes drift{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-22px) translateX(12px)}}
+    @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.84)}50%{opacity:.86;transform:scale(1.14)}}
+    @keyframes fall{from{transform:translateY(-110vh) rotate(0)}to{transform:translateY(110vh) rotate(360deg)}}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    @keyframes lift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @keyframes floatUp{0%{transform:translateY(20px) scale(.7);opacity:.1}25%{opacity:1}100%{transform:translateY(-80px) scale(1.05);opacity:0}}
+    @media (max-width:920px){.hero-grid,.main-grid,.mood-grid,.feature-grid,.note-grid,.memory-grid,.photo-grid,.promise-grid,.theme-grid{grid-template-columns:1fr}.shell{width:min(100% - 16px,1160px);padding-top:16px}.toolbar{flex-direction:column;align-items:stretch}.hero,.card,.quote-banner{padding:16px}}
   </style>
 </head>
 <body>
   <div class="opening-screen" id="opening-screen">
     <div class="opening-card">
-      <span class="opening-badge">A Little Soft World</span>
+      <span class="opening-badge">A Private Little World</span>
       <h1>For Joan, my lady.</h1>
-      <p>
-        This is a sweeter, livelier little space made to feel warm, beautiful, and full of admiration.
-        Open it slowly and let it feel like a soft glow built around someone lovely.
-      </p>
+      <p>This version goes further: softer, richer, more alive, and more carefully shaped. Open it slowly, let the music in if you want to, and step into something warmer than a normal page.</p>
       <div class="opening-actions">
-        <button class="btn btn-primary" id="enter-page">Open For Joan</button>
-        <button class="btn btn-secondary" id="toggle-sound-start">Play Soft Music</button>
+        <button class="btn btn-primary" id="enter-page">Step Inside</button>
+        <button class="btn" id="toggle-sound-start">Play Soft Music</button>
       </div>
     </div>
   </div>
-
+  <div class="sky" aria-hidden="true">
+    <span class="star" style="top:10%; left:11%; animation-delay:-1s;"></span>
+    <span class="star" style="top:14%; left:72%; animation-delay:-2.3s;"></span>
+    <span class="star" style="top:33%; left:22%; animation-delay:-0.8s;"></span>
+    <span class="star" style="top:56%; left:81%; animation-delay:-1.5s;"></span>
+    <span class="star" style="top:76%; left:18%; animation-delay:-2.8s;"></span>
+    <span class="star" style="top:84%; left:67%; animation-delay:-0.4s;"></span>
+  </div>
   <div class="petals" aria-hidden="true">
-    <span class="petal" style="left:8%; animation-duration: 14s; animation-delay: -2s;"></span>
-    <span class="petal" style="left:18%; animation-duration: 17s; animation-delay: -6s;"></span>
-    <span class="petal" style="left:31%; animation-duration: 15s; animation-delay: -8s;"></span>
-    <span class="petal" style="left:48%; animation-duration: 18s; animation-delay: -4s;"></span>
-    <span class="petal" style="left:67%; animation-duration: 16s; animation-delay: -10s;"></span>
-    <span class="petal" style="left:82%; animation-duration: 19s; animation-delay: -7s;"></span>
+    <span class="petal" style="left:7%; animation-duration:16s; animation-delay:-3s;"></span>
+    <span class="petal" style="left:19%; animation-duration:18s; animation-delay:-7s;"></span>
+    <span class="petal" style="left:32%; animation-duration:15s; animation-delay:-5s;"></span>
+    <span class="petal" style="left:46%; animation-duration:20s; animation-delay:-9s;"></span>
+    <span class="petal" style="left:64%; animation-duration:17s; animation-delay:-6s;"></span>
+    <span class="petal" style="left:81%; animation-duration:19s; animation-delay:-8s;"></span>
   </div>
-
-  <div class="stars" aria-hidden="true">
-    <span class="star" style="top:10%; left:12%; animation-delay:-1s;"></span>
-    <span class="star" style="top:18%; left:74%; animation-delay:-2.2s;"></span>
-    <span class="star" style="top:44%; left:8%; animation-delay:-0.5s;"></span>
-    <span class="star" style="top:63%; left:79%; animation-delay:-1.6s;"></span>
-    <span class="star" style="top:84%; left:64%; animation-delay:-2.8s;"></span>
-  </div>
-
   <main class="shell">
-    <div class="topbar reveal-on-load">
-      <div class="topbar-title">
-        <span class="topbar-orb"></span>
-        <span>Softly Made For Joan</span>
+    <div class="toolbar reveal visible">
+      <div class="toolbar-title"><span class="toolbar-orb"></span><span>Softly Built Around Beauty</span></div>
+      <div class="toolbar-actions">
+        <button class="btn" id="sound-toggle">Music: Off</button>
+        <button class="btn" id="scroll-to-photos">Add Photos</button>
       </div>
-      <button class="btn sound-toggle" id="sound-toggle">Music: Off</button>
     </div>
-
-    <section class="hero reveal-on-load delay-1">
+    <section class="hero reveal visible">
       <div class="hero-grid">
         <div>
-          <span class="hero-tag">Joan, my lady</span>
-          <h1>A page that feels soft, bright, and full of her glow.</h1>
-          <p class="lead">
-            This is not just a page with sweet words. It is a small atmosphere built around gentleness, beauty,
-            admiration, and the kind of warmth that makes a person feel more lovely the longer they stay.
-          </p>
-          <div class="name-ribbon">
-            <span>Joan ï Lovely Lady ï Sweet Soul ï Soft Glow ï Beautiful Energy ï Joan ï Lovely Lady ï Sweet Soul ï Soft Glow ï Beautiful Energy ï </span>
-          </div>
+          <span class="hero-badge">Joan, my lady</span>
+          <h1>A softer, brighter little world with more life in it.</h1>
+          <p class="lead">This is designed to feel less like a page and more like a mood. Gentle motion, richer beauty, sweeter pacing, and just enough interaction to make it feel alive the whole time.</p>
+          <div class="marquee"><span>Soft glow ‚Ä¢ lovely energy ‚Ä¢ warm light ‚Ä¢ beautiful calm ‚Ä¢ tender atmosphere ‚Ä¢ soft glow ‚Ä¢ lovely energy ‚Ä¢ warm light ‚Ä¢ beautiful calm ‚Ä¢ tender atmosphere ‚Ä¢ </span></div>
         </div>
-
-        <div class="hero-panel">
-          <h2>The whole mood softens here.</h2>
-          <p class="soft-copy">Everything on this page leans into beauty, warmth, sweetness, and the calm kind of admiration that feels easy to breathe in.</p>
-          <div class="hero-panel-line">
-            <span class="muted">Presence</span>
-            <strong>Soft and unforgettable</strong>
-          </div>
-          <div class="hero-panel-line">
-            <span class="muted">Energy</span>
-            <strong>Beautiful lady energy</strong>
-          </div>
-          <div class="hero-panel-line">
-            <span class="muted">Effect</span>
-            <strong>Brightens a whole mood</strong>
-          </div>
+        <div class="hero-side">
+          <h2>Everything here leans into warmth.</h2>
+          <p class="soft-copy">Not loud for the sake of being loud. Just beautifully full, with more feeling, more movement, and more atmosphere.</p>
+          <div class="hero-line"><span class="muted">Mood</span><strong>Soft, lively, and glowing</strong></div>
+          <div class="hero-line"><span class="muted">Look</span><strong>Romantic and more premium</strong></div>
+          <div class="hero-line"><span class="muted">Feeling</span><strong>Gentle admiration everywhere</strong></div>
         </div>
       </div>
-      <div class="quote-band">ìSome people enter a room and change the whole feeling. This page was built around that kind of softness.î</div>
+      <div class="quote-banner">‚ÄúSome people make a whole moment feel prettier just by being the reason for it.‚Äù</div>
     </section>
-
+    <section class="card reveal">
+      <span class="section-label">Killer Additions</span>
+      <div class="feature-grid">
+        <div class="feature-card"><strong>An actual opening moment</strong><p>So it starts like an experience instead of dropping straight onto a page.</p></div>
+        <div class="feature-card"><strong>Theme switcher built in</strong><p>Because one romantic mood is good, but several beautiful moods are better.</p></div>
+        <div class="feature-card"><strong>Photo spaces that really work</strong><p>You can upload images straight into the page and make it instantly more personal.</p></div>
+        <div class="feature-card"><strong>A wish machine</strong><p>A standout interaction that throws glowing little stars into the page while changing the message.</p></div>
+      </div>
+    </section>
     <section class="main-grid">
-      <article class="card reveal-on-load delay-2">
-        <span class="label">Choose a Mood</span>
+      <article class="card reveal">
+        <span class="section-label">Choose the Feeling</span>
         <div class="mood-grid">
-          <button class="mood-btn active" data-mode="soft">
-            <strong>Soft Glow</strong>
-            <span>Gentle words and warmer energy.</span>
-          </button>
-          <button class="mood-btn" data-mode="pretty">
-            <strong>Pretty Lady</strong>
-            <span>Sweet admiration with a flirty edge.</span>
-          </button>
-          <button class="mood-btn" data-mode="dreamy">
-            <strong>Dream Light</strong>
-            <span>Slower, softer, more magical.</span>
-          </button>
+          <button class="mood-card active" data-mode="soft"><strong>Soft Glow</strong><span>Warm and calming.</span></button>
+          <button class="mood-card" data-mode="pretty"><strong>Pretty Light</strong><span>Gentle admiration with shine.</span></button>
+          <button class="mood-card" data-mode="dreamy"><strong>Dream Mood</strong><span>Slow, floaty, and romantic.</span></button>
         </div>
-        <div class="mood-output">
-          <span class="mini-kicker" id="mode-kicker">A Little Glow</span>
-          <h3 id="mode-title">When she is near, everything feels softer.</h3>
-          <p id="mode-copy" class="soft-copy">There is a kind of presence that makes a room feel less heavy and a moment feel more beautiful. That is the atmosphere here.</p>
-        </div>
+        <div class="mood-output"><span class="mini-kicker" id="mode-kicker">A Little Glow</span><h3 id="mode-title">When she is near, everything feels softer.</h3><p id="mode-copy" class="soft-copy">There is a kind of presence that makes a room feel less heavy and a moment feel more beautiful. That is the atmosphere here.</p></div>
       </article>
-
-      <article class="card reveal-on-load delay-3">
-        <span class="label">Open Sweet Notes</span>
+      <article class="card reveal">
+        <span class="section-label">Open the Sweet Notes</span>
         <div class="note-grid">
-          <button class="note-btn" data-note="0">
-            <strong>Pretty Reminder</strong>
-            <span>A small soft line for a lovely face.</span>
-          </button>
-          <button class="note-btn" data-note="1">
-            <strong>Gentle Admiration</strong>
-            <span>A warmer little heart-note.</span>
-          </button>
-          <button class="note-btn" data-note="2">
-            <strong>Future Thought</strong>
-            <span>Sweet, hopeful, and light.</span>
-          </button>
-          <button class="note-btn" data-note="3">
-            <strong>Lady Energy</strong>
-            <span>For the soft glow she carries.</span>
-          </button>
+          <button class="note-card" data-note="0"><strong>Pretty Reminder</strong><span>A softer little line.</span></button>
+          <button class="note-card" data-note="1"><strong>Warm Admiration</strong><span>For the gentle atmosphere.</span></button>
+          <button class="note-card" data-note="2"><strong>Future Light</strong><span>Hopeful and sweet.</span></button>
+          <button class="note-card" data-note="3"><strong>Lovely Calm</strong><span>Softness that stays around.</span></button>
         </div>
       </article>
-
-      <article class="card favorite-color-card reveal-on-load delay-2">
-        <span class="label">Favorite-Color Energy</span>
-        <h2>A palette made for softness.</h2>
-        <p class="soft-copy">This page now leans into blush, rose, peach, and cream tones so it feels warmer, sweeter, and more alive.</p>
-        <div class="color-swatches" aria-hidden="true">
-          <span class="swatch one"></span>
-          <span class="swatch two"></span>
-          <span class="swatch three"></span>
-          <span class="swatch four"></span>
+      <article class="card reveal wish-machine">
+        <span class="section-label">Wish Machine</span>
+        <div class="wish-display">
+          <div class="wish-field" id="wish-field"></div>
+          <h2 id="wish-title">A room full of softer light.</h2>
+          <p id="wish-copy">Press the button and the page will answer with a warmer thought and a small burst of glow.</p>
+        </div>
+        <div class="wish-actions">
+          <button class="wish-btn" id="wish-btn">Make a New Wish</button>
+          <button class="wish-btn" id="glow-btn">Add More Glow</button>
         </div>
       </article>
-
-      <article class="card favorite-color-card reveal-on-load delay-3">
-        <span class="label">A Letter</span>
-        <h2>She deserves beautiful language.</h2>
-        <p class="soft-copy">
-          This whole page is meant to feel like warmth gathering around one person. Not loud in a messy way, but full in a gentle way.
-          Tender, lively, a little dreamy, and very sure about the beauty it is celebrating.
-        </p>
+      <article class="card reveal">
+        <span class="section-label">Favorite-Color Energy</span>
+        <div class="theme-grid">
+          <div class="theme-card"><strong>Try a different palette</strong><p>The page now has built-in moods: blush, lavender, sunset, and moonlight. They shift the whole feeling without changing the softness.</p></div>
+          <div class="theme-row">
+            <button class="theme-dot blush" data-theme="blush" aria-label="Blush theme"></button>
+            <button class="theme-dot lavender" data-theme="lavender" aria-label="Lavender theme"></button>
+            <button class="theme-dot sunset" data-theme="sunset" aria-label="Sunset theme"></button>
+            <button class="theme-dot moon" data-theme="moon" aria-label="Moon theme"></button>
+          </div>
+        </div>
       </article>
-
-      <article class="card reveal-on-load delay-4">
-        <span class="label">A Little Memory Lane</span>
+      <article class="card reveal">
+        <span class="section-label">Memory Lane</span>
         <div class="memory-grid">
-          <div class="memory-card">
-            <strong>First Thought</strong>
-            The kind of softness that catches attention and then stays there.
-          </div>
-          <div class="memory-card">
-            <strong>Right Now</strong>
-            A whole page leaning into sweetness because some people deserve that much care.
-          </div>
-          <div class="memory-card">
-            <strong>What Comes Next</strong>
-            More light moments, more affection, more days that feel a little brighter.
-          </div>
+          <div class="memory-card"><strong>First Feeling</strong><p>The kind of softness that catches attention and then stays there.</p></div>
+          <div class="memory-card"><strong>Right Now</strong><p>A whole page leaning into sweetness because some people deserve that much care.</p></div>
+          <div class="memory-card"><strong>After This</strong><p>More little moments, more light, and more beauty gathering around ordinary days.</p></div>
         </div>
-      </article>
-
-      <article class="card reveal-on-load delay-4">
-        <span class="label">Glow Meter</span>
-        <h2>Tap and let the page grow warmer.</h2>
-        <p class="soft-copy">Each tap adds one more little wave of sweetness and unlocks a softer line.</p>
-        <div class="glow-meter">
-          <div class="segment"></div>
-          <div class="segment"></div>
-          <div class="segment"></div>
-          <div class="segment"></div>
-          <div class="segment"></div>
-        </div>
-        <button class="glow-btn" id="glow-btn">Make It Glow</button>
-        <div class="glow-log" id="glow-log">Tap here and let the page brighten itself a little more.</div>
       </article>
     </section>
-
-    <section class="card reveal-on-load delay-4" style="margin-top: 18px;">
-      <span class="label">Photo Moments</span>
-      <h2>Three lovely spaces for her favorite pictures.</h2>
-      <p class="soft-copy">I took the extra mile here by building in a photo strip section, even without files yet. If you later add her photos, this section is ready to become even more personal.</p>
-      <div class="gallery-grid">
-        <div class="gallery-card">
-          <strong>Favorite Smile</strong>
-          <small>Perfect for the one photo that always feels warm.</small>
+    <section class="card reveal" id="photo-section" style="margin-top:18px;">
+      <span class="section-label">Photo Moments</span>
+      <h2>Upload her favorite three pictures right into the page.</h2>
+      <p class="soft-copy">This is one of the strongest upgrades. The page is ready for real photos now, so you can make it personal without touching the code again.</p>
+      <div class="photo-grid">
+        <div class="photo-drop" id="photo-1">
+          <span class="photo-chip">Favorite Smile</span>
+          <div><strong class="photo-label">Photo One</strong><p>A warm picture that feels instantly soft.</p><div class="photo-controls"><label class="photo-button" for="file-1">Choose photo</label><input class="file-input" id="file-1" type="file" accept="image/*"></div></div>
         </div>
-        <div class="gallery-card" style="background:
-          linear-gradient(180deg, transparent, rgba(22, 10, 28, 0.72)),
-          radial-gradient(circle at top, rgba(255, 214, 168, 0.38), transparent 30%),
-          linear-gradient(135deg, #8c3e62, #4f2047);">
-          <strong>Softest Moment</strong>
-          <small>For a picture that feels sweet and calm.</small>
+        <div class="photo-drop" id="photo-2" style="background:linear-gradient(180deg,transparent,rgba(18,7,24,.68)),radial-gradient(circle at top,rgba(255,216,171,.26),transparent 30%),linear-gradient(135deg,#8b3f62,#4b2147);">
+          <span class="photo-chip">Softest Moment</span>
+          <div><strong class="photo-label">Photo Two</strong><p>A sweeter picture with calm energy.</p><div class="photo-controls"><label class="photo-button" for="file-2">Choose photo</label><input class="file-input" id="file-2" type="file" accept="image/*"></div></div>
         </div>
-        <div class="gallery-card" style="background:
-          linear-gradient(180deg, transparent, rgba(22, 10, 28, 0.72)),
-          radial-gradient(circle at top, rgba(220, 182, 255, 0.34), transparent 30%),
-          linear-gradient(135deg, #7b3278, #2f1737);">
-          <strong>Lady Energy</strong>
-          <small>For the one that just feels beautiful.</small>
+        <div class="photo-drop" id="photo-3" style="background:linear-gradient(180deg,transparent,rgba(18,7,24,.68)),radial-gradient(circle at top,rgba(247,214,255,.24),transparent 30%),linear-gradient(135deg,#70327b,#30193c);">
+          <span class="photo-chip">Beautiful Energy</span>
+          <div><strong class="photo-label">Photo Three</strong><p>A photo that just feels lovely.</p><div class="photo-controls"><label class="photo-button" for="file-3">Choose photo</label><input class="file-input" id="file-3" type="file" accept="image/*"></div></div>
         </div>
       </div>
     </section>
-
-    <section class="card reveal-on-load delay-4" style="margin-top: 18px;">
-      <span class="label">Soft Promises</span>
+    <section class="card reveal" style="margin-top:18px;">
+      <span class="section-label">Extra Mile</span>
       <div class="promise-grid">
-        <div class="promise-card">
-          <strong>More Life</strong>
-          The page now moves, glows, drifts, and feels more alive without becoming heavy.
-        </div>
-        <div class="promise-card">
-          <strong>More Warmth</strong>
-          The language is softer and less technical, with less repetition and more atmosphere.
-        </div>
-        <div class="promise-card">
-          <strong>More Beauty</strong>
-          The visuals now lean into a fuller romantic look with petals, drifting glow, and richer layering.
-        </div>
+        <div class="promise-card"><strong>More Life</strong><p>Opening scene, drifting petals, stars, reveal-on-scroll, and a live wish effect make it feel more like an experience.</p></div>
+        <div class="promise-card"><strong>More Control</strong><p>Music toggle, theme switching, and direct photo upload spaces mean it is not stuck in one mood.</p></div>
+        <div class="promise-card"><strong>More Presence</strong><p>The page now carries a stronger visual identity and a cleaner emotional rhythm from top to bottom.</p></div>
       </div>
     </section>
-
-    <p class="footer">A softer, livelier little world built with care.</p>
+    <p class="footer">A softer, livelier little world built with intention.</p>
   </main>
-
   <script>
-    const modes = {
-      soft: {
-        kicker: "A Little Glow",
-        title: "When she is near, everything feels softer.",
-        copy: "There is a kind of presence that makes a room feel less heavy and a moment feel more beautiful. That is the atmosphere here."
-      },
-      pretty: {
-        kicker: "Pretty Lady",
-        title: "Some faces carry their own light.",
-        copy: "There is something graceful about a face that feels lovely before you even find the right words for it. This mood stays there."
-      },
-      dreamy: {
-        kicker: "Dream Light",
-        title: "A soft glow can feel almost magical.",
-        copy: "Some people make ordinary moments seem sweeter and slower. The page leans into that feeling and lets it stay for a while."
-      }
-    };
-
-    const noteLines = [
-      "There is a softness here that feels easy to admire.",
-      "Some people are lovely in a way that keeps unfolding the longer you stay near them.",
-      "It feels easy to imagine future moments becoming gentler and brighter.",
-      "Lady energy, warm light, beautiful calm. That is the whole feeling."
-    ];
-
-    const glowLines = [
-      "A little more warmth has entered the page.",
-      "The room feels softer already.",
-      "One more glow added for a sweeter atmosphere.",
-      "The whole mood is turning warmer now.",
-      "The page is full of soft light."
-    ];
-
-    const openingScreen = document.getElementById("opening-screen");
-    const enterPage = document.getElementById("enter-page");
-    const toggleSoundStart = document.getElementById("toggle-sound-start");
-    const soundToggle = document.getElementById("sound-toggle");
-    const modeButtons = document.querySelectorAll(".mood-btn");
-    const modeKicker = document.getElementById("mode-kicker");
-    const modeTitle = document.getElementById("mode-title");
-    const modeCopy = document.getElementById("mode-copy");
-    const noteButtons = document.querySelectorAll(".note-btn");
-    const glowSegments = document.querySelectorAll(".segment");
-    const glowBtn = document.getElementById("glow-btn");
-    const glowLog = document.getElementById("glow-log");
-
-    let soundOn = false;
-    let audioContext;
-    let intervalId;
-    let glowLevel = 0;
-
-    function closeOpening() {
-      openingScreen.classList.add("hidden");
-    }
-
-    function playTone(freq, start, duration, gainValue) {
-      if (!audioContext) return;
-      const oscillator = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      oscillator.type = "sine";
-      oscillator.frequency.value = freq;
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-      oscillator.connect(gain);
-      gain.connect(audioContext.destination);
-      oscillator.start(start);
-      oscillator.stop(start + duration);
-    }
-
-    function startMusic() {
-      if (soundOn) return;
-      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-      const now = audioContext.currentTime;
-      playTone(523.25, now, 0.9, 0.02);
-      playTone(659.25, now + 0.25, 0.9, 0.016);
-      playTone(783.99, now + 0.52, 1.1, 0.014);
-      intervalId = setInterval(() => {
-        if (!audioContext) return;
-        const time = audioContext.currentTime;
-        playTone(523.25, time, 0.8, 0.014);
-        playTone(659.25, time + 0.26, 0.8, 0.012);
-        playTone(783.99, time + 0.52, 1.02, 0.01);
-      }, 2200);
-      soundOn = true;
-      soundToggle.textContent = "Music: On";
-      toggleSoundStart.textContent = "Music Playing";
-    }
-
-    function stopMusic() {
-      if (!soundOn) return;
-      clearInterval(intervalId);
-      intervalId = null;
-      if (audioContext) {
-        audioContext.close();
-        audioContext = null;
-      }
-      soundOn = false;
-      soundToggle.textContent = "Music: Off";
-      toggleSoundStart.textContent = "Play Soft Music";
-    }
-
-    function toggleMusic() {
-      if (soundOn) {
-        stopMusic();
-      } else {
-        startMusic();
-      }
-    }
-
-    enterPage.addEventListener("click", closeOpening);
-    toggleSoundStart.addEventListener("click", () => {
-      startMusic();
-      closeOpening();
-    });
-    soundToggle.addEventListener("click", toggleMusic);
-
-    modeButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const mood = modes[button.dataset.mode];
-        modeButtons.forEach((item) => item.classList.remove("active"));
-        button.classList.add("active");
-        modeKicker.textContent = mood.kicker;
-        modeTitle.textContent = mood.title;
-        modeCopy.textContent = mood.copy;
-      });
-    });
-
-    noteButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const index = Number(button.dataset.note);
-        button.classList.add("revealed");
-        button.innerHTML = "<strong>A little note</strong><span>" + noteLines[index] + "</span>";
-      }, { once: true });
-    });
-
-    glowBtn.addEventListener("click", () => {
-      if (glowLevel < glowSegments.length) {
-        glowSegments[glowLevel].classList.add("on");
-        glowLog.textContent = glowLines[glowLevel];
-        glowLevel += 1;
-      } else {
-        glowLog.textContent = "The page is already glowing as warmly as it can.";
-      }
-    });
+    const modes={soft:{kicker:'A Little Glow',title:'When she is near, everything feels softer.',copy:'There is a kind of presence that makes a room feel less heavy and a moment feel more beautiful. That is the atmosphere here.'},pretty:{kicker:'Pretty Light',title:'Some faces carry their own light.',copy:'There is something graceful about a face that feels lovely before you even find the right words for it. This mood lets that glow stay visible.'},dreamy:{kicker:'Dream Mood',title:'A soft glow can feel almost magical.',copy:'Some people make ordinary moments seem slower, sweeter, and a little more beautiful. This mood leans into that feeling and lets it linger.'}};
+    const noteLines=['There is a softness here that feels easy to admire.','Some people are lovely in a way that keeps unfolding the longer you stay near them.','It feels easy to imagine future moments becoming gentler and brighter.','Warm light, beautiful calm, and a softness that stays around.'];
+    const wishLines=[{title:'A room full of softer light.',copy:'Some moods become easier to hold when everything around them feels warmer.'},{title:'A sweeter pause in the middle of the day.',copy:'Not every beautiful thing has to be loud. Some of it just arrives gently and stays.'},{title:'A little more beauty than yesterday.',copy:'Sometimes the nicest thing a page can do is make the whole atmosphere feel kinder.'},{title:'A moment that feels like soft music.',copy:'A good mood does not always rush in. Sometimes it glows into the room slowly.'}];
+    const themePresets={blush:{'--bg-top':'#1b1026','--bg-mid':'#30153f','--bg-bottom':'#5c245e','--primary':'#ff88b7','--secondary':'#ffd8ab','--accent':'#f7d6ff'},lavender:{'--bg-top':'#171128','--bg-mid':'#2b1c49','--bg-bottom':'#49367d','--primary':'#d390ff','--secondary':'#ffd2ef','--accent':'#efe2ff'},sunset:{'--bg-top':'#2a121c','--bg-mid':'#5a2336','--bg-bottom':'#8b4a44','--primary':'#ff9a83','--secondary':'#ffd4a0','--accent':'#ffe5db'},moon:{'--bg-top':'#141626','--bg-mid':'#222b4b','--bg-bottom':'#384476','--primary':'#a4b1ff','--secondary':'#ead7ff','--accent':'#f1ecff'}};
+    const openingScreen=document.getElementById('opening-screen'); const enterPage=document.getElementById('enter-page'); const toggleSoundStart=document.getElementById('toggle-sound-start'); const soundToggle=document.getElementById('sound-toggle'); const scrollToPhotos=document.getElementById('scroll-to-photos'); const modeButtons=document.querySelectorAll('.mood-card'); const modeKicker=document.getElementById('mode-kicker'); const modeTitle=document.getElementById('mode-title'); const modeCopy=document.getElementById('mode-copy'); const noteButtons=document.querySelectorAll('.note-card'); const wishBtn=document.getElementById('wish-btn'); const glowBtn=document.getElementById('glow-btn'); const wishTitle=document.getElementById('wish-title'); const wishCopy=document.getElementById('wish-copy'); const wishField=document.getElementById('wish-field'); const themeDots=document.querySelectorAll('.theme-dot'); const reveals=document.querySelectorAll('.reveal');
+    const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')},{input:document.getElementById('file-3'),target:document.getElementById('photo-3')}];
+    let audioContext; let intervalId; let soundOn=false;
+    function closeOpening(){openingScreen.classList.add('hidden')}
+    function playTone(freq,start,duration,gainValue){if(!audioContext)return; const oscillator=audioContext.createOscillator(); const gain=audioContext.createGain(); oscillator.type='sine'; oscillator.frequency.value=freq; gain.gain.setValueAtTime(.0001,start); gain.gain.exponentialRampToValueAtTime(gainValue,start+.02); gain.gain.exponentialRampToValueAtTime(.0001,start+duration); oscillator.connect(gain); gain.connect(audioContext.destination); oscillator.start(start); oscillator.stop(start+duration)}
+    function startMusic(){if(soundOn)return; audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)(); const now=audioContext.currentTime; playTone(523.25,now,1,.02); playTone(659.25,now+.3,1,.016); playTone(783.99,now+.58,1.1,.014); intervalId=setInterval(()=>{if(!audioContext)return; const time=audioContext.currentTime; playTone(523.25,time,.95,.014); playTone(659.25,time+.3,.95,.012); playTone(783.99,time+.58,1.05,.01)},2400); soundOn=true; soundToggle.textContent='Music: On'; toggleSoundStart.textContent='Music Playing'}
+    function stopMusic(){if(!soundOn)return; clearInterval(intervalId); intervalId=null; if(audioContext){audioContext.close(); audioContext=null} soundOn=false; soundToggle.textContent='Music: Off'; toggleSoundStart.textContent='Play Soft Music'}
+    function toggleMusic(){if(soundOn)stopMusic(); else startMusic()}
+    function spawnWishDots(count=9){for(let i=0;i<count;i+=1){const dot=document.createElement('span'); dot.className='wish-dot'; dot.style.left=10+Math.random()*80+'%'; dot.style.top=55+Math.random()*30+'%'; dot.style.animationDelay=(Math.random()*.25).toFixed(2)+'s'; wishField.appendChild(dot); setTimeout(()=>dot.remove(),2800)}}
+    function applyTheme(theme){const preset=themePresets[theme]; Object.entries(preset).forEach(([key,value])=>document.documentElement.style.setProperty(key,value))}
+    function handlePhotoPreview(input,target){const file=input.files&&input.files[0]; if(!file)return; const url=URL.createObjectURL(file); target.style.backgroundImage="linear-gradient(180deg, transparent, rgba(18, 7, 24, 0.68)), url('"+url+"')"; target.classList.add('has-image')}
+    const observer=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('visible'); observer.unobserve(entry.target)}})},{threshold:.16}); reveals.forEach((item)=>observer.observe(item));
+    enterPage.addEventListener('click',closeOpening); toggleSoundStart.addEventListener('click',()=>{startMusic(); closeOpening()}); soundToggle.addEventListener('click',toggleMusic); scrollToPhotos.addEventListener('click',()=>document.getElementById('photo-section').scrollIntoView({behavior:'smooth'}));
+    modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode]; modeButtons.forEach((item)=>item.classList.remove('active')); button.classList.add('active'); modeKicker.textContent=mood.kicker; modeTitle.textContent=mood.title; modeCopy.textContent=mood.copy;}));
+    noteButtons.forEach((button)=>button.addEventListener('click',()=>{const index=Number(button.dataset.note); button.classList.add('revealed'); button.innerHTML='<strong>A little note</strong><span>'+noteLines[index]+'</span>';},{once:true}));
+    wishBtn.addEventListener('click',()=>{const wish=wishLines[Math.floor(Math.random()*wishLines.length)]; wishTitle.textContent=wish.title; wishCopy.textContent=wish.copy; spawnWishDots(12)});
+    glowBtn.addEventListener('click',()=>{spawnWishDots(18); wishCopy.textContent='The page feels warmer now, like another little wave of light moved through it.'});
+    themeDots.forEach((dot)=>dot.addEventListener('click',()=>applyTheme(dot.dataset.theme)));
+    photoInputs.forEach(({input,target})=>input.addEventListener('change',()=>handlePhotoPreview(input,target)));
   </script>
 </body>
 </html>
