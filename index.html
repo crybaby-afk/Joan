@@ -3,27 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Joan, My Love</title>
-  <meta name="description" content="A small love-filled page made for Joan.">
+  <title>Joan.exe</title>
+  <meta name="description" content="A nerdy little love site for Joan.">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;700;800&display=swap');
-
     :root {
-      --bg-top: #4a102d;
-      --bg-mid: #9a1750;
-      --bg-bottom: #ffd2c8;
-      --panel: rgba(255, 255, 255, 0.14);
-      --panel-strong: rgba(255, 255, 255, 0.2);
-      --text: #fff8f5;
-      --muted: rgba(255, 248, 245, 0.78);
-      --accent: #ffe08a;
-      --accent-2: #ff7aa2;
-      --accent-3: #ffc6d9;
-      --shadow: 0 24px 80px rgba(18, 10, 30, 0.35);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --transition: 180ms ease;
+      --bg: #0d1021;
+      --panel: #151a33;
+      --panel-2: #1b2140;
+      --line: #2f396c;
+      --text: #f7f3ff;
+      --muted: #b8b6d9;
+      --pink: #ff6fae;
+      --rose: #ff96c2;
+      --gold: #ffd47e;
+      --mint: #86f7d3;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --radius-sm: 14px;
     }
 
     * {
@@ -32,666 +28,526 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       min-height: 100vh;
-      font-family: "Manrope", sans-serif;
+      font-family: Consolas, "Courier New", monospace;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(255, 209, 102, 0.22), transparent 28%),
-        radial-gradient(circle at 85% 18%, rgba(139, 233, 253, 0.18), transparent 24%),
-        linear-gradient(160deg, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
+        radial-gradient(circle at top right, rgba(255, 111, 174, 0.14), transparent 24%),
+        radial-gradient(circle at left center, rgba(134, 247, 211, 0.08), transparent 28%),
+        linear-gradient(180deg, #0b0e1d 0%, #10142b 55%, #151935 100%);
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    .backdrop {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
+    button {
+      font: inherit;
+      color: inherit;
     }
 
-    .blob,
-    .star,
-    .heart-float {
-      position: absolute;
-      border-radius: 999px;
-      opacity: 0.5;
-      filter: blur(6px);
-    }
-
-    .blob {
-      background: rgba(255, 255, 255, 0.14);
-      animation: drift 14s ease-in-out infinite;
-    }
-
-    .blob.one {
-      width: 240px;
-      height: 240px;
-      top: 7%;
-      left: -4%;
-    }
-
-    .blob.two {
-      width: 180px;
-      height: 180px;
-      top: 56%;
-      right: -3%;
-      animation-delay: -5s;
-    }
-
-    .blob.three {
-      width: 120px;
-      height: 120px;
-      bottom: 10%;
-      left: 8%;
-      animation-delay: -9s;
-    }
-
-    .star {
-      width: 6px;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.8);
-      box-shadow: 0 0 14px rgba(255, 255, 255, 0.7);
-      animation: twinkle 3s ease-in-out infinite;
-    }
-
-    .heart-float {
-      filter: none;
-      opacity: 0.22;
-      font-size: 2rem;
-      animation: drift 11s ease-in-out infinite;
-    }
-
-    .star:nth-child(4) { top: 12%; left: 14%; }
-    .star:nth-child(5) { top: 20%; right: 16%; animation-delay: -1s; }
-    .star:nth-child(6) { top: 48%; left: 10%; animation-delay: -2s; }
-    .star:nth-child(7) { top: 72%; right: 20%; }
-    .star:nth-child(8) { top: 82%; left: 72%; animation-delay: -1.5s; }
-    .heart-float.one { top: 14%; right: 9%; animation-delay: -2s; }
-    .heart-float.two { bottom: 14%; left: 12%; font-size: 2.7rem; animation-delay: -6s; }
-
-    .page {
-      position: relative;
-      width: min(1100px, calc(100% - 32px));
+    .shell {
+      width: min(1040px, calc(100% - 24px));
       margin: 0 auto;
-      padding: 32px 0 64px;
+      padding: 24px 0 48px;
+    }
+
+    .hero,
+    .card {
+      background: linear-gradient(180deg, rgba(27, 33, 64, 0.96), rgba(21, 26, 51, 0.98));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
     .hero {
-      display: grid;
-      gap: 22px;
-      padding: 28px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
+      padding: 18px;
       overflow: hidden;
     }
 
-    .pill {
-      display: inline-flex;
-      width: fit-content;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.14);
-      color: var(--accent);
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2 {
-      font-family: "DM Serif Display", serif;
-      font-weight: 400;
-      line-height: 0.98;
-    }
-
-    h1 {
-      max-width: 10ch;
-      font-size: clamp(3.1rem, 8vw, 6.4rem);
-    }
-
-    .hero p {
-      max-width: 58ch;
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
       color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.75;
+      font-size: 0.84rem;
     }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .dot.red { background: #ff6b7d; }
+    .dot.yellow { background: #ffd166; }
+    .dot.green { background: #7ef0bf; }
 
     .hero-grid,
-    .content-grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .hero-grid {
-      grid-template-columns: 1.3fr 0.9fr;
-      align-items: end;
-    }
-
-    .content-grid {
-      margin-top: 20px;
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: start;
-    }
-
-    .panel {
-      padding: 24px;
-      border-radius: var(--radius-lg);
-      background: var(--panel);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow);
-    }
-
-    .constellation-card {
+    .grid {
       display: grid;
       gap: 16px;
     }
 
-    .love-stamp {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.14);
-      color: #fff0f4;
-      font-weight: 700;
+    .hero-grid {
+      grid-template-columns: 1.25fr 0.9fr;
+      align-items: start;
     }
 
-    .tiny-label {
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .mood-buttons,
-    .door-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .mood-buttons {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    button {
-      border: 0;
-      cursor: pointer;
-      font: inherit;
-      color: inherit;
-      transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
-    }
-
-    .mood-button,
-    .door,
-    .spark-button {
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-
-    .mood-button {
-      min-height: 118px;
-      padding: 16px;
-      text-align: left;
-      display: grid;
-      gap: 8px;
-    }
-
-    .mood-button strong,
-    .door strong {
-      font-size: 1rem;
-    }
-
-    .mood-button span,
-    .door span,
-    .spark-copy {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.5;
-    }
-
-    .mood-button:hover,
-    .mood-button.active,
-    .door:hover,
-    .spark-button:hover {
-      transform: translateY(-3px);
-      background: var(--panel-strong);
-      box-shadow: 0 18px 36px rgba(18, 10, 30, 0.24);
-    }
-
-    .message-display {
-      display: grid;
-      gap: 12px;
-      min-height: 220px;
-      align-content: start;
-      padding: 24px;
-      border-radius: 22px;
-      background:
-        linear-gradient(160deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
-        radial-gradient(circle at top right, rgba(255, 209, 102, 0.22), transparent 30%);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-    }
-
-    .message-display h2 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-    }
-
-    .message-display p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 1rem;
-    }
-
-    .message-chip {
+    .title-tag {
       display: inline-flex;
       width: fit-content;
       padding: 8px 12px;
+      margin-bottom: 14px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.16);
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 700;
+      background: rgba(255, 111, 174, 0.12);
+      border: 1px solid rgba(255, 111, 174, 0.3);
+      color: var(--rose);
+      font-size: 0.82rem;
     }
 
-    .door-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: 14px;
+    h1,
+    h2,
+    h3 {
+      line-height: 1.08;
+      letter-spacing: -0.03em;
     }
 
-    .door {
-      min-height: 170px;
-      padding: 18px 16px;
-      display: grid;
-      gap: 10px;
-      align-content: start;
-      text-align: left;
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      margin-bottom: 14px;
     }
 
-    .door b {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--accent-3);
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
     }
 
-    .door small {
-      color: rgba(255, 248, 245, 0.62);
-      font-size: 0.8rem;
+    .lead,
+    .muted {
+      color: var(--muted);
+    }
+
+    .lead {
+      max-width: 58ch;
+      font-size: 1rem;
+    }
+
+    .ascii-heart {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 212, 126, 0.22);
+      background: rgba(255, 212, 126, 0.06);
+      color: var(--gold);
+      font-size: 0.82rem;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .status-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(134, 247, 211, 0.05);
+      border: 1px solid rgba(134, 247, 211, 0.18);
+    }
+
+    .status-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .status-line:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .grid {
+      margin-top: 18px;
+      grid-template-columns: 1.08fr 0.92fr;
+    }
+
+    .card {
+      padding: 20px;
+    }
+
+    .label {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--pink);
+      font-size: 0.82rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-weight: 700;
     }
 
-    .door.revealed {
-      background: rgba(255, 255, 255, 0.22);
-      border-color: rgba(255, 255, 255, 0.35);
-    }
-
-    .spark-card {
-      display: grid;
-      gap: 18px;
-    }
-
-    .love-list {
+    .mode-grid,
+    .note-grid,
+    .reasons {
       display: grid;
       gap: 12px;
     }
 
-    .love-line {
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.12);
+    .mode-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 14px;
+    }
+
+    .mode-btn,
+    .note-btn,
+    .spark-btn {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      cursor: pointer;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .mode-btn:hover,
+    .mode-btn.active,
+    .note-btn:hover,
+    .spark-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--rose);
+      background: #212850;
+    }
+
+    .mode-btn {
+      padding: 14px;
+      border-radius: 16px;
+      text-align: left;
+    }
+
+    .mode-btn strong,
+    .note-btn strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .mode-btn span,
+    .note-btn span,
+    .console-output p,
+    .reason {
       color: var(--muted);
-      line-height: 1.6;
+      font-size: 0.94rem;
     }
 
-    .spark-jar {
-      position: relative;
-      min-height: 260px;
-      border-radius: 28px;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.26), transparent 28%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
-      border: 1px solid rgba(255, 255, 255, 0.22);
+    .console-output {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0d1125;
     }
 
-    .jar-glow {
-      position: absolute;
-      inset: auto 0 0 0;
-      height: 46%;
-      background: linear-gradient(180deg, rgba(255, 209, 102, 0.1), rgba(255, 143, 171, 0.28));
+    .console-output code {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--mint);
+      font-size: 0.85rem;
     }
 
-    .jar-outline {
-      position: absolute;
-      inset: 24px 26px 20px;
-      border: 2px solid rgba(255, 255, 255, 0.42);
-      border-top-left-radius: 38px;
-      border-top-right-radius: 38px;
-      border-bottom-left-radius: 28px;
-      border-bottom-right-radius: 28px;
-      overflow: hidden;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    .note-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .spark-field {
-      position: absolute;
-      inset: 0;
+    .note-btn {
+      padding: 16px;
+      border-radius: 16px;
+      text-align: left;
+      min-height: 132px;
     }
 
-    .spark {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,209,102,0.9) 48%, rgba(255,143,171,0) 75%);
-      box-shadow: 0 0 18px rgba(255, 209, 102, 0.75);
-      animation: lift 2.6s ease-in-out infinite;
+    .note-btn.revealed {
+      border-color: rgba(255, 212, 126, 0.35);
+      background: rgba(255, 212, 126, 0.08);
     }
 
-    .spark-button {
-      padding: 14px 16px;
-      font-weight: 800;
-      background: linear-gradient(135deg, rgba(255, 209, 102, 0.18), rgba(255, 143, 171, 0.18));
-    }
-
-    .spark-meter {
+    .meter {
       display: flex;
       gap: 8px;
+      margin: 14px 0 10px;
     }
 
-    .spark-dot {
-      flex: 1;
+    .segment {
       height: 10px;
+      flex: 1;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.14);
+      background: #252d58;
       overflow: hidden;
     }
 
-    .spark-dot::after {
+    .segment::after {
       content: "";
       display: block;
       width: 0;
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: width 220ms ease;
+      background: linear-gradient(90deg, var(--pink), var(--gold));
+      transition: width 160ms ease;
     }
 
-    .spark-dot.filled::after {
+    .segment.on::after {
       width: 100%;
     }
 
-    .footer-note {
+    .spark-btn {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      color: var(--text);
+    }
+
+    .spark-log {
+      margin-top: 12px;
+      padding: 14px;
+      min-height: 88px;
+      border-radius: 16px;
+      background: rgba(255, 111, 174, 0.07);
+      border: 1px solid rgba(255, 111, 174, 0.16);
+      color: var(--muted);
+    }
+
+    .reasons {
+      margin-top: 16px;
+    }
+
+    .reason {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer {
       margin-top: 16px;
       text-align: center;
-      color: rgba(255, 248, 245, 0.72);
-      font-size: 0.95rem;
-    }
-
-    @keyframes drift {
-      0%, 100% { transform: translateY(0) translateX(0) scale(1); }
-      50% { transform: translateY(-18px) translateX(12px) scale(1.04); }
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.25; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.15); }
-    }
-
-    @keyframes lift {
-      0%, 100% { transform: translateY(0) scale(0.85); opacity: 0.7; }
-      50% { transform: translateY(-12px) scale(1.05); opacity: 1; }
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     @media (max-width: 860px) {
       .hero-grid,
-      .content-grid,
-      .mood-buttons,
-      .door-grid {
+      .grid,
+      .mode-grid,
+      .note-grid {
         grid-template-columns: 1fr;
       }
 
-      .page {
-        width: min(100% - 20px, 1100px);
-        padding-top: 20px;
+      .shell {
+        width: min(100% - 16px, 1040px);
+        padding-top: 16px;
       }
 
       .hero,
-      .panel {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: clamp(2.7rem, 15vw, 4.6rem);
-      }
-
-      .mood-button,
-      .door {
-        min-height: auto;
+      .card {
+        padding: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="backdrop" aria-hidden="true">
-    <div class="blob one"></div>
-    <div class="blob two"></div>
-    <div class="blob three"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="heart-float one">❤</div>
-    <div class="heart-float two">❤</div>
-  </div>
-
-  <main class="page">
+  <main class="shell">
     <section class="hero">
+      <div class="hero-top">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span>joan.exe running...</span>
+      </div>
+
       <div class="hero-grid">
         <div>
-          <span class="pill">For Joan, my girl</span>
-          <h1>A small love letter you can tap through.</h1>
-          <p>
-            This one is less about hiding feelings and more about showing them. Every section is here to remind Joan
-            that she is loved, wanted, admired, and very deeply held.
+          <span class="title-tag">romance-mode --nerdy --serious-about-you</span>
+          <h1>Joan, you are the favorite variable in my whole universe.</h1>
+          <p class="lead">
+            I rebuilt this page to feel more like a cute love terminal: less heavy, faster to open, and way more obvious
+            about the fact that you are my girl. Tap around, read the little notes, and let the page act embarrassingly in love with you.
           </p>
-        </div>
-        <div class="panel constellation-card">
-          <span class="tiny-label">Straight from the heart</span>
-          <h2>You are my favorite place to put my love, Joan.</h2>
-          <p class="spark-copy">
-            If your day gets heavy, stay here for a minute and let this page keep telling you what I mean:
-            you are precious to me, beautiful to me, and easy for me to love.
-          </p>
-          <div class="love-stamp">❤ made for my girl ❤</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-grid">
-      <div class="panel">
-        <span class="tiny-label">Choose your love note</span>
-        <div class="mood-buttons" id="mood-buttons">
-          <button class="mood-button active" data-mood="calm">
-            <strong>Hold me close</strong>
-            <span>Warm words for when you need tenderness.</span>
-          </button>
-          <button class="mood-button" data-mood="smile">
-            <strong>Kiss me with a smile</strong>
-            <span>Playful love and light teasing for your pretty face.</span>
-          </button>
-          <button class="mood-button" data-mood="magic">
-            <strong>Say it like romance</strong>
-            <span>Dreamy lines for the girl I adore.</span>
-          </button>
-        </div>
-
-        <div class="message-display" id="message-display">
-          <span class="message-chip" id="message-chip">Love note one</span>
-          <h2 id="message-title">If I could, I would wrap this whole page around you like a hug.</h2>
-          <p id="message-body">
-            Joan, you are my girl and I want you to feel that here immediately. Not hidden, not guessed, not subtle.
-            Just true. You are loved in a full, soft, heart-eyed kind of way.
-          </p>
-        </div>
-
-        <div class="door-grid" id="door-grid">
-          <button class="door" data-door="0">
-            <b>01</b>
-            <small>Visible surprise</small>
-            <strong>Pretty girl reminder</strong>
-            <span>Tap and I’ll tell you exactly what makes you glow.</span>
-          </button>
-          <button class="door" data-door="1">
-            <b>02</b>
-            <small>Visible surprise</small>
-            <strong>Love confession</strong>
-            <span>Tap for a straight-up romantic line, no mystery games.</span>
-          </button>
-          <button class="door" data-door="2">
-            <b>03</b>
-            <small>Visible surprise</small>
-            <strong>Sweet future thought</strong>
-            <span>Tap for something soft I’d want you to carry with you.</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="panel spark-card">
-        <span class="tiny-label">Little jar of love</span>
-        <div class="spark-jar">
-          <div class="jar-outline">
-            <div class="jar-glow"></div>
-            <div class="spark-field" id="spark-field"></div>
+          <div class="ascii-heart" aria-hidden="true">
+  /\_/\\      __
+ ( ^.^ )   (  )
+  > ^ <   _|  |_
+ love compiled successfully for Joan
           </div>
         </div>
 
-        <button class="spark-button" id="spark-button">Add one more love spark</button>
-        <div class="spark-meter" id="spark-meter">
-          <div class="spark-dot"></div>
-          <div class="spark-dot"></div>
-          <div class="spark-dot"></div>
-          <div class="spark-dot"></div>
-          <div class="spark-dot"></div>
-        </div>
-        <p class="spark-copy" id="spark-copy">
-          Every tap adds a little more love. Fill the jar and it gives Joan a bigger confession.
-        </p>
-        <div class="love-list">
-          <div class="love-line">I love how soft you can be without ever being weak.</div>
-          <div class="love-line">I love that your face can calm a whole storm in me.</div>
-          <div class="love-line">I love that even thinking of you changes the mood.</div>
+        <div class="status-card">
+          <span class="label">System Status</span>
+          <h2>Heart telemetry</h2>
+          <div class="status-line">
+            <span class="muted">target</span>
+            <strong>Joan</strong>
+          </div>
+          <div class="status-line">
+            <span class="muted">relationship mode</span>
+            <strong>my girl</strong>
+          </div>
+          <div class="status-line">
+            <span class="muted">signal strength</span>
+            <strong>ridiculously high</strong>
+          </div>
+          <div class="status-line">
+            <span class="muted">current state</span>
+            <strong>soft, nerdy, obsessed</strong>
+          </div>
         </div>
       </div>
     </section>
 
-    <p class="footer-note">Made for Joan with loud, obvious, romantic love.</p>
+    <section class="grid">
+      <article class="card">
+        <span class="label">Switch Love Modes</span>
+        <div class="mode-grid">
+          <button class="mode-btn active" data-mode="soft">
+            <strong>soft-mode</strong>
+            <span>Gentle, close, affectionate.</span>
+          </button>
+          <button class="mode-btn" data-mode="flirty">
+            <strong>flirty-mode</strong>
+            <span>Pretty-girl compliments.</span>
+          </button>
+          <button class="mode-btn" data-mode="cosmic">
+            <strong>cosmic-mode</strong>
+            <span>Nerd romance with stars.</span>
+          </button>
+        </div>
+
+        <div class="console-output">
+          <code id="mode-command">$ ./love-note --mode soft</code>
+          <h3 id="mode-title">If I could patch one thing into your day, it would be a long hug from me.</h3>
+          <p id="mode-copy">Joan, you make tenderness feel easy. You are not hard to love. You are the reason loving feels warm, natural, and very real.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="label">Open Notes</span>
+        <div class="note-grid">
+          <button class="note-btn" data-note="0">
+            <strong>pretty.txt</strong>
+            <span>This one is plainly about your face.</span>
+          </button>
+          <button class="note-btn" data-note="1">
+            <strong>heart.log</strong>
+            <span>This one is me being obvious.</span>
+          </button>
+          <button class="note-btn" data-note="2">
+            <strong>future.md</strong>
+            <span>This one is soft and hopeful.</span>
+          </button>
+          <button class="note-btn" data-note="3">
+            <strong>bonus.cfg</strong>
+            <span>This one is unfairly sweet.</span>
+          </button>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="label">Love Meter</span>
+        <h2>Tap to overclock the romance.</h2>
+        <p class="muted">This is intentionally simple and fast now. No heavy visuals, just vibes.</p>
+        <div class="meter" id="meter">
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+          <div class="segment"></div>
+        </div>
+        <button class="spark-btn" id="spark-btn">boost_love()</button>
+        <div class="spark-log" id="spark-log">Waiting for input from the cutest user: Joan.</div>
+      </article>
+
+      <article class="card">
+        <span class="label">Why I Like You</span>
+        <div class="reasons">
+          <div class="reason">You look like the kind of girl a nerd writes his best lines for.</div>
+          <div class="reason">You make sweetness feel cool instead of corny.</div>
+          <div class="reason">You are very easy to imagine in every good future.</div>
+          <div class="reason">You somehow manage to be soft, pretty, and unforgettable all at once.</div>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">Built for Joan with cleaner code, faster loading, and even louder love.</p>
   </main>
 
   <script>
-    const moods = {
-      calm: {
-        chip: "Love note one",
-        title: "If I could, I would wrap this whole page around you like a hug.",
-        body: "Joan, you are my girl and I want you to feel that here immediately. Not hidden, not guessed, not subtle. Just true. You are loved in a full, soft, heart-eyed kind of way."
+    const modes = {
+      soft: {
+        command: "$ ./love-note --mode soft",
+        title: "If I could patch one thing into your day, it would be a long hug from me.",
+        copy: "Joan, you make tenderness feel easy. You are not hard to love. You are the reason loving feels warm, natural, and very real."
       },
-      smile: {
-        chip: "Love note two",
-        title: "Your smile could talk me out of a bad day every single time.",
-        body: "Pretty girl, I hope you know how dangerous that smile is. It is unfairly cute, a little distracting, and exactly the kind of thing I could stare at for too long."
+      flirty: {
+        command: "$ ./love-note --mode flirty",
+        title: "Your face is honestly doing too much in the best possible way.",
+        copy: "Pretty girl, your smile has no business being that powerful. It ruins my focus, improves my mood, and makes me want to flirt with you immediately."
       },
-      magic: {
-        chip: "Love note three",
-        title: "Loving you feels like the softest kind of magic.",
-        body: "There is something about you that turns ordinary moments romantic. Even a quiet minute starts to feel brighter when I imagine it with you in it."
+      cosmic: {
+        command: "$ ./love-note --mode cosmic",
+        title: "If the universe had a favorite constellation, I still think it would be jealous of you.",
+        copy: "You make ordinary minutes feel star-lit. Even in full nerd mode, the math stays simple: my world gets better when you are in it."
       }
     };
 
-    const surpriseNotes = [
-      "You are so pretty it feels rude sometimes.",
-      "I like you in the loud-heart way, not the casual way.",
-      "If I had one wish right now it would probably involve your face and a long hug.",
-      "You make romance feel easy.",
-      "You are the kind of girl people write soft songs about.",
-      "You look like somebody worth spoiling with affection."
+    const noteLines = [
+      "You are so pretty it feels like cheating.",
+      "I like you in a very intentional, very not-casual way.",
+      "I could see a lot of beautiful future moments with you in them.",
+      "You are exactly the kind of girl worth writing code and love notes for."
     ];
 
-    const unlockNotes = [
-      "Unlocked note: Joan, if I could choose again, I would still choose to pour my love into you.",
-      "Unlocked note: you are not just adored, you are wanted in the sweetest and sincerest way.",
-      "Unlocked note: my heart gets very obvious where you are concerned."
+    const sparkLines = [
+      "signal++ : affection levels rising",
+      "romance module loaded successfully",
+      "pretty-girl protocol confirmed",
+      "heart buffer almost full",
+      "final state: Joan is very, very loved"
     ];
 
-    const moodButtons = document.querySelectorAll(".mood-button");
-    const messageChip = document.getElementById("message-chip");
-    const messageTitle = document.getElementById("message-title");
-    const messageBody = document.getElementById("message-body");
-    const doors = document.querySelectorAll(".door");
-    const sparkButton = document.getElementById("spark-button");
-    const sparkField = document.getElementById("spark-field");
-    const sparkCopy = document.getElementById("spark-copy");
-    const sparkDots = document.querySelectorAll(".spark-dot");
+    const modeButtons = document.querySelectorAll(".mode-btn");
+    const modeCommand = document.getElementById("mode-command");
+    const modeTitle = document.getElementById("mode-title");
+    const modeCopy = document.getElementById("mode-copy");
+    const noteButtons = document.querySelectorAll(".note-btn");
+    const meterSegments = document.querySelectorAll(".segment");
+    const sparkBtn = document.getElementById("spark-btn");
+    const sparkLog = document.getElementById("spark-log");
 
-    moodButtons.forEach((button) => {
+    modeButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        const mood = moods[button.dataset.mood];
-        moodButtons.forEach((item) => item.classList.remove("active"));
+        const mode = modes[button.dataset.mode];
+        modeButtons.forEach((item) => item.classList.remove("active"));
         button.classList.add("active");
-        messageChip.textContent = mood.chip;
-        messageTitle.textContent = mood.title;
-        messageBody.textContent = mood.body;
+        modeCommand.textContent = mode.command;
+        modeTitle.textContent = mode.title;
+        modeCopy.textContent = mode.copy;
       });
     });
 
-    doors.forEach((door) => {
-      door.addEventListener("click", () => {
-        const note = surpriseNotes[Math.floor(Math.random() * surpriseNotes.length)];
-        door.classList.add("revealed");
-        door.innerHTML = "<b>❤</b><small>Now you know</small><strong>There it is, pretty girl</strong><span>" + note + "</span>";
+    noteButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const index = Number(button.dataset.note);
+        button.classList.add("revealed");
+        button.innerHTML = "<strong>opened_" + (index + 1) + ".txt</strong><span>" + noteLines[index] + "</span>";
       }, { once: true });
     });
 
-    let sparksCollected = 0;
+    let level = 0;
 
-    function drawSpark() {
-      const spark = document.createElement("span");
-      spark.className = "spark";
-      spark.style.left = 18 + Math.random() * 64 + "%";
-      spark.style.top = 18 + Math.random() * 62 + "%";
-      spark.style.animationDelay = (Math.random() * 1.2).toFixed(2) + "s";
-      sparkField.appendChild(spark);
-    }
-
-    sparkButton.addEventListener("click", () => {
-      if (sparksCollected >= 5) {
-        sparkCopy.textContent = unlockNotes[Math.floor(Math.random() * unlockNotes.length)];
-        return;
-      }
-
-      sparksCollected += 1;
-      drawSpark();
-      sparkDots[sparksCollected - 1].classList.add("filled");
-
-      if (sparksCollected === 5) {
-        sparkButton.textContent = "The jar is full of love";
-        sparkCopy.textContent = "Unlocked note: Joan, I hope you never have to doubt that you are deeply, romantically loved.";
+    sparkBtn.addEventListener("click", () => {
+      if (level < meterSegments.length) {
+        meterSegments[level].classList.add("on");
+        sparkLog.textContent = sparkLines[level];
+        level += 1;
       } else {
-        sparkCopy.textContent = "Love added. " + (5 - sparksCollected) + " more spark" + (5 - sparksCollected === 1 ? "" : "s") + " to fill the jar.";
+        sparkLog.textContent = "loop(): still in love, still choosing Joan, still not over her smile.";
       }
     });
-
-    drawSpark();
-    drawSpark();
   </script>
 </body>
 </html>
