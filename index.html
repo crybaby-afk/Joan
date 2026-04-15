@@ -11,9 +11,27 @@
     *::before,*::after{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{min-height:100vh;font-family:Georgia,"Times New Roman",serif;color:var(--text);background:radial-gradient(circle at top right,rgba(255,141,187,.18),transparent 24%),radial-gradient(circle at left center,rgba(255,216,173,.12),transparent 28%),linear-gradient(180deg,var(--bg-top) 0%,var(--bg-mid) 52%,var(--bg-bottom) 100%);line-height:1.7;overflow-x:hidden}
+    body.locked{overflow:hidden}
     body,button,input,label{font:inherit;color:inherit}
     button{appearance:none;-webkit-appearance:none;background:none;border:none}
     img{max-width:100%;display:block}
+    .entry-screen,.welcome-screen{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,rgba(255,170,204,.2),transparent 26%),linear-gradient(180deg,rgba(14,7,23,.9),rgba(27,10,36,.96))}
+    .welcome-screen{z-index:40;opacity:0;pointer-events:none;transition:opacity .45s ease}
+    .welcome-screen.show{opacity:1;pointer-events:auto}
+    .gate-card{width:min(100%,560px);padding:30px 24px;border-radius:32px;background:linear-gradient(180deg,rgba(74,31,87,.96),rgba(42,18,51,.98));border:1px solid rgba(255,220,235,.16);box-shadow:0 30px 90px rgba(8,3,15,.45);text-align:center}
+    .gate-card h1{font-size:clamp(2.3rem,6vw,4.1rem)}
+    .gate-card p{max-width:38rem;margin:0 auto}
+    .gate-form{display:grid;gap:14px;margin-top:22px}
+    .gate-input{width:100%;padding:15px 18px;border-radius:999px;border:1px solid rgba(255,220,235,.2);background:rgba(255,255,255,.08);color:var(--text);text-align:center;outline:none}
+    .gate-input::placeholder{color:rgba(255,247,251,.55)}
+    .gate-input:focus{border-color:rgba(255,216,173,.45);box-shadow:0 0 0 4px rgba(255,216,173,.1)}
+    .gate-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .gate-btn{min-width:160px;padding:13px 18px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.08);color:var(--text);cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
+    .gate-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.14);border-color:rgba(255,216,173,.3)}
+    .gate-btn.primary{background:linear-gradient(135deg,rgba(255,141,187,.28),rgba(255,216,173,.18));border-color:rgba(255,216,173,.35)}
+    .gate-note{min-height:26px;color:var(--peach);font-size:.98rem}
+    .hidden-world{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+    .hidden-world.open{opacity:1;transform:translateY(0)}
     .shell{width:min(1080px,calc(100% - 24px));margin:0 auto;padding:20px 0 40px}
     .hero,.card{background:linear-gradient(180deg,rgba(60,26,72,.94),rgba(42,18,51,.98));border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow)}
     .hero{padding:28px 24px;text-align:center}.card{padding:22px}
@@ -39,11 +57,36 @@
     .photo-card{min-height:250px;display:flex;flex-direction:column;justify-content:end;position:relative;overflow:hidden;background:linear-gradient(180deg,transparent,rgba(20,8,26,.7)),linear-gradient(135deg,#72336e,#3c1e45)} .photo-card.has-image{background-size:cover;background-position:center}
     .photo-chip{position:absolute;top:14px;left:14px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);color:#fff1e8;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem} .file-input{display:none}
     .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:.95rem}
-    @media (max-width:860px){.hero-strip,.main-grid,.mood-grid,.note-grid,.photo-grid{grid-template-columns:1fr}.shell{width:min(100% - 16px,1080px)}.hero,.card{padding:18px 16px}.wish-actions{flex-direction:column}.wish-btn,.upload-label{width:100%}}
+    @media (max-width:860px){.hero-strip,.main-grid,.mood-grid,.note-grid,.photo-grid{grid-template-columns:1fr}.shell{width:min(100% - 16px,1080px)}.hero,.card,.gate-card{padding:18px 16px}.wish-actions,.gate-actions{flex-direction:column}.wish-btn,.upload-label,.gate-btn{width:100%}}
   </style>
 </head>
-<body>
-  <main class="shell">
+<body class="locked">
+  <section class="entry-screen" id="entry-screen">
+    <div class="gate-card">
+      <span class="badge">Private Entrance</span>
+      <h1>Are you Joan?</h1>
+      <p>This little world opens gently, but only for the right person. If it is really you, enter the password and step inside.</p>
+      <div class="gate-form">
+        <input class="gate-input" id="gate-input" type="password" placeholder="Enter the password" autocomplete="off">
+        <div class="gate-actions">
+          <button class="gate-btn primary" id="enter-btn">Let me in</button>
+          <button class="gate-btn" id="leave-btn">No, take me out</button>
+        </div>
+        <p class="gate-note" id="gate-note"></p>
+      </div>
+    </div>
+  </section>
+  <section class="welcome-screen" id="welcome-screen" aria-hidden="true">
+    <div class="gate-card">
+      <span class="badge">Welcome In</span>
+      <h1>Welcome, beautiful girl.</h1>
+      <p>You found the right word, and now this soft little space opens just for you. Take your time, look around, and enjoy every gentle thing waiting here.</p>
+      <div class="gate-actions" style="margin-top:20px;">
+        <button class="gate-btn primary" id="continue-btn">Open the page</button>
+      </div>
+    </div>
+  </section>
+  <main class="shell hidden-world" id="main-world">
     <section class="hero">
       <span class="badge">For Joan, My Lady</span>
       <h1>A softer, brighter little world.</h1>
@@ -100,6 +143,15 @@
     <p class="footer">A softer little world, rebuilt to render cleanly.</p>
   </main>
   <script>
+    const entryScreen=document.getElementById('entry-screen');
+    const welcomeScreen=document.getElementById('welcome-screen');
+    const mainWorld=document.getElementById('main-world');
+    const gateInput=document.getElementById('gate-input');
+    const gateNote=document.getElementById('gate-note');
+    const enterBtn=document.getElementById('enter-btn');
+    const leaveBtn=document.getElementById('leave-btn');
+    const continueBtn=document.getElementById('continue-btn');
+    const unlockPassword='joan';
     const modes={soft:{kicker:'A Little Glow',title:'When she is near, everything feels softer.',copy:'There is a kind of presence that makes a room feel lighter and a moment feel more beautiful.'},pretty:{kicker:'Pretty Light',title:'Some faces carry their own light.',copy:'There is something graceful about a face that feels lovely before you even find the right words for it.'},dreamy:{kicker:'Dream Mood',title:'A soft glow can feel almost magical.',copy:'Some people make ordinary moments seem slower, sweeter, and a little more beautiful.'}};
     const noteLines=['There is a softness here that feels easy to admire.','Some people are lovely in a way that keeps unfolding the longer you stay near them.','It feels easy to imagine future moments becoming gentler and brighter.','Warm light, beautiful calm, and a softness that stays around.'];
     const wishLines=['A little more warmth has entered the page.','The room feels softer already.','One more glow added for a sweeter atmosphere.','The whole mood is turning warmer now.'];
@@ -109,6 +161,12 @@
     wishBtn.addEventListener('click',()=>{const line=wishLines[Math.floor(Math.random()*wishLines.length)]; wishTitle.textContent='A softer little wish.'; wishCopy.textContent=line; wishLog.textContent=line;});
     glowBtn.addEventListener('click',()=>{wishLog.textContent='The page is glowing a little more now.';});
     photoInputs.forEach(({input,target})=>input.addEventListener('change',()=>{const file=input.files&&input.files[0]; if(!file)return; const url=URL.createObjectURL(file); target.style.backgroundImage="linear-gradient(180deg, transparent, rgba(20, 8, 26, 0.7)), url('"+url+"')"; target.classList.add('has-image');}));
+    const unlockWorld=()=>{entryScreen.style.display='none'; welcomeScreen.classList.add('show'); welcomeScreen.setAttribute('aria-hidden','false');};
+    const openMainWorld=()=>{welcomeScreen.classList.remove('show'); welcomeScreen.setAttribute('aria-hidden','true'); document.body.classList.remove('locked'); mainWorld.classList.add('open');};
+    enterBtn.addEventListener('click',()=>{if(gateInput.value.trim().toLowerCase()===unlockPassword){gateNote.textContent=''; unlockWorld();}else{gateNote.textContent='That password is not right for this page.';}});
+    gateInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){enterBtn.click();}});
+    leaveBtn.addEventListener('click',()=>{window.location.replace('about:blank');});
+    continueBtn.addEventListener('click',openMainWorld);
   </script>
 </body>
 </html>
