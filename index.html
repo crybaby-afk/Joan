@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joan.exe</title>
-  <meta name="description" content="A nerdy little love site for Joan.">
+  <title>Joan, My Lady</title>
+  <meta name="description" content="A soft romantic page made all about Joan.">
   <style>
     :root {
-      --bg: #0d1021;
-      --panel: #151a33;
-      --panel-2: #1b2140;
-      --line: #2f396c;
-      --text: #f7f3ff;
-      --muted: #b8b6d9;
+      --bg: #1a0f24;
+      --panel: #2a1635;
+      --panel-2: #351b44;
+      --line: #5f2f73;
+      --text: #fff5fb;
+      --muted: #d9bfd3;
       --pink: #ff6fae;
-      --rose: #ff96c2;
-      --gold: #ffd47e;
-      --mint: #86f7d3;
-      --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      --rose: #ff9dcb;
+      --gold: #ffd79e;
+      --mint: #ffd7ea;
+      --shadow: 0 20px 54px rgba(29, 10, 28, 0.32);
       --radius: 22px;
       --radius-sm: 14px;
     }
@@ -34,12 +34,12 @@
 
     body {
       min-height: 100vh;
-      font-family: Consolas, "Courier New", monospace;
+      font-family: Georgia, "Times New Roman", serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top right, rgba(255, 111, 174, 0.14), transparent 24%),
-        radial-gradient(circle at left center, rgba(134, 247, 211, 0.08), transparent 28%),
-        linear-gradient(180deg, #0b0e1d 0%, #10142b 55%, #151935 100%);
+        radial-gradient(circle at top right, rgba(255, 111, 174, 0.22), transparent 24%),
+        radial-gradient(circle at left center, rgba(255, 215, 234, 0.12), transparent 28%),
+        linear-gradient(180deg, #1a0f24 0%, #24122f 55%, #341946 100%);
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -47,6 +47,32 @@
     button {
       font: inherit;
       color: inherit;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      pointer-events: none;
+      filter: blur(18px);
+      opacity: 0.18;
+      animation: drift 10s ease-in-out infinite;
+    }
+
+    body::before {
+      top: 4%;
+      right: -80px;
+      background: rgba(255, 111, 174, 0.45);
+    }
+
+    body::after {
+      bottom: 10%;
+      left: -90px;
+      background: rgba(255, 215, 234, 0.38);
+      animation-delay: -4s;
     }
 
     .shell {
@@ -57,7 +83,7 @@
 
     .hero,
     .card {
-      background: linear-gradient(180deg, rgba(27, 33, 64, 0.96), rgba(21, 26, 51, 0.98));
+      background: linear-gradient(180deg, rgba(53, 27, 68, 0.94), rgba(42, 22, 53, 0.98));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -75,6 +101,8 @@
       margin-bottom: 18px;
       color: var(--muted);
       font-size: 0.84rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .dot {
@@ -84,9 +112,9 @@
       display: inline-block;
     }
 
-    .dot.red { background: #ff6b7d; }
-    .dot.yellow { background: #ffd166; }
-    .dot.green { background: #7ef0bf; }
+    .dot.red { background: #ff7cab; }
+    .dot.yellow { background: #ffd79e; }
+    .dot.green { background: #ffcce2; }
 
     .hero-grid,
     .grid {
@@ -109,6 +137,7 @@
       border: 1px solid rgba(255, 111, 174, 0.3);
       color: var(--rose);
       font-size: 0.82rem;
+      animation: pulseGlow 3.8s ease-in-out infinite;
     }
 
     h1,
@@ -116,6 +145,7 @@
     h3 {
       line-height: 1.08;
       letter-spacing: -0.03em;
+      font-weight: 600;
     }
 
     h1 {
@@ -137,23 +167,24 @@
       font-size: 1rem;
     }
 
-    .ascii-heart {
+    .joan-banner {
       margin-top: 18px;
       padding: 14px;
       border-radius: var(--radius-sm);
       border: 1px solid rgba(255, 212, 126, 0.22);
       background: rgba(255, 212, 126, 0.06);
       color: var(--gold);
-      font-size: 0.82rem;
-      white-space: pre;
-      overflow-x: auto;
+      font-size: 0.95rem;
+      text-align: center;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
     .status-card {
       padding: 18px;
       border-radius: 18px;
-      background: rgba(134, 247, 211, 0.05);
-      border: 1px solid rgba(134, 247, 211, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 215, 234, 0.16);
     }
 
     .status-line {
@@ -207,7 +238,7 @@
       border: 1px solid var(--line);
       background: var(--panel-2);
       cursor: pointer;
-      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
     }
 
     .mode-btn:hover,
@@ -216,7 +247,8 @@
     .spark-btn:hover {
       transform: translateY(-2px);
       border-color: var(--rose);
-      background: #212850;
+      background: #47245c;
+      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.18);
     }
 
     .mode-btn {
@@ -244,14 +276,16 @@
       padding: 16px;
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      background: #0d1125;
+      background: rgba(26, 15, 36, 0.55);
     }
 
-    .console-output code {
+    .console-output .mini-kicker {
       display: block;
       margin-bottom: 8px;
-      color: var(--mint);
-      font-size: 0.85rem;
+      color: var(--gold);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     .note-grid {
@@ -268,6 +302,7 @@
     .note-btn.revealed {
       border-color: rgba(255, 212, 126, 0.35);
       background: rgba(255, 212, 126, 0.08);
+      transform: translateY(-2px) scale(1.01);
     }
 
     .meter {
@@ -309,15 +344,15 @@
       padding: 14px;
       min-height: 88px;
       border-radius: 16px;
-      background: rgba(255, 111, 174, 0.07);
-      border: 1px solid rgba(255, 111, 174, 0.16);
+      background: rgba(255, 111, 174, 0.09);
+      border: 1px solid rgba(255, 111, 174, 0.2);
       color: var(--muted);
     }
 
     .letter-card {
       background:
         linear-gradient(180deg, rgba(255, 111, 174, 0.07), rgba(255, 212, 126, 0.04)),
-        linear-gradient(180deg, rgba(27, 33, 64, 0.96), rgba(21, 26, 51, 0.98));
+        linear-gradient(180deg, rgba(53, 27, 68, 0.96), rgba(42, 22, 53, 0.98));
     }
 
     .letter-lead {
@@ -350,6 +385,26 @@
       color: var(--gold);
     }
 
+    .joan-marquee {
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 215, 234, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+    }
+
+    .joan-marquee span {
+      display: inline-block;
+      padding: 10px 0;
+      min-width: 200%;
+      color: var(--rose);
+      font-size: 0.82rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      animation: marquee 20s linear infinite;
+    }
+
     .reasons {
       margin-top: 16px;
     }
@@ -366,6 +421,21 @@
       text-align: center;
       color: var(--muted);
       font-size: 0.92rem;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-18px) translateX(14px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 rgba(255, 111, 174, 0); }
+      50% { box-shadow: 0 0 22px rgba(255, 111, 174, 0.18); }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
     }
 
     @media (max-width: 860px) {
@@ -396,112 +466,108 @@
         <span class="dot red"></span>
         <span class="dot yellow"></span>
         <span class="dot green"></span>
-        <span>joan.exe running...</span>
+        <span>All About Joan</span>
       </div>
 
       <div class="hero-grid">
         <div>
-          <span class="title-tag">romance-mode --nerdy --serious-about-you</span>
-          <h1>Joan, you are the favorite variable in my whole universe.</h1>
+          <span class="title-tag">Joan, my lady</span>
+          <h1>Joan deserves a page that feels as lovely as she is.</h1>
           <p class="lead">
-            I rebuilt this page to feel more like a cute love terminal: less heavy, faster to open, and way more obvious
-            about the fact that you are my girl. Tap around, read the little notes, and let the page act embarrassingly in love with you.
+            This page is only about Joan. Her softness, her beauty, her glow, and the sweet way she can make a whole mood feel lighter.
+            Tap around, open the notes, and let everything here keep saying her name with love.
           </p>
-          <div class="ascii-heart" aria-hidden="true">
-  /\_/\\      __
- ( ^.^ )   (  )
-  > ^ <   _|  |_
- love compiled successfully for Joan
-          </div>
+          <div class="joan-banner">Joan • Joan • Joan • My Lady • Joan</div>
         </div>
 
         <div class="status-card">
-          <span class="label">System Status</span>
-          <h2>Heart telemetry</h2>
+          <span class="label">Joan at a Glance</span>
+          <h2>The whole mood is Joan.</h2>
           <div class="status-line">
-            <span class="muted">target</span>
+            <span class="muted">Name</span>
             <strong>Joan</strong>
           </div>
           <div class="status-line">
-            <span class="muted">relationship mode</span>
-            <strong>my girl</strong>
+            <span class="muted">Energy</span>
+            <strong>Soft and unforgettable</strong>
           </div>
           <div class="status-line">
-            <span class="muted">signal strength</span>
-            <strong>ridiculously high</strong>
+            <span class="muted">Vibe</span>
+            <strong>Beautiful lady energy</strong>
           </div>
           <div class="status-line">
-            <span class="muted">current state</span>
-            <strong>soft, nerdy, obsessed</strong>
+            <span class="muted">Effect</span>
+            <strong>Brightens the whole room</strong>
           </div>
         </div>
       </div>
+      <div class="joan-marquee"><span>Joan • Lovely Joan • Sweet Joan • Beautiful Joan • My Lady Joan • Joan • Lovely Joan • Sweet Joan • Beautiful Joan • My Lady Joan • </span></div>
     </section>
 
     <section class="grid">
       <article class="card">
-        <span class="label">Switch Love Modes</span>
+        <span class="label">Choose a Joan Mood</span>
         <div class="mode-grid">
           <button class="mode-btn active" data-mode="soft">
-            <strong>soft-mode</strong>
-            <span>Gentle, close, affectionate.</span>
+            <strong>Soft Joan</strong>
+            <span>Gentle words for her sweetest side.</span>
           </button>
           <button class="mode-btn" data-mode="flirty">
-            <strong>flirty-mode</strong>
-            <span>Pretty-girl compliments.</span>
+            <strong>Pretty Joan</strong>
+            <span>For the lady with the lovely face.</span>
           </button>
           <button class="mode-btn" data-mode="cosmic">
-            <strong>cosmic-mode</strong>
-            <span>Nerd romance with stars.</span>
+            <strong>Dreamy Joan</strong>
+            <span>Soft romance and starry feelings.</span>
           </button>
         </div>
 
         <div class="console-output">
-          <code id="mode-command">$ ./love-note --mode soft</code>
-          <h3 id="mode-title">If I could patch one thing into your day, it would be a long hug from me.</h3>
-          <p id="mode-copy">Joan, you make tenderness feel easy. You are not hard to love. You are the reason loving feels warm, natural, and very real.</p>
+          <span class="mini-kicker" id="mode-command">For Joan</span>
+          <h3 id="mode-title">If Joan is near, everything feels softer.</h3>
+          <p id="mode-copy">Joan has that kind of presence that makes the world calm down a little. She feels like sweetness, comfort, and the kind of beauty that stays in your head.</p>
         </div>
       </article>
 
       <article class="card">
-        <span class="label">Open Notes</span>
+        <span class="label">Open Joan Notes</span>
         <div class="note-grid">
           <button class="note-btn" data-note="0">
-            <strong>pretty.txt</strong>
-            <span>This one is plainly about your face.</span>
+            <strong>Joan is pretty</strong>
+            <span>A sweet reminder for her lovely face.</span>
           </button>
           <button class="note-btn" data-note="1">
-            <strong>heart.log</strong>
-            <span>This one is me being obvious.</span>
+            <strong>Joan is adored</strong>
+            <span>A note for her soft heart.</span>
           </button>
           <button class="note-btn" data-note="2">
-            <strong>future.md</strong>
-            <span>This one is soft and hopeful.</span>
+            <strong>Joan in my thoughts</strong>
+            <span>A gentle future-facing line for her.</span>
           </button>
           <button class="note-btn" data-note="3">
-            <strong>bonus.cfg</strong>
-            <span>This one is unfairly sweet.</span>
+            <strong>Joan, my lady</strong>
+            <span>An extra sweet one just because.</span>
           </button>
         </div>
       </article>
 
       <article class="card letter-card">
-        <span class="label">Direct Letter</span>
-        <h2>For Joan, from your man.</h2>
+        <span class="label">A Letter for Joan</span>
+        <h2>Joan deserves to be spoken about beautifully.</h2>
         <p class="letter-lead">
-          This part is the least coded and the most true: I like you deeply, intentionally, and in the kind of way that makes me want to build sweet things just so you can feel loved for a minute.
+          Joan, this whole page leans your way on purpose. It is meant to feel soft, warm, and full of admiration because that is exactly what your name brings into the room.
         </p>
         <div class="letter-points">
-          <div class="letter-point">You are not just cute to me. You are comforting, exciting, soft, and honestly the kind of girl I could keep choosing on purpose.</div>
-          <div class="letter-point">I love that this can feel nerdy and romantic at the same time, because that is exactly the vibe I want around you: sincere, playful, and all-in.</div>
-          <div class="letter-point">If your mood ever drops, I want this page to remind you that somewhere out here is a man who thinks very highly of your smile and your heart.</div>
+          <div class="letter-point">Joan is the kind of lady who makes affection feel easy. Sweet, beautiful, calming, and impossible to ignore.</div>
+          <div class="letter-point">Joan carries a softness that does not disappear after one glance. It lingers. It stays. It makes you want to keep looking.</div>
+          <div class="letter-point">If Joan ever has a heavy day, this page should still whisper the same thing back to her: you are lovely, you matter, and you brighten more than you know.</div>
         </div>
       </article>
 
       <article class="card">
-        <span class="label">Love Meter</span>
-        <h2>Tap to overclock the romance.</h2>
-        <p class="muted">This is intentionally simple and fast now. No heavy visuals, just vibes.</p>
+        <span class="label">Joan Glow</span>
+        <h2>Tap and let Joan light up the page.</h2>
+        <p class="muted">Each tap fills the page with a little more sweetness for Joan.</p>
         <div class="meter" id="meter">
           <div class="segment"></div>
           <div class="segment"></div>
@@ -509,70 +575,70 @@
           <div class="segment"></div>
           <div class="segment"></div>
         </div>
-        <button class="spark-btn" id="spark-btn">boost_love()</button>
-        <div class="spark-log" id="spark-log">Waiting for input from the cutest user: Joan.</div>
+        <button class="spark-btn" id="spark-btn">Make it glow for Joan</button>
+        <div class="spark-log" id="spark-log">Tap here and let the page say one more lovely thing about Joan.</div>
       </article>
 
       <article class="card">
-        <span class="label">Why I Like You</span>
+        <span class="label">The Joan Section</span>
         <div class="reasons">
-          <div class="reason">You look like the kind of girl a nerd writes his best lines for.</div>
-          <div class="reason">You make sweetness feel cool instead of corny.</div>
-          <div class="reason">You are very easy to imagine in every good future.</div>
-          <div class="reason">You somehow manage to be soft, pretty, and unforgettable all at once.</div>
+          <div class="reason">Joan looks like softness dressed up in a beautiful face.</div>
+          <div class="reason">Joan has the kind of sweetness that stays in your mind long after the moment passes.</div>
+          <div class="reason">Joan feels easy to adore, easy to think about, and easy to miss.</div>
+          <div class="reason">Joan somehow manages to be lovely, gentle, and unforgettable all at once.</div>
         </div>
         <div class="memory-grid">
           <div class="memory-item">
-            <strong>first_ping()</strong>
-            The first thing that lands is your energy. Then your face finishes the job.
+            <strong>First thought</strong>
+            The first thing that lands is Joan's energy. Then her face finishes the job.
           </div>
           <div class="memory-item">
-            <strong>current_state()</strong>
-            Still very into you. Still very sure this page should be embarrassingly sweet.
+            <strong>Right now</strong>
+            The whole point of this page is simple: let Joan feel admired, wanted, and beautifully seen.
           </div>
           <div class="memory-item">
-            <strong>future_build()</strong>
-            More laughs, more flirting, more soft moments, more us-coded memories.
+            <strong>Coming next</strong>
+            More laughs, more sweetness, more little moments that feel gentle and full of Joan.
           </div>
         </div>
       </article>
     </section>
 
-    <p class="footer">Built for Joan with cleaner code, faster loading, and even louder love.</p>
+    <p class="footer">All roads on this page lead back to Joan.</p>
   </main>
 
   <script>
     const modes = {
       soft: {
-        command: "$ ./love-note --mode soft",
-        title: "If I could patch one thing into your day, it would be a long hug from me.",
-        copy: "Joan, you make tenderness feel easy. You are not hard to love. You are the reason loving feels warm, natural, and very real."
+        command: "Soft Joan",
+        title: "If Joan is near, everything feels softer.",
+        copy: "Joan has that kind of presence that makes the world calm down a little. She feels like sweetness, comfort, and the kind of beauty that stays in your head."
       },
       flirty: {
-        command: "$ ./love-note --mode flirty",
-        title: "Your face is honestly doing too much in the best possible way.",
-        copy: "Pretty girl, your smile has no business being that powerful. It ruins my focus, improves my mood, and makes me want to flirt with you immediately."
+        command: "Pretty Joan",
+        title: "Joan really is too pretty for peace of mind.",
+        copy: "That smile, that face, that whole soft look Joan carries around so casually... it is almost unfair how lovely she is."
       },
       cosmic: {
-        command: "$ ./love-note --mode cosmic",
-        title: "If the universe had a favorite constellation, I still think it would be jealous of you.",
-        copy: "You make ordinary minutes feel star-lit. Even in full nerd mode, the math stays simple: my world gets better when you are in it."
+        command: "Dreamy Joan",
+        title: "Even the night sky would have to work hard to glow like Joan.",
+        copy: "There is something dreamy about Joan. She makes ordinary moments feel prettier, slower, and a little more magical."
       }
     };
 
     const noteLines = [
-      "You are so pretty it feels like cheating.",
-      "I like you in a very intentional, very not-casual way.",
-      "I could see a lot of beautiful future moments with you in them.",
-      "You are exactly the kind of girl worth writing code and love notes for."
+      "Joan is so pretty it almost feels unreal for a second.",
+      "Joan deserves to be loved gently and admired loudly.",
+      "It is very easy to imagine beautiful future moments with Joan in them.",
+      "Joan, my lady, is the kind of girl sweetness was made for."
     ];
 
     const sparkLines = [
-      "signal++ : affection levels rising",
-      "romance module loaded successfully",
-      "pretty-girl protocol confirmed",
-      "heart buffer almost full",
-      "final state: Joan is very, very loved"
+      "Joan makes the whole page feel warmer.",
+      "One more little glow for Joan.",
+      "The mood gets softer when Joan is the center of it.",
+      "The page is almost glowing as brightly as Joan.",
+      "Joan is, and will remain, very deeply admired."
     ];
 
     const modeButtons = document.querySelectorAll(".mode-btn");
@@ -599,7 +665,7 @@
       button.addEventListener("click", () => {
         const index = Number(button.dataset.note);
         button.classList.add("revealed");
-        button.innerHTML = "<strong>opened_" + (index + 1) + ".txt</strong><span>" + noteLines[index] + "</span>";
+        button.innerHTML = "<strong>For Joan</strong><span>" + noteLines[index] + "</span>";
       }, { once: true });
     });
 
@@ -611,7 +677,7 @@
         sparkLog.textContent = sparkLines[level];
         level += 1;
       } else {
-        sparkLog.textContent = "loop(): still in love, still choosing Joan, still not over her smile.";
+        sparkLog.textContent = "Joan has filled this whole page with glow.";
       }
     });
   </script>
