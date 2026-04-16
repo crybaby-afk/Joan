@@ -60,13 +60,13 @@
     h2{font-size:clamp(1.55rem,4vw,2.45rem);margin-bottom:10px}
     .hero-copy{max-width:48rem;margin:0 auto;font-size:1.05rem}
     .hero-quote{margin:22px auto 0;max-width:42rem;padding:18px;border-radius:var(--radius-lg);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:1.08rem;color:#fff0dd}
-    .hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid{display:grid;gap:16px}
+    .hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.constellation-grid{display:grid;gap:16px}
     .hero-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px;text-align:left}
     .main-stack{display:grid;gap:18px;margin-top:18px}
     .two-up{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
     .section-label{margin-bottom:14px}
-    .mini-card,.meter-card,.story-card,.drawer-card,.photo-card,.display-box,.quiet-box,.linger-box{padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08)}
-    .mini-card strong,.meter-card strong,.story-card strong,.drawer-card strong,.photo-card strong{display:block;margin-bottom:6px}
+    .mini-card,.meter-card,.story-card,.drawer-card,.photo-card,.display-box,.quiet-box,.linger-box,.constellation-card{padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08)}
+    .mini-card strong,.meter-card strong,.story-card strong,.drawer-card strong,.photo-card strong,.constellation-card strong{display:block;margin-bottom:6px}
     .display-box .mini,.quiet-box .mini{display:block;margin-bottom:8px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-size:.77rem}
     .choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px}
     .choice-btn{width:100%;padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08);text-align:left;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
@@ -85,6 +85,8 @@
     .drawer-card{cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
     .drawer-card:hover,.drawer-card.open{transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(255,216,173,.25)}
     .drawer-card p{min-height:72px}
+    .constellation-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .constellation-card{min-height:170px}
     .linger-box{text-align:center}
     .linger-copy{max-width:40rem;margin:0 auto 16px}
     .photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -95,7 +97,7 @@
     .footer{text-align:center;color:var(--muted);font-size:.94rem;padding-top:6px}
     @keyframes sparkleFloat{0%,100%{opacity:0;transform:translateY(8px) scale(.7)}30%{opacity:.95;transform:translateY(0) scale(1)}72%{opacity:.42;transform:translateY(-11px) scale(.84)}}
     @keyframes pulseLine{0%,100%{opacity:.45;transform:scaleX(.92)}50%{opacity:1;transform:scaleX(1)}}
-    @media (max-width:900px){.hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.choice-grid,.two-up{grid-template-columns:1fr}.shell{width:min(100% - 18px,1100px)}.hero,.card,.gate-card{padding:20px 16px}.gate-actions,.quiet-actions{flex-direction:column}.gate-btn,.upload-label,.comfort-btn{width:100%}}
+    @media (max-width:900px){.hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.choice-grid,.two-up,.constellation-grid{grid-template-columns:1fr}.shell{width:min(100% - 18px,1100px)}.hero,.card,.gate-card{padding:20px 16px}.gate-actions,.quiet-actions{flex-direction:column}.gate-btn,.upload-label,.comfort-btn{width:100%}}
   </style>
 </head>
 <body class="locked">
@@ -136,34 +138,34 @@
   <main class="shell hidden-world" id="main-world">
     <section class="hero">
       <span class="badge">For Joan, My Lady</span>
-      <h1>Some girls do not enter a room.<br>They change the feeling of it.</h1>
-      <p class="hero-copy">This little world is not here to be random or loud. It is here to feel soft, admiring, and completely centered on the kind of girl who can make an ordinary day feel more alive.</p>
-      <div class="hero-quote" id="hero-quote">You have the kind of presence that makes people look twice and then stay there a little longer than they planned.</div>
+      <h1>Some people are liked.<br>Some people are felt.</h1>
+      <p class="hero-copy">This page should feel like a pause in the noise. Not just admiration thrown at a pretty girl, but the quieter truth that someone can become part of your inner atmosphere without even trying.</p>
+      <div class="hero-quote" id="hero-quote">There is something about you that does not stop at being seen. It settles in the mind, the mood, and the soft part of memory.</div>
       <div class="hero-grid">
-        <div class="mini-card"><strong>Pretty</strong><p>Not in a passing way. In a way that lingers.</p></div>
-        <div class="mini-card"><strong>Soft</strong><p>The kind of softness that calms a whole mood.</p></div>
-        <div class="mini-card"><strong>Unforgettable</strong><p>Once you are felt properly, you stay with people.</p></div>
+        <div class="mini-card"><strong>Seen</strong><p>Like someone paid attention instead of just looking quickly.</p></div>
+        <div class="mini-card"><strong>Chosen</strong><p>Like the page knew exactly who it was waiting for.</p></div>
+        <div class="mini-card"><strong>Remembered</strong><p>Like her effect does not end when the moment ends.</p></div>
       </div>
     </section>
     <section class="main-stack">
       <article class="card">
-        <span class="section-label">Joan Meter</span>
+        <span class="section-label">What She Does</span>
         <div class="meter-grid">
           <div class="meter-card">
-            <strong>Pretty Level</strong>
-            <p>The kind that rises too fast for language to catch it.</p>
+            <strong>Changes The Mood</strong>
+            <p>The room does not stay emotionally neutral after her.</p>
             <div class="meter-track"><div class="meter-fill" data-fill="96"></div></div>
             <div class="meter-value">96%</div>
           </div>
           <div class="meter-card">
-            <strong>Softness Level</strong>
-            <p>The mood changes the second she is imagined inside it.</p>
+            <strong>Stays In The Mind</strong>
+            <p>The thinking does not stop where the moment stopped.</p>
             <div class="meter-track"><div class="meter-fill" data-fill="93"></div></div>
             <div class="meter-value">93%</div>
           </div>
           <div class="meter-card">
-            <strong>Stays On The Mind</strong>
-            <p>There are some girls you think about twice. Then all day.</p>
+            <strong>Feels Like Home</strong>
+            <p>Not ordinary comfort. The dangerous kind that matters.</p>
             <div class="meter-track"><div class="meter-fill" data-fill="98"></div></div>
             <div class="meter-value">98%</div>
           </div>
@@ -171,16 +173,16 @@
       </article>
       <div class="two-up">
         <article class="card">
-          <span class="section-label">Choose Your Joan</span>
+          <span class="section-label">Ways She Lands</span>
           <div class="choice-grid">
-            <button class="choice-btn active" data-mode="sweet"><strong>Sweet Joan</strong><p>The soft version that melts the air a little.</p></button>
-            <button class="choice-btn" data-mode="danger"><strong>Dangerously Pretty</strong><p>The version that makes staring feel natural.</p></button>
-            <button class="choice-btn" data-mode="softgirl"><strong>Soft Girl</strong><p>The version that makes everything feel calmer.</p></button>
+            <button class="choice-btn active" data-mode="pull"><strong>The Pull</strong><p>The way she draws the mind back to her.</p></button>
+            <button class="choice-btn" data-mode="peace"><strong>The Peace</strong><p>The version of her that quiets the day.</p></button>
+            <button class="choice-btn" data-mode="ache"><strong>The Ache</strong><p>The part that lingers when she is not near.</p></button>
           </div>
           <div class="display-box">
-            <span class="mini" id="mode-kicker">Sweet Joan</span>
-            <h2 id="mode-title">She makes softness look easy.</h2>
-            <p id="mode-copy">There is a version of her that feels like warm light, slow eye contact, and a sweetness that does not need to announce itself to be felt.</p>
+            <span class="mini" id="mode-kicker">The Pull</span>
+            <h2 id="mode-title">She has a way of returning to the mind on her own.</h2>
+            <p id="mode-copy">Not because someone is trying too hard to think about her, but because she left a shape behind in the mood and it keeps softly calling attention back to itself.</p>
           </div>
         </article>
         <article class="card">
@@ -201,39 +203,39 @@
         </article>
       </div>
       <article class="card">
-        <span class="section-label">Three Little Truths</span>
-        <div class="story-grid">
-          <div class="story-card"><strong>She is easy to admire.</strong><p>Not because admiration is cheap, but because some people carry a natural beauty that makes it impossible not to notice.</p></div>
-          <div class="story-card"><strong>She softens the mood.</strong><p>There are girls who make a whole atmosphere feel lighter just by existing inside it.</p></div>
-          <div class="story-card"><strong>She stays on the mind.</strong><p>The kind of girl who leaves an afterglow even when the moment is over.</p></div>
+        <span class="section-label">If She Was A Constellation</span>
+        <div class="constellation-grid">
+          <div class="constellation-card"><strong>The First Look</strong><p>The point where admiration begins before words have caught up.</p></div>
+          <div class="constellation-card"><strong>The Stayed Thought</strong><p>The part of her that remains long after the screen goes dark again.</p></div>
+          <div class="constellation-card"><strong>The Soft Return</strong><p>The reason the mind circles back when it wants something gentle.</p></div>
         </div>
       </article>
       <div class="two-up">
         <article class="card">
           <span class="section-label">Private Drawer</span>
           <div class="drawer-grid">
-            <button class="drawer-card" data-drawer="0"><strong>Open when she wants reassurance</strong><p>There is something waiting in here that steadies the heart.</p></button>
-            <button class="drawer-card" data-drawer="1"><strong>Open when she wants to feel pretty</strong><p>A softer reminder for the girl in the mirror.</p></button>
-            <button class="drawer-card" data-drawer="2"><strong>Open when she wants tenderness</strong><p>The gentlest drawer in the whole page.</p></button>
+            <button class="drawer-card" data-drawer="0"><strong>Open when she feels unnoticed</strong><p>Something here is meant to correct that quickly.</p></button>
+            <button class="drawer-card" data-drawer="1"><strong>Open when she doubts her beauty</strong><p>A line that should land right where that doubt lives.</p></button>
+            <button class="drawer-card" data-drawer="2"><strong>Open when she wants to be held softly</strong><p>The tenderest drawer in the room.</p></button>
           </div>
         </article>
         <article class="card">
-          <span class="section-label">Promises In A Soft Voice</span>
-          <h2>Nothing loud. Just care.</h2>
+          <span class="section-label">Things She Deserves</span>
+          <h2>Not vaguely. Specifically.</h2>
           <div class="promise-list">
-            <div class="promise-item">To keep making room for softness around her.</div>
-            <div class="promise-item">To keep noticing the little things that make her lovely.</div>
-            <div class="promise-item">To keep answering heavy days with gentleness.</div>
-            <div class="promise-item">To keep making beauty feel personal, not generic.</div>
+            <div class="promise-item">To be spoken to like she is precious and not ordinary.</div>
+            <div class="promise-item">To be remembered in the middle of random hours.</div>
+            <div class="promise-item">To be met with gentleness when the day has been ugly.</div>
+            <div class="promise-item">To feel chosen, not just complimented.</div>
           </div>
         </article>
       </div>
       <article class="card">
-        <span class="section-label">Stay Here A Little Longer</span>
+        <span class="section-label">The Part That Lingers</span>
         <div class="linger-box">
-          <h2>One more sweet thing before you go.</h2>
-          <p class="linger-copy" id="linger-copy">This page does not need to end quickly. It can linger around her a little the way a lovely thought does.</p>
-          <button class="comfort-btn primary" id="linger-btn">One more sweet thing</button>
+          <h2>Do not leave too fast.</h2>
+          <p class="linger-copy" id="linger-copy">The nicest feelings are usually the ones that do not rush themselves. Press again and let one more thought stay beside her.</p>
+          <button class="comfort-btn primary" id="linger-btn">Stay with one more thought</button>
         </div>
       </article>
       <article class="card">
@@ -274,10 +276,10 @@
     const leaveBtn=document.getElementById('leave-btn');
     const continueBtn=document.getElementById('continue-btn');
     const unlockPassword='joan';
-    const modes={sweet:{kicker:'Sweet Joan',title:'She makes softness look easy.',copy:'There is a version of her that feels like warm light, slow eye contact, and a sweetness that does not need to announce itself to be felt.',quote:'She has the kind of sweetness that does not fade when the moment ends. It follows you a little.'},danger:{kicker:'Dangerously Pretty',title:'She can be too pretty for a normal reaction.',copy:'There is a kind of beauty that interrupts thought. The kind that makes a room go a little slower because the eyes are busy staying there.',quote:'Some girls are pretty. Some girls are the reason people forget the sentence they were about to say.'},softgirl:{kicker:'Soft Girl',title:'She makes everything around her feel gentler.',copy:'The quiet version of beauty can be the strongest one. A softer face, a softer aura, and suddenly the whole world stops trying so hard.',quote:'If peace ever needed a face for one evening, it could borrow something from hers.'}};
-    const comfortLines=['You are still lovely, still worth softness, and still deeply deserving of a gentler day than the one you got.','Breathe slowly, pretty girl. Nothing needs to be solved all at once tonight.','Tomorrow does not need to rush you. For now, just rest inside a little warmth and let the day loosen its grip.'];
-    const drawerLines=['Even on a messy day, nothing takes away the softness that belongs to you naturally.','Pretty is not a favor the light does for you. It is something you carry into the light with you.','You deserve tenderness in the exact tone that makes your shoulders drop and your heart unclench.'];
-    const lingerLines=['You do not have to rush out of softness when you finally find it.','Some girls deserve a page that lingers around them the way perfume lingers in a room.','If the day forgot to be gentle with you, this can do a little of that work instead.','There is something lovely about letting admiration stay quiet, close, and real.'];
+    const modes={pull:{kicker:'The Pull',title:'She has a way of returning to the mind on her own.',copy:'Not because someone is trying too hard to think about her, but because she left a shape behind in the mood and it keeps softly calling attention back to itself.',quote:'There are people you notice, and then there are people who quietly begin living in the background of your thoughts. She feels like the second kind.'},peace:{kicker:'The Peace',title:'She makes harsh things feel less harsh.',copy:'There is a kind of presence that does not need noise to be powerful. It just settles beside the day and makes everything breathe a little easier.',quote:'If comfort ever decided to look beautiful for a day, it could borrow some of its energy from her.'},ache:{kicker:'The Ache',title:'Even missing her has softness in it.',copy:'The deeper feelings are not always loud. Sometimes they are just the quiet realization that someone has started mattering in a way that does not easily switch off.',quote:'The ache is gentle, but that is exactly why it is dangerous. It means she reached somewhere real.'}};
+    const comfortLines=['If today was unkind, let this interrupt it for a second: you are still deeply worth softness, care, and a gentler kind of love than the day gave you.','Breathe, beautiful girl. Not everything heavy needs to be carried tonight. Some of it can wait outside the door while you rest for a while.','You do not have to perform strength every minute. You are allowed to be soft, tired, quiet, and still completely worthy of tenderness.'];
+    const drawerLines=['You are not easy to overlook once someone has truly felt your presence. Even your softness has a way of leaving a mark.','Your beauty is not dependent on a perfect day, a perfect mirror, or a perfect angle. It travels with you. It is already yours.','If there was a gentler place than this page, it would probably still be trying to learn from the kind of softness you deserve.'];
+    const lingerLines=['Some feelings are too good to rush. This can stay beside you a little longer.','You do not need a crowd of words. Sometimes one honest soft thought can do more than all the noisy ones.','There is something intimate about being thought of carefully, and that is what this page is trying to do for you.','If this made you feel a little more seen, then it already became something worth keeping.'];
     const modeButtons=document.querySelectorAll('[data-mode]');
     const comfortButtons=document.querySelectorAll('[data-comfort]');
     const drawerButtons=document.querySelectorAll('[data-drawer]');
