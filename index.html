@@ -60,24 +60,33 @@
     h2{font-size:clamp(1.55rem,4vw,2.45rem);margin-bottom:10px}
     .hero-copy{max-width:48rem;margin:0 auto;font-size:1.05rem}
     .hero-quote{margin:22px auto 0;max-width:42rem;padding:18px;border-radius:var(--radius-lg);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:1.08rem;color:#fff0dd}
-    .hero-grid,.story-grid,.thought-grid,.photo-grid{display:grid;gap:16px}
+    .hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid{display:grid;gap:16px}
     .hero-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px;text-align:left}
     .main-stack{display:grid;gap:18px;margin-top:18px}
     .two-up{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
     .section-label{margin-bottom:14px}
-    .mini-card,.story-card,.thought-card,.photo-card,.display-box,.quiet-box{padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08)}
-    .mini-card strong,.story-card strong,.thought-card strong,.photo-card strong{display:block;margin-bottom:6px}
+    .mini-card,.meter-card,.story-card,.drawer-card,.photo-card,.display-box,.quiet-box,.linger-box{padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08)}
+    .mini-card strong,.meter-card strong,.story-card strong,.drawer-card strong,.photo-card strong{display:block;margin-bottom:6px}
     .display-box .mini,.quiet-box .mini{display:block;margin-bottom:8px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-size:.77rem}
     .choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px}
     .choice-btn{width:100%;padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08);text-align:left;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
     .choice-btn:hover,.choice-btn.active{transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(255,216,173,.25)}
     .choice-btn strong{display:block;margin-bottom:6px}
+    .meter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .meter-track{margin-top:14px;height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+    .meter-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,rgba(255,156,188,.92),rgba(255,216,173,.92));transition:width .8s ease}
+    .meter-value{margin-top:10px;color:#fff0dd;font-size:1rem}
     .story-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .thought-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .drawer-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     .quiet-box{min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
     .quiet-output{margin-top:14px;padding:16px;border-radius:var(--radius-md);background:rgba(255,156,188,.08);border:1px solid rgba(255,156,188,.16);min-height:98px}
     .promise-list{display:grid;gap:12px;margin-top:10px}
     .promise-item{padding:14px 16px;border-radius:var(--radius-md);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+    .drawer-card{cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
+    .drawer-card:hover,.drawer-card.open{transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(255,216,173,.25)}
+    .drawer-card p{min-height:72px}
+    .linger-box{text-align:center}
+    .linger-copy{max-width:40rem;margin:0 auto 16px}
     .photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     .photo-card{min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;background:linear-gradient(180deg,transparent,rgba(17,7,20,.78)),linear-gradient(135deg,#7e375c,#3b1734)}
     .photo-card.has-image{background-size:cover;background-position:center}
@@ -86,7 +95,7 @@
     .footer{text-align:center;color:var(--muted);font-size:.94rem;padding-top:6px}
     @keyframes sparkleFloat{0%,100%{opacity:0;transform:translateY(8px) scale(.7)}30%{opacity:.95;transform:translateY(0) scale(1)}72%{opacity:.42;transform:translateY(-11px) scale(.84)}}
     @keyframes pulseLine{0%,100%{opacity:.45;transform:scaleX(.92)}50%{opacity:1;transform:scaleX(1)}}
-    @media (max-width:900px){.hero-grid,.story-grid,.thought-grid,.photo-grid,.choice-grid,.two-up{grid-template-columns:1fr}.shell{width:min(100% - 18px,1100px)}.hero,.card,.gate-card{padding:20px 16px}.gate-actions,.quiet-actions{flex-direction:column}.gate-btn,.upload-label,.comfort-btn{width:100%}}
+    @media (max-width:900px){.hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.choice-grid,.two-up{grid-template-columns:1fr}.shell{width:min(100% - 18px,1100px)}.hero,.card,.gate-card{padding:20px 16px}.gate-actions,.quiet-actions{flex-direction:column}.gate-btn,.upload-label,.comfort-btn{width:100%}}
   </style>
 </head>
 <body class="locked">
@@ -137,18 +146,41 @@
       </div>
     </section>
     <section class="main-stack">
+      <article class="card">
+        <span class="section-label">Joan Meter</span>
+        <div class="meter-grid">
+          <div class="meter-card">
+            <strong>Pretty Level</strong>
+            <p>The kind that rises too fast for language to catch it.</p>
+            <div class="meter-track"><div class="meter-fill" data-fill="96"></div></div>
+            <div class="meter-value">96%</div>
+          </div>
+          <div class="meter-card">
+            <strong>Softness Level</strong>
+            <p>The mood changes the second she is imagined inside it.</p>
+            <div class="meter-track"><div class="meter-fill" data-fill="93"></div></div>
+            <div class="meter-value">93%</div>
+          </div>
+          <div class="meter-card">
+            <strong>Stays On The Mind</strong>
+            <p>There are some girls you think about twice. Then all day.</p>
+            <div class="meter-track"><div class="meter-fill" data-fill="98"></div></div>
+            <div class="meter-value">98%</div>
+          </div>
+        </div>
+      </article>
       <div class="two-up">
         <article class="card">
-          <span class="section-label">What Feels True</span>
+          <span class="section-label">Choose Your Joan</span>
           <div class="choice-grid">
-            <button class="choice-btn active" data-mode="admire"><strong>Admire Her</strong><p>The view when everything feels softer.</p></button>
-            <button class="choice-btn" data-mode="miss"><strong>Miss Her</strong><p>The ache in a beautiful form.</p></button>
-            <button class="choice-btn" data-mode="future"><strong>Picture Her</strong><p>The version where tomorrow already looks better.</p></button>
+            <button class="choice-btn active" data-mode="sweet"><strong>Sweet Joan</strong><p>The soft version that melts the air a little.</p></button>
+            <button class="choice-btn" data-mode="danger"><strong>Dangerously Pretty</strong><p>The version that makes staring feel natural.</p></button>
+            <button class="choice-btn" data-mode="softgirl"><strong>Soft Girl</strong><p>The version that makes everything feel calmer.</p></button>
           </div>
           <div class="display-box">
-            <span class="mini" id="mode-kicker">Admire Her</span>
-            <h2 id="mode-title">She makes sweetness feel effortless.</h2>
-            <p id="mode-copy">Some girls do not need to force anything. Their softness, beauty, and little way of being simply arrive and change the whole atmosphere.</p>
+            <span class="mini" id="mode-kicker">Sweet Joan</span>
+            <h2 id="mode-title">She makes softness look easy.</h2>
+            <p id="mode-copy">There is a version of her that feels like warm light, slow eye contact, and a sweetness that does not need to announce itself to be felt.</p>
           </div>
         </article>
         <article class="card">
@@ -178,12 +210,11 @@
       </article>
       <div class="two-up">
         <article class="card">
-          <span class="section-label">A Few Sweet Thoughts</span>
-          <div class="thought-grid">
-            <button class="choice-btn thought-btn" data-thought="0"><strong>Open this one</strong><p>A soft line about her effect.</p></button>
-            <button class="choice-btn thought-btn" data-thought="1"><strong>Open this too</strong><p>A warmer line for her heart.</p></button>
-            <button class="choice-btn thought-btn" data-thought="2"><strong>And this one</strong><p>A line about the way she stays.</p></button>
-            <button class="choice-btn thought-btn" data-thought="3"><strong>Last one</strong><p>A line meant to land softly.</p></button>
+          <span class="section-label">Private Drawer</span>
+          <div class="drawer-grid">
+            <button class="drawer-card" data-drawer="0"><strong>Open when she wants reassurance</strong><p>There is something waiting in here that steadies the heart.</p></button>
+            <button class="drawer-card" data-drawer="1"><strong>Open when she wants to feel pretty</strong><p>A softer reminder for the girl in the mirror.</p></button>
+            <button class="drawer-card" data-drawer="2"><strong>Open when she wants tenderness</strong><p>The gentlest drawer in the whole page.</p></button>
           </div>
         </article>
         <article class="card">
@@ -197,6 +228,14 @@
           </div>
         </article>
       </div>
+      <article class="card">
+        <span class="section-label">Stay Here A Little Longer</span>
+        <div class="linger-box">
+          <h2>One more sweet thing before you go.</h2>
+          <p class="linger-copy" id="linger-copy">This page does not need to end quickly. It can linger around her a little the way a lovely thought does.</p>
+          <button class="comfort-btn primary" id="linger-btn">One more sweet thing</button>
+        </div>
+      </article>
       <article class="card">
         <span class="section-label">A Place For Her Photos</span>
         <h2>Give this page her real face and it will come alive even more.</h2>
@@ -235,27 +274,33 @@
     const leaveBtn=document.getElementById('leave-btn');
     const continueBtn=document.getElementById('continue-btn');
     const unlockPassword='joan';
-    const modes={admire:{kicker:'Admire Her',title:'She makes sweetness feel effortless.',copy:'Some girls do not need to force anything. Their softness, beauty, and little way of being simply arrive and change the whole atmosphere.',quote:'You have the kind of presence that makes people look twice and then stay there a little longer than they planned.'},miss:{kicker:'Miss Her',title:'Missing her still feels tender.',copy:'There is a certain ache that only comes from someone who made the hours feel fuller, prettier, and more alive.',quote:'Even absence feels shaped by you, because once a mood has known your softness it does not forget it quickly.'},future:{kicker:'Picture Her',title:'Tomorrow looks better with her in it.',copy:'Some people make future moments seem warmer before they even arrive. Just imagining them there changes the whole picture.',quote:'A lot of beautiful futures begin with something simple: the right girl standing in the center of them.'}};
+    const modes={sweet:{kicker:'Sweet Joan',title:'She makes softness look easy.',copy:'There is a version of her that feels like warm light, slow eye contact, and a sweetness that does not need to announce itself to be felt.',quote:'She has the kind of sweetness that does not fade when the moment ends. It follows you a little.'},danger:{kicker:'Dangerously Pretty',title:'She can be too pretty for a normal reaction.',copy:'There is a kind of beauty that interrupts thought. The kind that makes a room go a little slower because the eyes are busy staying there.',quote:'Some girls are pretty. Some girls are the reason people forget the sentence they were about to say.'},softgirl:{kicker:'Soft Girl',title:'She makes everything around her feel gentler.',copy:'The quiet version of beauty can be the strongest one. A softer face, a softer aura, and suddenly the whole world stops trying so hard.',quote:'If peace ever needed a face for one evening, it could borrow something from hers.'}};
     const comfortLines=['You are still lovely, still worth softness, and still deeply deserving of a gentler day than the one you got.','Breathe slowly, pretty girl. Nothing needs to be solved all at once tonight.','Tomorrow does not need to rush you. For now, just rest inside a little warmth and let the day loosen its grip.'];
-    const thoughtLines=['Some girls are beautiful. Some girls make beauty feel personal. You feel like the second kind.','You carry a softness that does not ask for attention and still ends up owning the room.','There is something about you that keeps returning to the mind even after everything else has gone quiet.','If sweetness ever needed a face, it could borrow a little from yours.'];
+    const drawerLines=['Even on a messy day, nothing takes away the softness that belongs to you naturally.','Pretty is not a favor the light does for you. It is something you carry into the light with you.','You deserve tenderness in the exact tone that makes your shoulders drop and your heart unclench.'];
+    const lingerLines=['You do not have to rush out of softness when you finally find it.','Some girls deserve a page that lingers around them the way perfume lingers in a room.','If the day forgot to be gentle with you, this can do a little of that work instead.','There is something lovely about letting admiration stay quiet, close, and real.'];
     const modeButtons=document.querySelectorAll('[data-mode]');
     const comfortButtons=document.querySelectorAll('[data-comfort]');
-    const thoughtButtons=document.querySelectorAll('[data-thought]');
+    const drawerButtons=document.querySelectorAll('[data-drawer]');
+    const meterFills=document.querySelectorAll('[data-fill]');
     const modeKicker=document.getElementById('mode-kicker');
     const modeTitle=document.getElementById('mode-title');
     const modeCopy=document.getElementById('mode-copy');
     const heroQuote=document.getElementById('hero-quote');
     const quietOutput=document.getElementById('quiet-output');
+    const lingerCopy=document.getElementById('linger-copy');
+    const lingerBtn=document.getElementById('linger-btn');
     const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
     const unlockWorld=()=>{entryScreen.style.display='none';welcomeScreen.classList.add('show');welcomeScreen.setAttribute('aria-hidden','false');};
     const openMainWorld=()=>{welcomeScreen.classList.remove('show');welcomeScreen.setAttribute('aria-hidden','true');document.body.classList.remove('locked');mainWorld.classList.add('open');};
+    const animateMeters=()=>{meterFills.forEach((fill)=>{fill.style.width=fill.dataset.fill+'%';});};
     enterBtn.addEventListener('click',()=>{if(gateInput.value.trim().toLowerCase()===unlockPassword){gateNote.textContent='';unlockWorld();}else{gateNote.textContent='That is not the word meant for this girl.';}});
     gateInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){enterBtn.click();}});
     leaveBtn.addEventListener('click',()=>{window.location.replace('about:blank');});
-    continueBtn.addEventListener('click',openMainWorld);
+    continueBtn.addEventListener('click',()=>{openMainWorld();setTimeout(animateMeters,180);});
     modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode];modeButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');modeKicker.textContent=mood.kicker;modeTitle.textContent=mood.title;modeCopy.textContent=mood.copy;heroQuote.textContent=mood.quote;}));
     comfortButtons.forEach((button)=>button.addEventListener('click',()=>{quietOutput.textContent=comfortLines[Number(button.dataset.comfort)];comfortButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');}));
-    thoughtButtons.forEach((button)=>button.addEventListener('click',()=>{button.innerHTML='<strong>Keep this one</strong><p>'+thoughtLines[Number(button.dataset.thought)]+'</p>';button.classList.add('active');},{once:true}));
+    drawerButtons.forEach((button)=>button.addEventListener('click',()=>{drawerButtons.forEach((item)=>item.classList.remove('open'));button.classList.add('open');button.innerHTML='<strong>Keep this close</strong><p>'+drawerLines[Number(button.dataset.drawer)]+'</p>';}));
+    lingerBtn.addEventListener('click',()=>{lingerCopy.textContent=lingerLines[Math.floor(Math.random()*lingerLines.length)];});
     photoInputs.forEach(({input,target})=>input.addEventListener('change',()=>{const file=input.files&&input.files[0];if(!file){return;}const url=URL.createObjectURL(file);target.style.backgroundImage="linear-gradient(180deg, transparent, rgba(17, 7, 20, 0.78)), url('"+url+"')";target.classList.add('has-image');}));
   </script>
 </body>
