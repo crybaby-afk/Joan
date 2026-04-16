@@ -4,87 +4,104 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Joan, My Lady</title>
-  <meta name="description" content="A soft romantic page for Joan.">
+  <meta name="description" content="A private romantic page made for Joan.">
   <style>
-    :root { --bg-top:#1c1027; --bg-mid:#341742; --bg-bottom:#5c2861; --panel:rgba(54,24,64,.88); --panel-soft:rgba(255,255,255,.06); --border:rgba(255,220,235,.16); --text:#fff7fb; --muted:#e8d0df; --rose:#ff8dbb; --peach:#ffd8ad; --shadow:0 24px 60px rgba(20,8,26,.32); --radius-xl:28px; --radius-lg:22px; --radius-md:16px; }
+    :root{--bg-1:#140916;--bg-2:#311130;--bg-3:#6f2f59;--panel-soft:rgba(255,255,255,.07);--line:rgba(255,230,238,.14);--text:#fff8fb;--muted:#edd9e5;--rose:#ff9cbc;--gold:#ffd8ad;--shadow:0 28px 80px rgba(8,3,13,.36);--radius-xl:34px;--radius-lg:24px;--radius-md:18px}
     *{box-sizing:border-box;margin:0;padding:0}
     *::before,*::after{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{min-height:100vh;font-family:Georgia,"Times New Roman",serif;color:var(--text);background:radial-gradient(circle at top right,rgba(255,141,187,.18),transparent 24%),radial-gradient(circle at left center,rgba(255,216,173,.12),transparent 28%),linear-gradient(180deg,var(--bg-top) 0%,var(--bg-mid) 52%,var(--bg-bottom) 100%);line-height:1.7;overflow-x:hidden}
+    body{min-height:100vh;font-family:Georgia,"Times New Roman",serif;color:var(--text);background:radial-gradient(circle at 15% 15%,rgba(255,156,188,.18),transparent 24%),radial-gradient(circle at 82% 10%,rgba(255,216,173,.14),transparent 20%),radial-gradient(circle at 50% 100%,rgba(255,112,164,.16),transparent 30%),linear-gradient(180deg,var(--bg-1) 0%,var(--bg-2) 48%,var(--bg-3) 100%);line-height:1.65;overflow-x:hidden}
     body.locked{overflow:hidden}
     body,button,input,label{font:inherit;color:inherit}
-    button{appearance:none;-webkit-appearance:none;background:none;border:none}
-    img{max-width:100%;display:block}
-    .entry-screen,.welcome-screen{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,rgba(255,170,204,.2),transparent 26%),linear-gradient(180deg,rgba(14,7,23,.9),rgba(27,10,36,.96))}
-    .welcome-screen{z-index:40;opacity:0;pointer-events:none;transition:opacity .45s ease}
-    .welcome-screen.show{opacity:1;pointer-events:auto}
-    .gate-card{width:min(100%,560px);padding:30px 24px;border-radius:32px;background:linear-gradient(180deg,rgba(74,31,87,.96),rgba(42,18,51,.98));border:1px solid rgba(255,220,235,.16);box-shadow:0 30px 90px rgba(8,3,15,.45);text-align:center}
-    .gate-card h1{font-size:clamp(2.3rem,6vw,4.1rem)}
-    .gate-card p{max-width:38rem;margin:0 auto}
-    .welcome-card{position:relative;overflow:hidden}
-    .sparkle-field{position:absolute;inset:0;pointer-events:none}
-    .sparkle{position:absolute;width:12px;height:12px;border-radius:999px;background:radial-gradient(circle,rgba(255,255,255,.95) 0%,rgba(255,216,173,.85) 35%,rgba(255,141,187,0) 72%);opacity:0;animation:sparkleFloat 3.8s ease-in-out infinite}
-    .sparkle:nth-child(1){top:18%;left:16%;animation-delay:.2s}
-    .sparkle:nth-child(2){top:28%;right:18%;animation-delay:1.1s}
-    .sparkle:nth-child(3){bottom:24%;left:22%;animation-delay:1.8s}
-    .sparkle:nth-child(4){bottom:18%;right:20%;animation-delay:2.5s}
-    .welcome-line{margin-top:14px;font-size:1.06rem;color:#fff3dd;opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
-    .welcome-screen.show .welcome-line{opacity:1;transform:translateY(0);transition-delay:.2s}
-    @keyframes sparkleFloat{
-      0%,100%{opacity:0;transform:translateY(8px) scale(.75)}
-      30%{opacity:.95;transform:translateY(0) scale(1)}
-      70%{opacity:.5;transform:translateY(-10px) scale(.85)}
-    }
-    .gate-form{display:grid;gap:14px;margin-top:22px}
-    .gate-input{width:100%;padding:15px 18px;border-radius:999px;border:1px solid rgba(255,220,235,.2);background:rgba(255,255,255,.08);color:var(--text);text-align:center;outline:none}
-    .gate-input::placeholder{color:rgba(255,247,251,.55)}
-    .gate-input:focus{border-color:rgba(255,216,173,.45);box-shadow:0 0 0 4px rgba(255,216,173,.1)}
-    .gate-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .gate-btn{min-width:160px;padding:13px 18px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.08);color:var(--text);cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
-    .gate-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.14);border-color:rgba(255,216,173,.3)}
-    .gate-btn.primary{background:linear-gradient(135deg,rgba(255,141,187,.28),rgba(255,216,173,.18));border-color:rgba(255,216,173,.35)}
-    .gate-note{min-height:26px;color:var(--peach);font-size:.98rem}
-    .hidden-world{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
-    .hidden-world.open{opacity:1;transform:translateY(0)}
-    .shell{width:min(1080px,calc(100% - 24px));margin:0 auto;padding:20px 0 40px}
-    .hero,.card{background:linear-gradient(180deg,rgba(60,26,72,.94),rgba(42,18,51,.98));border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow)}
-    .hero{padding:28px 24px;text-align:center}.card{padding:22px}
-    .badge,.section-label{display:inline-flex;width:fit-content;padding:8px 14px;border-radius:999px;background:rgba(255,141,187,.12);border:1px solid rgba(255,141,187,.2);color:var(--rose);text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}.badge{margin:0 auto 18px}.section-label{margin-bottom:14px}
+    button{appearance:none;-webkit-appearance:none;border:none;background:none}
+    img{display:block;max-width:100%}
     h1,h2,h3,strong{color:var(--text)}
-    h1,h2,h3{line-height:1.08;letter-spacing:-.03em;font-weight:600;text-wrap:balance}
-    h1{font-size:clamp(2.5rem,7vw,4.9rem);margin-bottom:14px}
-    h2{font-size:clamp(1.5rem,4vw,2.3rem);margin-bottom:10px}
-    p{color:var(--muted);max-width:68ch}
-    .hero p{max-width:52rem;margin:0 auto;font-size:1.04rem}
-    .hero-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px;text-align:left}
-    .hero-pill,.button-card,.memory-card,.photo-card,.display-box{padding:16px;border-radius:var(--radius-md);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08)}
-    .hero-pill strong,.button-card strong,.memory-card strong,.photo-card strong{display:block;margin-bottom:6px;color:var(--text)}
-    .main-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.mood-grid,.note-grid,.memory-grid,.photo-grid{display:grid;gap:14px}.mood-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:14px}.note-grid,.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.memory-grid{grid-template-columns:1fr}
-    .button-card{width:100%;text-align:left;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
-    .button-card p,.memory-card p,.photo-card p,.display-box p,.wish-log{max-width:none}
-    .button-card:hover,.button-card.active{transform:translateY(-2px);background:rgba(255,255,255,.09);border-color:rgba(255,216,173,.24)}
-    .display-box .mini{display:block;margin-bottom:8px;color:var(--peach);text-transform:uppercase;letter-spacing:.08em;font-size:.78rem}
-    .wish-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-    .wish-btn,.upload-label{padding:12px 16px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.07);color:var(--text);cursor:pointer;transition:transform .18s ease,background .18s ease;display:inline-flex;justify-content:center;align-items:center;text-decoration:none}
-    .wish-btn:hover,.upload-label:hover{transform:translateY(-2px);background:rgba(255,255,255,.12)}
-    .wish-log{margin-top:14px;min-height:88px;padding:16px;border-radius:var(--radius-md);background:rgba(255,141,187,.09);border:1px solid rgba(255,141,187,.18)}
-    .photo-card{min-height:250px;display:flex;flex-direction:column;justify-content:end;position:relative;overflow:hidden;background:linear-gradient(180deg,transparent,rgba(20,8,26,.7)),linear-gradient(135deg,#72336e,#3c1e45)} .photo-card.has-image{background-size:cover;background-position:center}
-    .photo-chip{position:absolute;top:14px;left:14px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);color:#fff1e8;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem} .file-input{display:none}
-    .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:.95rem}
-    @media (max-width:860px){.hero-strip,.main-grid,.mood-grid,.note-grid,.photo-grid{grid-template-columns:1fr}.shell{width:min(100% - 16px,1080px)}.hero,.card,.gate-card{padding:18px 16px}.wish-actions,.gate-actions{flex-direction:column}.wish-btn,.upload-label,.gate-btn{width:100%}}
+    h1,h2,h3{text-wrap:balance;line-height:1.05;letter-spacing:-.03em}
+    p{color:var(--muted)}
+    .shell{width:min(1100px,calc(100% - 28px));margin:0 auto;padding:22px 0 42px}
+    .entry-screen,.welcome-screen{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,rgba(255,168,200,.22),transparent 28%),radial-gradient(circle at bottom,rgba(255,216,173,.08),transparent 30%),linear-gradient(180deg,rgba(13,6,19,.93),rgba(28,10,34,.97))}
+    .welcome-screen{opacity:0;pointer-events:none;z-index:40;transition:opacity .45s ease}
+    .welcome-screen.show{opacity:1;pointer-events:auto}
+    .gate-card,.hero,.card{border:1px solid var(--line);border-radius:var(--radius-xl);background:linear-gradient(180deg,rgba(62,21,63,.9),rgba(32,12,35,.96));box-shadow:var(--shadow)}
+    .gate-card{width:min(100%,620px);padding:32px 26px;text-align:center;position:relative;overflow:hidden}
+    .entry-screen::before,.welcome-screen::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.06) 0 2px,transparent 3px),radial-gradient(circle at 75% 25%,rgba(255,255,255,.07) 0 2px,transparent 3px),radial-gradient(circle at 65% 78%,rgba(255,255,255,.05) 0 2px,transparent 3px),radial-gradient(circle at 35% 85%,rgba(255,255,255,.08) 0 2px,transparent 3px)}
+    .gate-card > *{position:relative;z-index:1}
+    .badge,.section-label{display:inline-flex;align-items:center;gap:8px;width:fit-content;padding:8px 14px;border-radius:999px;background:rgba(255,156,188,.11);border:1px solid rgba(255,156,188,.18);color:var(--rose);text-transform:uppercase;letter-spacing:.09em;font-size:.78rem}
+    .badge{margin:0 auto 16px}
+    .gate-card h1{font-size:clamp(2.5rem,6vw,4.4rem);margin-bottom:12px}
+    .gate-card p{max-width:38rem;margin:0 auto}
+    .gate-whisper{margin-top:16px;font-size:.96rem;color:#ffe7d0;opacity:.88}
+    .pulse-line{margin-top:22px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,216,173,.72),transparent);animation:pulseLine 2.3s ease-in-out infinite}
+    .gate-form{display:grid;gap:14px;margin-top:24px}
+    .gate-input{width:100%;padding:15px 18px;border-radius:999px;border:1px solid rgba(255,224,236,.2);background:rgba(255,255,255,.07);color:var(--text);text-align:center;outline:none}
+    .gate-input::placeholder{color:rgba(255,247,251,.56)}
+    .gate-input:focus{border-color:rgba(255,216,173,.46);box-shadow:0 0 0 4px rgba(255,216,173,.08)}
+    .gate-actions,.quiet-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .gate-btn,.upload-label,.comfort-btn{padding:13px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--text);cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+    .gate-btn:hover,.upload-label:hover,.comfort-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.12);border-color:rgba(255,216,173,.28)}
+    .gate-btn.primary,.comfort-btn.primary{background:linear-gradient(135deg,rgba(255,156,188,.28),rgba(255,216,173,.18));border-color:rgba(255,216,173,.34)}
+    .gate-note{min-height:28px;color:var(--gold)}
+    .welcome-card{position:relative}
+    .sparkle-field{position:absolute;inset:0;pointer-events:none}
+    .sparkle{position:absolute;width:14px;height:14px;border-radius:999px;background:radial-gradient(circle,rgba(255,255,255,.96) 0%,rgba(255,216,173,.86) 34%,rgba(255,156,188,0) 72%);opacity:0;animation:sparkleFloat 3.9s ease-in-out infinite}
+    .sparkle:nth-child(1){top:16%;left:15%;animation-delay:.2s}
+    .sparkle:nth-child(2){top:25%;right:16%;animation-delay:1s}
+    .sparkle:nth-child(3){bottom:22%;left:22%;animation-delay:1.8s}
+    .sparkle:nth-child(4){bottom:17%;right:20%;animation-delay:2.6s}
+    .welcome-line{margin-top:14px;font-size:1.05rem;color:#fff0d8;opacity:0;transform:translateY(12px);transition:opacity .65s ease,transform .65s ease}
+    .welcome-screen.show .welcome-line{opacity:1;transform:translateY(0);transition-delay:.18s}
+    .hidden-world{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+    .hidden-world.open{opacity:1;transform:translateY(0)}
+    .hero,.card{padding:28px 24px}
+    .hero{text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:auto -10% -30% -10%;height:260px;background:radial-gradient(circle,rgba(255,193,220,.16),transparent 58%)}
+    .hero > *{position:relative}
+    h1{font-size:clamp(2.8rem,7vw,5.4rem);margin-bottom:14px}
+    h2{font-size:clamp(1.55rem,4vw,2.45rem);margin-bottom:10px}
+    .hero-copy{max-width:48rem;margin:0 auto;font-size:1.05rem}
+    .hero-quote{margin:22px auto 0;max-width:42rem;padding:18px;border-radius:var(--radius-lg);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:1.08rem;color:#fff0dd}
+    .hero-grid,.story-grid,.thought-grid,.photo-grid{display:grid;gap:16px}
+    .hero-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px;text-align:left}
+    .main-stack{display:grid;gap:18px;margin-top:18px}
+    .two-up{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+    .section-label{margin-bottom:14px}
+    .mini-card,.story-card,.thought-card,.photo-card,.display-box,.quiet-box{padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08)}
+    .mini-card strong,.story-card strong,.thought-card strong,.photo-card strong{display:block;margin-bottom:6px}
+    .display-box .mini,.quiet-box .mini{display:block;margin-bottom:8px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-size:.77rem}
+    .choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px}
+    .choice-btn{width:100%;padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08);text-align:left;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease}
+    .choice-btn:hover,.choice-btn.active{transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(255,216,173,.25)}
+    .choice-btn strong{display:block;margin-bottom:6px}
+    .story-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .thought-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .quiet-box{min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+    .quiet-output{margin-top:14px;padding:16px;border-radius:var(--radius-md);background:rgba(255,156,188,.08);border:1px solid rgba(255,156,188,.16);min-height:98px}
+    .promise-list{display:grid;gap:12px;margin-top:10px}
+    .promise-item{padding:14px 16px;border-radius:var(--radius-md);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+    .photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .photo-card{min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;background:linear-gradient(180deg,transparent,rgba(17,7,20,.78)),linear-gradient(135deg,#7e375c,#3b1734)}
+    .photo-card.has-image{background-size:cover;background-position:center}
+    .photo-chip{position:absolute;top:14px;left:14px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);color:#fff0e6;text-transform:uppercase;letter-spacing:.07em;font-size:.72rem}
+    .file-input{display:none}
+    .footer{text-align:center;color:var(--muted);font-size:.94rem;padding-top:6px}
+    @keyframes sparkleFloat{0%,100%{opacity:0;transform:translateY(8px) scale(.7)}30%{opacity:.95;transform:translateY(0) scale(1)}72%{opacity:.42;transform:translateY(-11px) scale(.84)}}
+    @keyframes pulseLine{0%,100%{opacity:.45;transform:scaleX(.92)}50%{opacity:1;transform:scaleX(1)}}
+    @media (max-width:900px){.hero-grid,.story-grid,.thought-grid,.photo-grid,.choice-grid,.two-up{grid-template-columns:1fr}.shell{width:min(100% - 18px,1100px)}.hero,.card,.gate-card{padding:20px 16px}.gate-actions,.quiet-actions{flex-direction:column}.gate-btn,.upload-label,.comfort-btn{width:100%}}
   </style>
 </head>
 <body class="locked">
   <section class="entry-screen" id="entry-screen">
     <div class="gate-card">
-      <span class="badge">Private Entrance</span>
-      <h1>Are you Joan?</h1>
-      <p>This little world opens gently, but only for the right person. If it is really you, enter the password and step inside.</p>
+      <span class="badge">Only One Girl</span>
+      <h1>Are you really Joan?</h1>
+      <p>This page is not trying to be casual. It was made with one person in mind, and it only opens if the right girl says the right word.</p>
+      <p class="gate-whisper">If your heart just skipped a little, you might already know you belong here.</p>
+      <div class="pulse-line" aria-hidden="true"></div>
       <div class="gate-form">
         <input class="gate-input" id="gate-input" type="password" placeholder="Enter the password" autocomplete="off">
         <div class="gate-actions">
           <button class="gate-btn primary" id="enter-btn">Let me in</button>
-          <button class="gate-btn" id="leave-btn">No, take me out</button>
+          <button class="gate-btn" id="leave-btn">I am not her</button>
         </div>
         <p class="gate-note" id="gate-note"></p>
       </div>
@@ -99,69 +116,114 @@
         <span class="sparkle"></span>
       </div>
       <span class="badge">Welcome In</span>
-      <h1>Welcome, beautiful girl.</h1>
-      <p>You found the right word, and now this soft little space opens just for you. Take your time, look around, and enjoy every gentle thing waiting here.</p>
-      <p class="welcome-line">You were worth making a whole little world for.</p>
+      <h1>There you are.</h1>
+      <p>This was always yours the moment the right password touched the screen.</p>
+      <p class="welcome-line">You were worth making something tender, private, and beautiful for.</p>
       <div class="gate-actions" style="margin-top:20px;">
-        <button class="gate-btn primary" id="continue-btn">Open the page</button>
+        <button class="gate-btn primary" id="continue-btn">Step Inside</button>
       </div>
     </div>
   </section>
   <main class="shell hidden-world" id="main-world">
     <section class="hero">
       <span class="badge">For Joan, My Lady</span>
-      <h1>A softer, brighter little world.</h1>
-      <p>This version is rebuilt to keep the styling stable and the text fully visible. It keeps the romantic feeling, but with a cleaner layout that should render properly on both phone and desktop.</p>
-      <div class="hero-strip">
-        <div class="hero-pill"><strong>Soft</strong><p>Warm, gentle, easy to read.</p></div>
-        <div class="hero-pill"><strong>Lively</strong><p>Small interactions that keep it sweet.</p></div>
-        <div class="hero-pill"><strong>Personal</strong><p>Ready for real photos and little moments.</p></div>
+      <h1>Some girls do not enter a room.<br>They change the feeling of it.</h1>
+      <p class="hero-copy">This little world is not here to be random or loud. It is here to feel soft, admiring, and completely centered on the kind of girl who can make an ordinary day feel more alive.</p>
+      <div class="hero-quote" id="hero-quote">You have the kind of presence that makes people look twice and then stay there a little longer than they planned.</div>
+      <div class="hero-grid">
+        <div class="mini-card"><strong>Pretty</strong><p>Not in a passing way. In a way that lingers.</p></div>
+        <div class="mini-card"><strong>Soft</strong><p>The kind of softness that calms a whole mood.</p></div>
+        <div class="mini-card"><strong>Unforgettable</strong><p>Once you are felt properly, you stay with people.</p></div>
       </div>
     </section>
-    <section class="main-grid">
-      <article class="card">
-        <span class="section-label">Choose the Feeling</span>
-        <div class="mood-grid">
-          <button class="button-card active" data-mode="soft"><strong>Soft Glow</strong><p>Gentle and warm.</p></button>
-          <button class="button-card" data-mode="pretty"><strong>Pretty Light</strong><p>Sweet admiration.</p></button>
-          <button class="button-card" data-mode="dreamy"><strong>Dream Mood</strong><p>Slow and romantic.</p></button>
-        </div>
-        <div class="display-box"><span class="mini" id="mode-kicker">A Little Glow</span><h2 id="mode-title">When she is near, everything feels softer.</h2><p id="mode-copy">There is a kind of presence that makes a room feel lighter and a moment feel more beautiful.</p></div>
-      </article>
-      <article class="card">
-        <span class="section-label">Open Sweet Notes</span>
-        <div class="note-grid">
-          <button class="button-card note-card" data-note="0"><strong>Pretty Reminder</strong><p>A softer little line.</p></button>
-          <button class="button-card note-card" data-note="1"><strong>Warm Admiration</strong><p>A gentle note.</p></button>
-          <button class="button-card note-card" data-note="2"><strong>Future Light</strong><p>Hopeful and sweet.</p></button>
-          <button class="button-card note-card" data-note="3"><strong>Lovely Calm</strong><p>Softness that stays.</p></button>
-        </div>
-      </article>
-      <article class="card">
-        <span class="section-label">Wish Machine</span>
-        <div class="display-box"><span class="mini">A Little Wish</span><h2 id="wish-title">A room full of softer light.</h2><p id="wish-copy">Press the button and let the page answer with a warmer thought.</p></div>
-        <div class="wish-actions"><button class="wish-btn" id="wish-btn">Make a New Wish</button><button class="wish-btn" id="glow-btn">Add More Glow</button></div>
-        <div class="wish-log" id="wish-log">A soft mood is waiting here.</div>
-      </article>
-      <article class="card">
-        <span class="section-label">Memory Lane</span>
-        <div class="memory-grid">
-          <div class="memory-card"><strong>First Feeling</strong><p>The kind of softness that catches attention and then stays there.</p></div>
-          <div class="memory-card"><strong>Right Now</strong><p>A whole page leaning into sweetness because some people deserve that much care.</p></div>
-          <div class="memory-card"><strong>After This</strong><p>More little moments, more light, and more beauty gathering around ordinary days.</p></div>
-        </div>
-      </article>
-    </section>
-    <section class="card" style="margin-top:18px;">
-      <span class="section-label">Photo Moments</span>
-      <h2>Upload her favorite pictures right into the page.</h2>
-      <p style="margin-bottom:14px;">This section is still here, but now it sits in a simpler layout so it should display properly.</p>
-      <div class="photo-grid">
-        <div class="photo-card" id="photo-1"><span class="photo-chip">Favorite Smile</span><div><strong>Photo One</strong><p>A warm picture that feels instantly soft.</p><label class="upload-label" for="file-1">Choose photo</label><input class="file-input" id="file-1" type="file" accept="image/*"></div></div>
-        <div class="photo-card" id="photo-2" style="background:linear-gradient(180deg,transparent,rgba(20,8,26,.7)),linear-gradient(135deg,#8b4062,#4c2148);"><span class="photo-chip">Softest Moment</span><div><strong>Photo Two</strong><p>A sweeter picture with calm energy.</p><label class="upload-label" for="file-2">Choose photo</label><input class="file-input" id="file-2" type="file" accept="image/*"></div></div>
+    <section class="main-stack">
+      <div class="two-up">
+        <article class="card">
+          <span class="section-label">What Feels True</span>
+          <div class="choice-grid">
+            <button class="choice-btn active" data-mode="admire"><strong>Admire Her</strong><p>The view when everything feels softer.</p></button>
+            <button class="choice-btn" data-mode="miss"><strong>Miss Her</strong><p>The ache in a beautiful form.</p></button>
+            <button class="choice-btn" data-mode="future"><strong>Picture Her</strong><p>The version where tomorrow already looks better.</p></button>
+          </div>
+          <div class="display-box">
+            <span class="mini" id="mode-kicker">Admire Her</span>
+            <h2 id="mode-title">She makes sweetness feel effortless.</h2>
+            <p id="mode-copy">Some girls do not need to force anything. Their softness, beauty, and little way of being simply arrive and change the whole atmosphere.</p>
+          </div>
+        </article>
+        <article class="card">
+          <span class="section-label">If Today Was Heavy</span>
+          <div class="quiet-box">
+            <div>
+              <span class="mini">For Her</span>
+              <h2>A gentler corner.</h2>
+              <p>If the day felt rude, noisy, or too much, this part answers back with warmth.</p>
+            </div>
+            <div class="quiet-actions">
+              <button class="comfort-btn primary" data-comfort="0">Tell her she is adored</button>
+              <button class="comfort-btn" data-comfort="1">Tell her to breathe</button>
+              <button class="comfort-btn" data-comfort="2">Tell her tomorrow can wait</button>
+            </div>
+            <div class="quiet-output" id="quiet-output">Press one of the lines above and let the page speak gently to her.</div>
+          </div>
+        </article>
       </div>
+      <article class="card">
+        <span class="section-label">Three Little Truths</span>
+        <div class="story-grid">
+          <div class="story-card"><strong>She is easy to admire.</strong><p>Not because admiration is cheap, but because some people carry a natural beauty that makes it impossible not to notice.</p></div>
+          <div class="story-card"><strong>She softens the mood.</strong><p>There are girls who make a whole atmosphere feel lighter just by existing inside it.</p></div>
+          <div class="story-card"><strong>She stays on the mind.</strong><p>The kind of girl who leaves an afterglow even when the moment is over.</p></div>
+        </div>
+      </article>
+      <div class="two-up">
+        <article class="card">
+          <span class="section-label">A Few Sweet Thoughts</span>
+          <div class="thought-grid">
+            <button class="choice-btn thought-btn" data-thought="0"><strong>Open this one</strong><p>A soft line about her effect.</p></button>
+            <button class="choice-btn thought-btn" data-thought="1"><strong>Open this too</strong><p>A warmer line for her heart.</p></button>
+            <button class="choice-btn thought-btn" data-thought="2"><strong>And this one</strong><p>A line about the way she stays.</p></button>
+            <button class="choice-btn thought-btn" data-thought="3"><strong>Last one</strong><p>A line meant to land softly.</p></button>
+          </div>
+        </article>
+        <article class="card">
+          <span class="section-label">Promises In A Soft Voice</span>
+          <h2>Nothing loud. Just care.</h2>
+          <div class="promise-list">
+            <div class="promise-item">To keep making room for softness around her.</div>
+            <div class="promise-item">To keep noticing the little things that make her lovely.</div>
+            <div class="promise-item">To keep answering heavy days with gentleness.</div>
+            <div class="promise-item">To keep making beauty feel personal, not generic.</div>
+          </div>
+        </article>
+      </div>
+      <article class="card">
+        <span class="section-label">A Place For Her Photos</span>
+        <h2>Give this page her real face and it will come alive even more.</h2>
+        <p style="margin-bottom:16px;">Add your favorite two pictures and the whole page instantly feels less imagined and more hers.</p>
+        <div class="photo-grid">
+          <div class="photo-card" id="photo-1">
+            <span class="photo-chip">Her Smile</span>
+            <div>
+              <strong>The one that catches you first.</strong>
+              <p>A picture that feels bright the second it appears.</p>
+              <label class="upload-label" for="file-1">Choose photo</label>
+              <input class="file-input" id="file-1" type="file" accept="image/*">
+            </div>
+          </div>
+          <div class="photo-card" id="photo-2" style="background:linear-gradient(180deg,transparent,rgba(17,7,20,.78)),linear-gradient(135deg,#9a496f,#47203d);">
+            <span class="photo-chip">Her Glow</span>
+            <div>
+              <strong>The one that feels impossible to forget.</strong>
+              <p>A picture for the softer, slower kind of pretty.</p>
+              <label class="upload-label" for="file-2">Choose photo</label>
+              <input class="file-input" id="file-2" type="file" accept="image/*">
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
-    <p class="footer">A softer little world, rebuilt to render cleanly.</p>
+    <p class="footer">Made to feel like one private little world and nothing else.</p>
   </main>
   <script>
     const entryScreen=document.getElementById('entry-screen');
@@ -173,21 +235,28 @@
     const leaveBtn=document.getElementById('leave-btn');
     const continueBtn=document.getElementById('continue-btn');
     const unlockPassword='joan';
-    const modes={soft:{kicker:'A Little Glow',title:'When she is near, everything feels softer.',copy:'There is a kind of presence that makes a room feel lighter and a moment feel more beautiful.'},pretty:{kicker:'Pretty Light',title:'Some faces carry their own light.',copy:'There is something graceful about a face that feels lovely before you even find the right words for it.'},dreamy:{kicker:'Dream Mood',title:'A soft glow can feel almost magical.',copy:'Some people make ordinary moments seem slower, sweeter, and a little more beautiful.'}};
-    const noteLines=['There is a softness here that feels easy to admire.','Some people are lovely in a way that keeps unfolding the longer you stay near them.','It feels easy to imagine future moments becoming gentler and brighter.','Warm light, beautiful calm, and a softness that stays around.'];
-    const wishLines=['A little more warmth has entered the page.','The room feels softer already.','One more glow added for a sweeter atmosphere.','The whole mood is turning warmer now.'];
-    const modeButtons=document.querySelectorAll('[data-mode]'); const noteButtons=document.querySelectorAll('[data-note]'); const modeKicker=document.getElementById('mode-kicker'); const modeTitle=document.getElementById('mode-title'); const modeCopy=document.getElementById('mode-copy'); const wishBtn=document.getElementById('wish-btn'); const glowBtn=document.getElementById('glow-btn'); const wishTitle=document.getElementById('wish-title'); const wishCopy=document.getElementById('wish-copy'); const wishLog=document.getElementById('wish-log'); const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
-    modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode]; modeButtons.forEach((item)=>item.classList.remove('active')); button.classList.add('active'); modeKicker.textContent=mood.kicker; modeTitle.textContent=mood.title; modeCopy.textContent=mood.copy;}));
-    noteButtons.forEach((button)=>button.addEventListener('click',()=>{const index=Number(button.dataset.note); button.innerHTML='<strong>A little note</strong><p>'+noteLines[index]+'</p>'; button.classList.add('active');},{once:true}));
-    wishBtn.addEventListener('click',()=>{const line=wishLines[Math.floor(Math.random()*wishLines.length)]; wishTitle.textContent='A softer little wish.'; wishCopy.textContent=line; wishLog.textContent=line;});
-    glowBtn.addEventListener('click',()=>{wishLog.textContent='The page is glowing a little more now.';});
-    photoInputs.forEach(({input,target})=>input.addEventListener('change',()=>{const file=input.files&&input.files[0]; if(!file)return; const url=URL.createObjectURL(file); target.style.backgroundImage="linear-gradient(180deg, transparent, rgba(20, 8, 26, 0.7)), url('"+url+"')"; target.classList.add('has-image');}));
-    const unlockWorld=()=>{entryScreen.style.display='none'; welcomeScreen.classList.add('show'); welcomeScreen.setAttribute('aria-hidden','false');};
-    const openMainWorld=()=>{welcomeScreen.classList.remove('show'); welcomeScreen.setAttribute('aria-hidden','true'); document.body.classList.remove('locked'); mainWorld.classList.add('open');};
-    enterBtn.addEventListener('click',()=>{if(gateInput.value.trim().toLowerCase()===unlockPassword){gateNote.textContent=''; unlockWorld();}else{gateNote.textContent='That password is not right for this page.';}});
+    const modes={admire:{kicker:'Admire Her',title:'She makes sweetness feel effortless.',copy:'Some girls do not need to force anything. Their softness, beauty, and little way of being simply arrive and change the whole atmosphere.',quote:'You have the kind of presence that makes people look twice and then stay there a little longer than they planned.'},miss:{kicker:'Miss Her',title:'Missing her still feels tender.',copy:'There is a certain ache that only comes from someone who made the hours feel fuller, prettier, and more alive.',quote:'Even absence feels shaped by you, because once a mood has known your softness it does not forget it quickly.'},future:{kicker:'Picture Her',title:'Tomorrow looks better with her in it.',copy:'Some people make future moments seem warmer before they even arrive. Just imagining them there changes the whole picture.',quote:'A lot of beautiful futures begin with something simple: the right girl standing in the center of them.'}};
+    const comfortLines=['You are still lovely, still worth softness, and still deeply deserving of a gentler day than the one you got.','Breathe slowly, pretty girl. Nothing needs to be solved all at once tonight.','Tomorrow does not need to rush you. For now, just rest inside a little warmth and let the day loosen its grip.'];
+    const thoughtLines=['Some girls are beautiful. Some girls make beauty feel personal. You feel like the second kind.','You carry a softness that does not ask for attention and still ends up owning the room.','There is something about you that keeps returning to the mind even after everything else has gone quiet.','If sweetness ever needed a face, it could borrow a little from yours.'];
+    const modeButtons=document.querySelectorAll('[data-mode]');
+    const comfortButtons=document.querySelectorAll('[data-comfort]');
+    const thoughtButtons=document.querySelectorAll('[data-thought]');
+    const modeKicker=document.getElementById('mode-kicker');
+    const modeTitle=document.getElementById('mode-title');
+    const modeCopy=document.getElementById('mode-copy');
+    const heroQuote=document.getElementById('hero-quote');
+    const quietOutput=document.getElementById('quiet-output');
+    const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
+    const unlockWorld=()=>{entryScreen.style.display='none';welcomeScreen.classList.add('show');welcomeScreen.setAttribute('aria-hidden','false');};
+    const openMainWorld=()=>{welcomeScreen.classList.remove('show');welcomeScreen.setAttribute('aria-hidden','true');document.body.classList.remove('locked');mainWorld.classList.add('open');};
+    enterBtn.addEventListener('click',()=>{if(gateInput.value.trim().toLowerCase()===unlockPassword){gateNote.textContent='';unlockWorld();}else{gateNote.textContent='That is not the word meant for this girl.';}});
     gateInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){enterBtn.click();}});
     leaveBtn.addEventListener('click',()=>{window.location.replace('about:blank');});
     continueBtn.addEventListener('click',openMainWorld);
+    modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode];modeButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');modeKicker.textContent=mood.kicker;modeTitle.textContent=mood.title;modeCopy.textContent=mood.copy;heroQuote.textContent=mood.quote;}));
+    comfortButtons.forEach((button)=>button.addEventListener('click',()=>{quietOutput.textContent=comfortLines[Number(button.dataset.comfort)];comfortButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');}));
+    thoughtButtons.forEach((button)=>button.addEventListener('click',()=>{button.innerHTML='<strong>Keep this one</strong><p>'+thoughtLines[Number(button.dataset.thought)]+'</p>';button.classList.add('active');},{once:true}));
+    photoInputs.forEach(({input,target})=>input.addEventListener('change',()=>{const file=input.files&&input.files[0];if(!file){return;}const url=URL.createObjectURL(file);target.style.backgroundImage="linear-gradient(180deg, transparent, rgba(17, 7, 20, 0.78)), url('"+url+"')";target.classList.add('has-image');}));
   </script>
 </body>
 </html>
