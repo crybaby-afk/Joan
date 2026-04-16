@@ -52,20 +52,21 @@
     .welcome-screen.show .welcome-line{opacity:1;transform:translateY(0);transition-delay:.18s}
     .hidden-world{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
     .hidden-world.open{opacity:1;transform:translateY(0)}
-    .hero,.card{padding:28px 24px}
+    .hero,.card{padding:28px 24px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
     .hero{text-align:center;position:relative;overflow:hidden}
     .hero::before{content:"";position:absolute;inset:auto -10% -30% -10%;height:260px;background:radial-gradient(circle,rgba(255,193,220,.16),transparent 58%)}
+    .hero::after{content:"";position:absolute;inset:18px;border-radius:28px;border:1px solid rgba(255,255,255,.06);pointer-events:none;opacity:.7}
     .hero > *{position:relative}
     h1{font-size:clamp(2.8rem,7vw,5.4rem);margin-bottom:14px}
     h2{font-size:clamp(1.55rem,4vw,2.45rem);margin-bottom:10px}
     .hero-copy{max-width:48rem;margin:0 auto;font-size:1.05rem}
     .hero-quote{margin:22px auto 0;max-width:42rem;padding:18px;border-radius:var(--radius-lg);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:1.08rem;color:#fff0dd}
-    .hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.constellation-grid{display:grid;gap:16px}
+    .hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.constellation-grid,.love-note-grid{display:grid;gap:16px}
     .hero-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px;text-align:left}
     .main-stack{display:grid;gap:18px;margin-top:18px}
     .two-up{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
     .section-label{margin-bottom:14px}
-    .mini-card,.meter-card,.story-card,.drawer-card,.photo-card,.display-box,.quiet-box,.linger-box,.constellation-card{padding:18px;border-radius:var(--radius-lg);background:var(--panel-soft);border:1px solid rgba(255,255,255,.08)}
+    .mini-card,.meter-card,.story-card,.drawer-card,.photo-card,.display-box,.quiet-box,.linger-box,.constellation-card,.love-note-card{padding:18px;border-radius:var(--radius-lg);background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
     .mini-card strong,.meter-card strong,.story-card strong,.drawer-card strong,.photo-card strong,.constellation-card strong{display:block;margin-bottom:6px}
     .display-box .mini,.quiet-box .mini{display:block;margin-bottom:8px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-size:.77rem}
     .choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px}
@@ -89,6 +90,18 @@
     .constellation-card{min-height:170px}
     .linger-box{text-align:center}
     .linger-copy{max-width:40rem;margin:0 auto 16px}
+    .love-note-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .love-note-card{cursor:pointer;position:relative;overflow:hidden;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+    .love-note-card::before{content:"";position:absolute;inset:auto -20% -40% auto;width:120px;height:120px;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 65%);transform:translate(0,0)}
+    .love-note-card:hover,.love-note-card.open{transform:translateY(-4px) rotate(-1deg);background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));border-color:rgba(255,216,173,.28)}
+    .love-note-card p{min-height:86px}
+    .love-scene{position:relative;min-height:180px;overflow:hidden}
+    .love-cloud{position:absolute;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.09);color:#fff1e3;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transform:translateY(10px) scale(.9);transition:opacity .45s ease,transform .45s ease}
+    .love-cloud.show{opacity:1;transform:translateY(0) scale(1)}
+    .love-cloud.one{top:12%;left:6%}
+    .love-cloud.two{top:44%;right:10%}
+    .love-cloud.three{bottom:10%;left:24%}
+    .glass-shift{animation:glassShift 6s ease-in-out infinite}
     .photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     .photo-card{min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;background:linear-gradient(180deg,transparent,rgba(17,7,20,.78)),linear-gradient(135deg,#7e375c,#3b1734)}
     .photo-card.has-image{background-size:cover;background-position:center}
@@ -97,7 +110,8 @@
     .footer{text-align:center;color:var(--muted);font-size:.94rem;padding-top:6px}
     @keyframes sparkleFloat{0%,100%{opacity:0;transform:translateY(8px) scale(.7)}30%{opacity:.95;transform:translateY(0) scale(1)}72%{opacity:.42;transform:translateY(-11px) scale(.84)}}
     @keyframes pulseLine{0%,100%{opacity:.45;transform:scaleX(.92)}50%{opacity:1;transform:scaleX(1)}}
-    @media (max-width:900px){.hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.choice-grid,.two-up,.constellation-grid{grid-template-columns:1fr}.shell{width:min(100% - 18px,1100px)}.hero,.card,.gate-card{padding:20px 16px}.gate-actions,.quiet-actions{flex-direction:column}.gate-btn,.upload-label,.comfort-btn{width:100%}}
+    @keyframes glassShift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @media (max-width:900px){.hero-grid,.meter-grid,.story-grid,.drawer-grid,.photo-grid,.choice-grid,.two-up,.constellation-grid,.love-note-grid{grid-template-columns:1fr}.shell{width:min(100% - 18px,1100px)}.hero,.card,.gate-card{padding:20px 16px}.gate-actions,.quiet-actions{flex-direction:column}.gate-btn,.upload-label,.comfort-btn{width:100%}.love-scene{min-height:240px}}
   </style>
 </head>
 <body class="locked">
@@ -171,6 +185,14 @@
           </div>
         </div>
       </article>
+      <article class="card glass-shift">
+        <span class="section-label">Love Notes For Her</span>
+        <div class="love-note-grid">
+          <button class="love-note-card" data-love-note="0"><strong>Open this first</strong><p>A soft note is waiting here for her.</p></button>
+          <button class="love-note-card" data-love-note="1"><strong>Then this one</strong><p>Another little reminder that she is deeply loved.</p></button>
+          <button class="love-note-card" data-love-note="2"><strong>And this one too</strong><p>The page still has more heart left in it.</p></button>
+        </div>
+      </article>
       <div class="two-up">
         <article class="card">
           <span class="section-label">Ways She Lands</span>
@@ -239,6 +261,17 @@
         </div>
       </article>
       <article class="card">
+        <span class="section-label">What Love Leaves In The Air</span>
+        <div class="love-scene" id="love-scene">
+          <div class="love-cloud one">i love you so much</div>
+          <div class="love-cloud two">more than this page can hold</div>
+          <div class="love-cloud three">and i want you to feel it</div>
+        </div>
+        <div class="quiet-actions" style="margin-top:14px;">
+          <button class="comfort-btn primary" id="love-scene-btn">Tap for more love</button>
+        </div>
+      </article>
+      <article class="card">
         <span class="section-label">A Place For Her Photos</span>
         <h2>Give this page her real face and it will come alive even more.</h2>
         <p style="margin-bottom:16px;">Add your favorite two pictures and the whole page instantly feels less imagined and more hers.</p>
@@ -280,9 +313,12 @@
     const comfortLines=['If today was unkind, let this interrupt it for a second: you are still deeply worth softness, care, and a gentler kind of love than the day gave you.','Breathe, beautiful girl. Not everything heavy needs to be carried tonight. Some of it can wait outside the door while you rest for a while.','You do not have to perform strength every minute. You are allowed to be soft, tired, quiet, and still completely worthy of tenderness.'];
     const drawerLines=['You are not easy to overlook once someone has truly felt your presence. Even your softness has a way of leaving a mark.','Your beauty is not dependent on a perfect day, a perfect mirror, or a perfect angle. It travels with you. It is already yours.','If there was a gentler place than this page, it would probably still be trying to learn from the kind of softness you deserve.'];
     const lingerLines=['Some feelings are too good to rush. This can stay beside you a little longer.','You do not need a crowd of words. Sometimes one honest soft thought can do more than all the noisy ones.','There is something intimate about being thought of carefully, and that is what this page is trying to do for you.','If this made you feel a little more seen, then it already became something worth keeping.'];
+    const loveNoteLines=['I love you so much that even this page feels too small for the feeling. It is only trying its best to hold a little of it for you.','You are not just admired here. You are loved, gently and fully, in the kind of way that wants your heart to feel safe and beautiful at the same time.','If this page keeps circling back to tenderness, it is because that is what loving you keeps turning into: softness, depth, and a thousand little reasons to stay close.'];
+    const loveSceneLines=['i love you so much','you stay with me','you are my softest thought','you make love feel beautiful','you matter to me deeply','you are loved more than words behave'];
     const modeButtons=document.querySelectorAll('[data-mode]');
     const comfortButtons=document.querySelectorAll('[data-comfort]');
     const drawerButtons=document.querySelectorAll('[data-drawer]');
+    const loveNoteButtons=document.querySelectorAll('[data-love-note]');
     const meterFills=document.querySelectorAll('[data-fill]');
     const modeKicker=document.getElementById('mode-kicker');
     const modeTitle=document.getElementById('mode-title');
@@ -291,6 +327,8 @@
     const quietOutput=document.getElementById('quiet-output');
     const lingerCopy=document.getElementById('linger-copy');
     const lingerBtn=document.getElementById('linger-btn');
+    const loveScene=document.getElementById('love-scene');
+    const loveSceneBtn=document.getElementById('love-scene-btn');
     const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
     const unlockWorld=()=>{entryScreen.style.display='none';welcomeScreen.classList.add('show');welcomeScreen.setAttribute('aria-hidden','false');};
     const openMainWorld=()=>{welcomeScreen.classList.remove('show');welcomeScreen.setAttribute('aria-hidden','true');document.body.classList.remove('locked');mainWorld.classList.add('open');};
@@ -302,7 +340,15 @@
     modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode];modeButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');modeKicker.textContent=mood.kicker;modeTitle.textContent=mood.title;modeCopy.textContent=mood.copy;heroQuote.textContent=mood.quote;}));
     comfortButtons.forEach((button)=>button.addEventListener('click',()=>{quietOutput.textContent=comfortLines[Number(button.dataset.comfort)];comfortButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');}));
     drawerButtons.forEach((button)=>button.addEventListener('click',()=>{drawerButtons.forEach((item)=>item.classList.remove('open'));button.classList.add('open');button.innerHTML='<strong>Keep this close</strong><p>'+drawerLines[Number(button.dataset.drawer)]+'</p>';}));
+    loveNoteButtons.forEach((button)=>button.addEventListener('click',()=>{button.innerHTML='<strong>Keep this love note</strong><p>'+loveNoteLines[Number(button.dataset.loveNote)]+'</p>';button.classList.add('open');},{once:true}));
     lingerBtn.addEventListener('click',()=>{lingerCopy.textContent=lingerLines[Math.floor(Math.random()*lingerLines.length)];});
+    loveSceneBtn.addEventListener('click',()=>{
+      const clouds=loveScene.querySelectorAll('.love-cloud');
+      clouds.forEach((cloud,index)=>{
+        cloud.textContent=loveSceneLines[Math.floor(Math.random()*loveSceneLines.length)];
+        setTimeout(()=>cloud.classList.add('show'),index*120);
+      });
+    });
     photoInputs.forEach(({input,target})=>input.addEventListener('change',()=>{const file=input.files&&input.files[0];if(!file){return;}const url=URL.createObjectURL(file);target.style.backgroundImage="linear-gradient(180deg, transparent, rgba(17, 7, 20, 0.78)), url('"+url+"')";target.classList.add('has-image');}));
   </script>
 </body>
