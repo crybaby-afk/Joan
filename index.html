@@ -144,10 +144,10 @@
       <p class="gate-whisper">Nothing about this entrance should feel cold. It should feel like being expected.</p>
       <div class="pulse-line" aria-hidden="true"></div>
       <div class="gate-form">
-        <input class="gate-input" id="gate-input" type="password" placeholder="Type the password, beautiful girl" autocomplete="off">
+        <input class="gate-input" id="gate-input" type="password" placeholder="Type the password, beautiful girl" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
         <div class="gate-actions">
-          <button class="gate-btn primary" id="enter-btn">Open my page</button>
-          <button class="gate-btn" id="leave-btn">I am not her</button>
+          <button class="gate-btn primary" id="enter-btn" type="button">Open my page</button>
+          <button class="gate-btn" id="leave-btn" type="button">I am not her</button>
         </div>
         <p class="gate-note" id="gate-note"></p>
       </div>
@@ -166,7 +166,7 @@
       <p>The right word has a way of making everything soften. This page was waiting for you like a room holding its breath for the right girl to walk in.</p>
       <p class="welcome-line">You are loved so much, and this is only the first little proof of it.</p>
       <div class="gate-actions" style="margin-top:20px;">
-        <button class="gate-btn primary" id="continue-btn">Come inside</button>
+        <button class="gate-btn primary" id="continue-btn" type="button">Come inside</button>
       </div>
     </div>
   </section>
@@ -394,11 +394,20 @@
     const infiniteBtn=document.getElementById('infinite-btn');
     const keepsakeRow=document.getElementById('keepsake-row');
     const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
+    const normalizePassword=(value)=>value.trim().toLowerCase().replace(/\s+/g,'');
     const unlockWorld=()=>{entryScreen.style.display='none';welcomeScreen.classList.add('show');welcomeScreen.setAttribute('aria-hidden','false');};
     const openMainWorld=()=>{welcomeScreen.classList.remove('show');welcomeScreen.setAttribute('aria-hidden','true');document.body.classList.remove('locked');mainWorld.classList.add('open');};
     const animateMeters=()=>{meterFills.forEach((fill)=>{fill.style.width=fill.dataset.fill+'%';});};
-    enterBtn.addEventListener('click',()=>{if(gateInput.value.trim().toLowerCase()===unlockPassword){gateNote.textContent='';unlockWorld();}else{gateNote.textContent='That is not the word meant for this girl.';}});
-    gateInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){enterBtn.click();}});
+    const tryLogin=()=>{
+      if(normalizePassword(gateInput.value)===unlockPassword){
+        gateNote.textContent='';
+        unlockWorld();
+        return;
+      }
+      gateNote.textContent='That password is not quite right yet. Try the name again in lowercase: joan';
+    };
+    enterBtn.addEventListener('click',tryLogin);
+    gateInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){event.preventDefault();tryLogin();}});
     leaveBtn.addEventListener('click',()=>{window.location.replace('about:blank');});
     continueBtn.addEventListener('click',()=>{openMainWorld();setTimeout(animateMeters,180);});
     modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode];modeButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');modeKicker.textContent=mood.kicker;modeTitle.textContent=mood.title;modeCopy.textContent=mood.copy;heroQuote.textContent=mood.quote;}));
