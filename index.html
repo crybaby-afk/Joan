@@ -50,8 +50,6 @@
     .gate-input{width:100%;padding:17px 18px;border-radius:999px;border:1px solid rgba(255,232,240,.24);background:rgba(255,255,255,.12);color:var(--cream);text-align:center;outline:none;font-size:1.03rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
     .gate-input::placeholder{color:rgba(255,247,251,.56)}
     .gate-input:focus{border-color:rgba(255,216,173,.46);box-shadow:0 0 0 4px rgba(255,216,173,.08)}
-    .question-step{display:none}
-    .question-step.show{display:grid;gap:14px}
     .gate-actions,.quiet-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .gate-btn,.upload-label,.comfort-btn{padding:13px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--text);cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
     .gate-btn:hover,.upload-label:hover,.comfort-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.12);border-color:rgba(255,216,173,.28)}
@@ -146,20 +144,10 @@
       <p class="gate-whisper">Nothing about this entrance should feel cold. It should feel like being expected.</p>
       <div class="pulse-line" aria-hidden="true"></div>
       <div class="gate-form">
-        <div id="password-step">
-          <input class="gate-input" id="gate-input" type="password" placeholder="Type the password, beautiful girl" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
-          <div class="gate-actions" style="margin-top:14px;">
-            <button class="gate-btn primary" id="enter-btn" type="button">Open my page</button>
-            <button class="gate-btn" id="leave-btn" type="button">I am not her</button>
-          </div>
-        </div>
-        <div class="question-step" id="question-step">
-          <p>If you are really Joan, answer this one little question.</p>
-          <p class="gate-whisper" style="margin-top:0;">Where are you headed now?</p>
-          <input class="gate-input" id="question-input" type="text" placeholder="Type the answer here" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false">
-          <div class="gate-actions">
-            <button class="gate-btn primary" id="question-btn" type="button">That is my answer</button>
-          </div>
+        <input class="gate-input" id="gate-input" type="password" placeholder="Type the password, beautiful girl" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+        <div class="gate-actions">
+          <button class="gate-btn primary" id="enter-btn" type="button">Open my page</button>
+          <button class="gate-btn" id="leave-btn" type="button">I am not her</button>
         </div>
         <p class="gate-note" id="gate-note"></p>
       </div>
@@ -364,16 +352,11 @@
     const welcomeScreen=document.getElementById('welcome-screen');
     const mainWorld=document.getElementById('main-world');
     const gateInput=document.getElementById('gate-input');
-    const passwordStep=document.getElementById('password-step');
-    const questionStep=document.getElementById('question-step');
-    const questionInput=document.getElementById('question-input');
     const gateNote=document.getElementById('gate-note');
     const enterBtn=document.getElementById('enter-btn');
-    const questionBtn=document.getElementById('question-btn');
     const leaveBtn=document.getElementById('leave-btn');
     const continueBtn=document.getElementById('continue-btn');
     const unlockPassword='joan';
-    const unlockAnswer='meru';
     const modes={pull:{kicker:'The Pull',title:'She has a way of returning to the mind on her own.',copy:'Not because someone is trying too hard to think about her, but because she left a shape behind in the mood and it keeps softly calling attention back to itself.',quote:'There are people you notice, and then there are people who quietly begin living in the background of your thoughts. She feels like the second kind.'},peace:{kicker:'The Peace',title:'She makes harsh things feel less harsh.',copy:'There is a kind of presence that does not need noise to be powerful. It just settles beside the day and makes everything breathe a little easier.',quote:'If comfort ever decided to look beautiful for a day, it could borrow some of its energy from her.'},ache:{kicker:'The Ache',title:'Even missing her has softness in it.',copy:'The deeper feelings are not always loud. Sometimes they are just the quiet realization that someone has started mattering in a way that does not easily switch off.',quote:'The ache is gentle, but that is exactly why it is dangerous. It means she reached somewhere real.'}};
     const comfortLines=['If today was unkind, let this interrupt it for a second: you are still deeply worth softness, care, and a gentler kind of love than the day gave you.','Breathe, beautiful girl. Not everything heavy needs to be carried tonight. Some of it can wait outside the door while you rest for a while.','You do not have to perform strength every minute. You are allowed to be soft, tired, quiet, and still completely worthy of tenderness.'];
     const drawerLines=['You are not easy to overlook once someone has truly felt your presence. Even your softness has a way of leaving a mark.','Your beauty is not dependent on a perfect day, a perfect mirror, or a perfect angle. It travels with you. It is already yours.','If there was a gentler place than this page, it would probably still be trying to learn from the kind of softness you deserve.'];
@@ -412,35 +395,19 @@
     const keepsakeRow=document.getElementById('keepsake-row');
     const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
     const normalizePassword=(value)=>value.trim().toLowerCase().replace(/\s+/g,'');
-    const normalizeAnswer=(value)=>value.trim().toLowerCase().replace(/\s+/g,'');
     const unlockWorld=()=>{entryScreen.style.display='none';welcomeScreen.classList.add('show');welcomeScreen.setAttribute('aria-hidden','false');};
     const openMainWorld=()=>{welcomeScreen.classList.remove('show');welcomeScreen.setAttribute('aria-hidden','true');document.body.classList.remove('locked');mainWorld.classList.add('open');};
     const animateMeters=()=>{meterFills.forEach((fill)=>{fill.style.width=fill.dataset.fill+'%';});};
-    const showQuestionStep=()=>{
-      gateNote.textContent='';
-      passwordStep.style.display='none';
-      questionStep.classList.add('show');
-      questionInput.focus();
-    };
     const tryLogin=()=>{
       if(normalizePassword(gateInput.value)===unlockPassword){
-        showQuestionStep();
-        return;
-      }
-      gateNote.textContent='That password is not quite right yet. Try the name again in lowercase: joan';
-    };
-    const tryQuestion=()=>{
-      if(normalizeAnswer(questionInput.value)===unlockAnswer){
         gateNote.textContent='';
         unlockWorld();
         return;
       }
-      gateNote.textContent='That answer is close to her world, but not the exact place. Try again: Meru';
+      gateNote.textContent='That password is not quite right yet. Try the name again in lowercase: joan';
     };
     enterBtn.addEventListener('click',tryLogin);
     gateInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){event.preventDefault();tryLogin();}});
-    questionBtn.addEventListener('click',tryQuestion);
-    questionInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){event.preventDefault();tryQuestion();}});
     leaveBtn.addEventListener('click',()=>{window.location.replace('about:blank');});
     continueBtn.addEventListener('click',()=>{openMainWorld();setTimeout(animateMeters,180);});
     modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode];modeButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');modeKicker.textContent=mood.kicker;modeTitle.textContent=mood.title;modeCopy.textContent=mood.copy;heroQuote.textContent=mood.quote;}));
