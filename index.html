@@ -395,21 +395,15 @@
     const keepsakeRow=document.getElementById('keepsake-row');
     const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
     const normalizePassword=(value)=>value.trim().toLowerCase().replace(/\s+/g,'');
-    let welcomeTimer=null;
     const unlockWorld=()=>{
       entryScreen.style.display='none';
-      welcomeScreen.classList.add('show');
-      welcomeScreen.setAttribute('aria-hidden','false');
-      if(welcomeTimer){
-        clearTimeout(welcomeTimer);
-      }
-      welcomeTimer=setTimeout(()=>{openMainWorld();},1200);
+      welcomeScreen.classList.remove('show');
+      welcomeScreen.setAttribute('aria-hidden','true');
+      document.body.classList.remove('locked');
+      mainWorld.classList.add('open');
+      setTimeout(animateMeters,180);
     };
     const openMainWorld=()=>{
-      if(welcomeTimer){
-        clearTimeout(welcomeTimer);
-        welcomeTimer=null;
-      }
       welcomeScreen.classList.remove('show');
       welcomeScreen.setAttribute('aria-hidden','true');
       document.body.classList.remove('locked');
