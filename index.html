@@ -395,8 +395,27 @@
     const keepsakeRow=document.getElementById('keepsake-row');
     const photoInputs=[{input:document.getElementById('file-1'),target:document.getElementById('photo-1')},{input:document.getElementById('file-2'),target:document.getElementById('photo-2')}];
     const normalizePassword=(value)=>value.trim().toLowerCase().replace(/\s+/g,'');
-    const unlockWorld=()=>{entryScreen.style.display='none';welcomeScreen.classList.add('show');welcomeScreen.setAttribute('aria-hidden','false');};
-    const openMainWorld=()=>{welcomeScreen.classList.remove('show');welcomeScreen.setAttribute('aria-hidden','true');document.body.classList.remove('locked');mainWorld.classList.add('open');};
+    let welcomeTimer=null;
+    const unlockWorld=()=>{
+      entryScreen.style.display='none';
+      welcomeScreen.classList.add('show');
+      welcomeScreen.setAttribute('aria-hidden','false');
+      if(welcomeTimer){
+        clearTimeout(welcomeTimer);
+      }
+      welcomeTimer=setTimeout(()=>{openMainWorld();},1200);
+    };
+    const openMainWorld=()=>{
+      if(welcomeTimer){
+        clearTimeout(welcomeTimer);
+        welcomeTimer=null;
+      }
+      welcomeScreen.classList.remove('show');
+      welcomeScreen.setAttribute('aria-hidden','true');
+      document.body.classList.remove('locked');
+      mainWorld.classList.add('open');
+      setTimeout(animateMeters,180);
+    };
     const animateMeters=()=>{meterFills.forEach((fill)=>{fill.style.width=fill.dataset.fill+'%';});};
     const tryLogin=()=>{
       if(normalizePassword(gateInput.value)===unlockPassword){
@@ -409,7 +428,7 @@
     enterBtn.addEventListener('click',tryLogin);
     gateInput.addEventListener('keydown',(event)=>{if(event.key==='Enter'){event.preventDefault();tryLogin();}});
     leaveBtn.addEventListener('click',()=>{window.location.replace('about:blank');});
-    continueBtn.addEventListener('click',()=>{openMainWorld();setTimeout(animateMeters,180);});
+    continueBtn.addEventListener('click',openMainWorld);
     modeButtons.forEach((button)=>button.addEventListener('click',()=>{const mood=modes[button.dataset.mode];modeButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');modeKicker.textContent=mood.kicker;modeTitle.textContent=mood.title;modeCopy.textContent=mood.copy;heroQuote.textContent=mood.quote;}));
     comfortButtons.forEach((button)=>button.addEventListener('click',()=>{quietOutput.textContent=comfortLines[Number(button.dataset.comfort)];comfortButtons.forEach((item)=>item.classList.remove('active'));button.classList.add('active');}));
     drawerButtons.forEach((button)=>button.addEventListener('click',()=>{drawerButtons.forEach((item)=>item.classList.remove('open'));button.classList.add('open');button.innerHTML='<strong>Keep this close</strong><p>'+drawerLines[Number(button.dataset.drawer)]+'</p>';}));
